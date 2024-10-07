@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build;
 using UnityEngine;
 
 public class Note : MonoBehaviour
 {
     public int track; // 1表示上层，2表示下层
     public float noteSpeed = 5.0f; // 音符的移动速度
+    public float noteJudge = 1.0f;
     private Transform upperJudgePoint; // 上层判定点的位置
     private Transform lowerJudgePoint; // 下层判定点的位置
 
@@ -40,7 +42,7 @@ public class Note : MonoBehaviour
         }
 
         // 判断音符是否在判定区域内
-        if (targetJudgePoint != null && Mathf.Abs(transform.position.x - targetJudgePoint.position.x) < 0.5f)
+        if (targetJudgePoint != null && Mathf.Abs(transform.position.x - targetJudgePoint.position.x) < noteJudge)
         {
             // 检测按键输入
             if (track == 1 && Input.GetKeyDown(KeyCode.F))
@@ -54,6 +56,20 @@ public class Note : MonoBehaviour
                 Destroy(gameObject); // 销毁音符
             }
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.name == "Boudry")
+        {
+            Fail();
+        }
+    }
+
+    private void Fail()
+    {
+        Debug.Log("miss了");
+        Destroy(gameObject);// 销毁音符
     }
 }
 
