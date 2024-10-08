@@ -56,11 +56,21 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\C#\JudgePointController.cs" />
-    <Compile Include="Assets\C#\Note.cs" />
-    <Compile Include="Assets\C#\CameraFollow.cs" />
-    <Compile Include="Assets\C#\Character.cs" />
-    <Compile Include="Assets\C#\GameController.cs" />
+    <Compile Include="Assets\GameMain\System\JudgePointController.cs" />
+    <Compile Include="Assets\GameMain\System\GameController.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Definition\DataTable\Tables.cs" />
+    <Compile Include="Assets\GameMain\System\Note.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Definition\DataTable\vector4.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Definition\DataTable\NoteModel.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Definition\DataTable\TbNoteMap.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Definition\DataTable\NoteMap.cs" />
+    <Compile Include="Assets\GameMain\System\CameraFollow.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Definition\DataTable\vector2.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Definition\DataTable\vector3.cs" />
+    <Compile Include="Assets\GameMain\System\Character.cs" />
+    <Compile Include="Assets\GameMain\System\PlayNoteModel.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Base\MonoSingleton.cs" />
+    <Compile Include="Assets\GameMain\System\PlayNoteUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -676,6 +686,10 @@
       <Project>{D870B76C-0EFB-FEE2-4EE1-1033AAF2C58D}</Project>
       <Name>Unity.VisualStudio.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Luban.Runtime.csproj">
+      <Project>{3CBC64C3-BFFA-78B0-0A2B-EC89258898D1}</Project>
+      <Name>Luban.Runtime</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.Timeline.csproj">
       <Project>{9BB6C8D6-35CF-AA93-F769-6736E2A42A9B}</Project>
       <Name>Unity.Timeline</Name>
@@ -763,6 +777,10 @@
     <ProjectReference Include="Unity.2D.SpriteShape.Runtime.csproj">
       <Project>{B60D6376-9E06-D827-E562-954D0F955DCB}</Project>
       <Name>Unity.2D.SpriteShape.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="Luban.Editor.csproj">
+      <Project>{4223EB34-679C-E13D-92EA-2A8C1324E296}</Project>
+      <Name>Luban.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

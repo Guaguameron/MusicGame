@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Build;
 using UnityEngine;
 
 public class Note : MonoBehaviour
@@ -48,12 +47,12 @@ public class Note : MonoBehaviour
             if (track == 1 && Input.GetKeyDown(KeyCode.F))
             {
                 Debug.Log("上层音符被正确击中！");
-                Destroy(gameObject); // 销毁音符
+                Succeed();
             }
             else if (track == 2 && Input.GetKeyDown(KeyCode.J))
             {
                 Debug.Log("下层音符被正确击中！");
-                Destroy(gameObject); // 销毁音符
+                Succeed();
             }
         }
     }
@@ -70,6 +69,13 @@ public class Note : MonoBehaviour
     {
         Debug.Log("miss了");
         Destroy(gameObject);// 销毁音符
+        PlayNoteModel.Fail();
+    }
+
+    private void Succeed()
+    {
+        Destroy(gameObject);// 销毁音符
+        PlayNoteModel.Succeed();
     }
 }
 

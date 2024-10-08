@@ -13,10 +13,18 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638639078919567071
-    m_Hash: 3553958488
+      ticks: 638639859462447119
+    m_Hash: 3058119074
 m_EmbeddedPackageManifests:
-  m_ManifestsStatus: {}
+  m_ManifestsStatus:
+    C:/GameJam/MusicGame/Packages/com.code-philosophy.luban/package.json:
+      m_FilePath: C:/GameJam/MusicGame/Packages/com.code-philosophy.luban/package.json
+      m_PathExists: 1
+      m_ContentTrackingEnabled: 1
+      m_ModificationDate:
+        serializedVersion: 2
+        ticks: 638639859278356012
+      m_Hash: 2770898737
 m_PackageAssets:
   m_Packages:
     m_ResolvedPackages:
@@ -3520,6 +3528,56 @@ m_PackageAssets:
       isAssetStorePackage: 0
       datePublishedTicks: 0
       documentationUrl: 
+      hasRepository: 0
+      repository:
+        type: 
+        url: 
+        revision: 
+        path: 
+    - packageId: com.code-philosophy.luban@file:C:\GameJam\MusicGame\Packages\com.code-philosophy.luban
+      testable: 1
+      isDirectDependency: 1
+      version: 1.0.0
+      source: 3
+      resolvedPath: C:\GameJam\MusicGame\Packages\com.code-philosophy.luban
+      assetPath: Packages/com.code-philosophy.luban
+      name: com.code-philosophy.luban
+      displayName: Luban
+      author:
+        name: Code Philosophy
+        email: luban@code-philosophy.com
+        url: https://code-philosophy.com
+      category: Runtime
+      type: 
+      description: luban is a powerful, easy-to-use, elegant and stable game configuration
+        solution.
+      status: 0
+      errors: []
+      versions:
+        all: []
+        compatible: []
+        verified: 
+      dependencies: []
+      resolvedDependencies: []
+      keywords:
+      - luban
+      - focus-creative-games
+      - code-philosophy
+      registry:
+        id: main
+        name: 
+        url: https://packages.unity.cn
+        scopes: []
+        isDefault: 1
+        capabilities: 7
+        configSource: 0
+      hasRegistry: 1
+      hideInEditor: 1
+      entitlements:
+        isAllowed: 1
+      isAssetStorePackage: 0
+      datePublishedTicks: 0
+      documentationUrl: https://luban.doc.code-philosophy.com/#/
       hasRepository: 0
       repository:
         type: 
