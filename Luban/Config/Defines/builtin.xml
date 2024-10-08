@@ -26,7 +26,7 @@
             <option name="constructor" value="ExternalTypeUtil.NewVector4"/>
         </mapper>
     </bean>
-<bean name="Note" valueType="1" sep=",">
+<bean name="NoteModel" valueType="1" sep=",">
   <var name="time" type="float"/>
   <var name="track" type="int"/>
   <var name="speed" type="float"/>

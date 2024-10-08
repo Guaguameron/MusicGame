@@ -20,7 +20,7 @@ public sealed partial class NoteMap : Luban.BeanBase
         { if(!_buf["id"].IsNumber) { throw new SerializationException(); }  Id = _buf["id"]; }
         { if(!_buf["name"].IsString) { throw new SerializationException(); }  Name = _buf["name"]; }
         { if(!_buf["music_name"].IsString) { throw new SerializationException(); }  MusicName = _buf["music_name"]; }
-        { var __json0 = _buf["node_list"]; if(!__json0.IsArray) { throw new SerializationException(); } NodeList = new System.Collections.Generic.List<Note>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { Note __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = Note.DeserializeNote(__e0);  }  NodeList.Add(__v0); }   }
+        { var __json0 = _buf["node_list"]; if(!__json0.IsArray) { throw new SerializationException(); } NodeList = new System.Collections.Generic.List<NoteModel>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { NoteModel __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = NoteModel.DeserializeNoteModel(__e0);  }  NodeList.Add(__v0); }   }
     }
 
     public static NoteMap DeserializeNoteMap(JSONNode _buf)
@@ -43,7 +43,7 @@ public sealed partial class NoteMap : Luban.BeanBase
     /// <summary>
     /// 音符序列
     /// </summary>
-    public readonly System.Collections.Generic.List<Note> NodeList;
+    public readonly System.Collections.Generic.List<NoteModel> NodeList;
    
     public const int __ID__ = -501106710;
     public override int GetTypeId() => __ID__;

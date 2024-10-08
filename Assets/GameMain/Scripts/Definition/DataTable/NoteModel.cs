@@ -13,9 +13,9 @@ using SimpleJSON;
 
 namespace cfg
 {
-public partial struct Note
+public partial struct NoteModel
 {
-    public Note(JSONNode _buf) 
+    public NoteModel(JSONNode _buf) 
     {
         { if(!_buf["time"].IsNumber) { throw new SerializationException(); }  Time = _buf["time"]; }
         { if(!_buf["track"].IsNumber) { throw new SerializationException(); }  Track = _buf["track"]; }
@@ -24,9 +24,9 @@ public partial struct Note
         { if(!_buf["isReward"].IsNumber) { throw new SerializationException(); }  IsReward = _buf["isReward"]; }
     }
 
-    public static Note DeserializeNote(JSONNode _buf)
+    public static NoteModel DeserializeNoteModel(JSONNode _buf)
     {
-        return new Note(_buf);
+        return new NoteModel(_buf);
     }
 
     public readonly float Time;
