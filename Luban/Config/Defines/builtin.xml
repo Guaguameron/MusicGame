@@ -1,0 +1,36 @@
+<module name="">
+    <bean name="vector2" valueType="1" sep=",">
+        <var name="x" type="float"/>
+        <var name="y" type="float"/>
+        <mapper target="client" codeTarget="cs-bin">
+            <option name="type" value="UnityEngine.Vector2"/>
+            <option name="constructor" value="ExternalTypeUtil.NewVector2"/>
+        </mapper>
+    </bean>
+    <bean name="vector3" valueType="1" sep=",">
+        <var name="x" type="float"/>
+        <var name="y" type="float"/>
+        <var name="z" type="float"/>
+        <mapper target="client" codeTarget="cs-bin">
+            <option name="type" value="UnityEngine.Vector3"/>
+            <option name="constructor" value="ExternalTypeUtil.NewVector3"/>
+        </mapper>
+    </bean>
+    <bean name="vector4" valueType="1" sep=",">
+        <var name="x" type="float"/>
+        <var name="y" type="float"/>
+        <var name="z" type="float"/>
+        <var name="w" type="float"/>
+        <mapper target="client" codeTarget="cs-bin">
+            <option name="type" value="UnityEngine.Vector4"/>
+            <option name="constructor" value="ExternalTypeUtil.NewVector4"/>
+        </mapper>
+    </bean>
+<bean name="Note" valueType="1" sep=",">
+  <var name="time" type="float"/>
+  <var name="track" type="int"/>
+  <var name="speed" type="float"/>
+  <var name="length" type="float"/>
+  <var name="isReward" type="int"/>
+</bean>
+</module>

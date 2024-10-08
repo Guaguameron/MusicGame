@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "音乐1",
+    "music_name": "music1",
+    "node_list": [
+      {
+        "time": 1,
+        "track": 1,
+        "speed": 5,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 2,
+        "track": 2,
+        "speed": 5,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 3,
+        "track": 2,
+        "speed": 5,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 4,
+        "track": 1,
+        "speed": 5,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 5,
+        "track": 1,
+        "speed": 5,
+        "length": 0,
+        "isReward": 1
+      }
+    ]
+  }
+]
