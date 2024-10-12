@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class Note : MonoBehaviour
 {
-    public int track; // 1±íÊ¾ÉÏ²ã£¬2±íÊ¾ÏÂ²ã
-    public float noteSpeed = 5.0f; // Òô·ûµÄÒÆ¶¯ËÙ¶È
+    public int track; // 1ï¿½ï¿½Ê¾ï¿½Ï²ã£¬2ï¿½ï¿½Ê¾ï¿½Â²ï¿½
+    public float noteSpeed = 5.0f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½Ù¶ï¿½
     public float noteJudge = 1.0f;
-    private Transform upperJudgePoint; // ÉÏ²ãÅÐ¶¨µãµÄÎ»ÖÃ
-    private Transform lowerJudgePoint; // ÏÂ²ãÅÐ¶¨µãµÄÎ»ÖÃ
+    private Transform upperJudgePoint; // ï¿½Ï²ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+    private Transform lowerJudgePoint; // ï¿½Â²ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
 
     void Start()
     {
-        // »ñÈ¡¡°ÅÐ¶¨µã¡±µÄ Transform
-        upperJudgePoint = GameObject.Find("ÉÏÅÐ¶¨µã").transform;
-        lowerJudgePoint = GameObject.Find("ÏÂÅÐ¶¨µã").transform;
+        // ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ã¡±ï¿½ï¿½ Transform
+        upperJudgePoint = GameObject.Find("ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½").transform;
+        lowerJudgePoint = GameObject.Find("ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½").transform;
     }
 
     void Update()
     {
-        // ÒÆ¶¯Òô·û
+        // ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½
         transform.position += Vector3.left * noteSpeed * Time.deltaTime;
 
-        // ¼ì²âÒô·ûÊÇ·ñÔÚ¡°ÅÐ¶¨µã¡±ÇøÓòÄÚ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ú¡ï¿½ï¿½Ð¶ï¿½ï¿½ã¡±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         CheckKeyPress();
     }
 
@@ -30,7 +30,7 @@ public class Note : MonoBehaviour
     {
         Transform targetJudgePoint = null;
 
-        // ¸ù¾Ý¹ìµÀÑ¡Ôñ¶ÔÓ¦µÄÅÐ¶¨µã
+        // ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½
         if (track == 1)
         {
             targetJudgePoint = upperJudgePoint;
@@ -40,18 +40,18 @@ public class Note : MonoBehaviour
             targetJudgePoint = lowerJudgePoint;
         }
 
-        // ÅÐ¶ÏÒô·ûÊÇ·ñÔÚÅÐ¶¨ÇøÓòÄÚ
+        // ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (targetJudgePoint != null && Mathf.Abs(transform.position.x - targetJudgePoint.position.x) < noteJudge)
         {
-            // ¼ì²â°´¼üÊäÈë
+            // ï¿½ï¿½â°´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             if (track == 1 && Input.GetKeyDown(KeyCode.F))
             {
-                Debug.Log("ÉÏ²ãÒô·û±»ÕýÈ·»÷ÖÐ£¡");
+                Debug.Log("ï¿½Ï²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½Ð£ï¿½");
                 Succeed();
             }
             else if (track == 2 && Input.GetKeyDown(KeyCode.J))
             {
-                Debug.Log("ÏÂ²ãÒô·û±»ÕýÈ·»÷ÖÐ£¡");
+                Debug.Log("ï¿½Â²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½Ð£ï¿½");
                 Succeed();
             }
         }
@@ -67,14 +67,14 @@ public class Note : MonoBehaviour
 
     private void Fail()
     {
-        Debug.Log("missÁË");
-        Destroy(gameObject);// Ïú»ÙÒô·û
+        Debug.Log("missï¿½ï¿½");
+        Destroy(gameObject);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         PlayNoteModel.Fail();
     }
 
     private void Succeed()
     {
-        Destroy(gameObject);// Ïú»ÙÒô·û
+        Destroy(gameObject);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         PlayNoteModel.Succeed();
     }
 }
