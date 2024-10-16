@@ -65,12 +65,15 @@
     <Compile Include="Assets\GameMain\Scripts\Definition\DataTable\TbNoteMap.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\DataTable\NoteMap.cs" />
     <Compile Include="Assets\GameMain\System\CameraFollow.cs" />
+    <Compile Include="Assets\GameMain\System\PlayNoteUI.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\DataTable\vector2.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\DataTable\vector3.cs" />
-    <Compile Include="Assets\GameMain\System\Character.cs" />
     <Compile Include="Assets\GameMain\System\PlayNoteModel.cs" />
     <Compile Include="Assets\GameMain\Scripts\Base\MonoSingleton.cs" />
-    <Compile Include="Assets\GameMain\System\PlayNoteUI.cs" />
+    <Compile Include="Assets\GameMain\System\Character.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Definition\DataTable\TbHardSet.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Definition\DataTable\HardSet.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Definition\DataTable\ComboPoint.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

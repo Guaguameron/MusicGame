@@ -1,0 +1,33 @@
+[
+  {
+    "id": 1,
+    "name": "难度1",
+    "start_judge": 1,
+    "perfect_judge": 0.1,
+    "great_judge": 0.3,
+    "good_judge": 0.5,
+    "point_list": [
+      {
+        "combo": 0,
+        "perfect_point": 100,
+        "great_point": 70,
+        "good_point": 50,
+        "miss_point": 0
+      },
+      {
+        "combo": 10,
+        "perfect_point": 150,
+        "great_point": 120,
+        "good_point": 100,
+        "miss_point": 0
+      },
+      {
+        "combo": 50,
+        "perfect_point": 200,
+        "great_point": 170,
+        "good_point": 150,
+        "miss_point": 0
+      }
+    ]
+  }
+]

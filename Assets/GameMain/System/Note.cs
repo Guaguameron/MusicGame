@@ -6,7 +6,10 @@ public class Note : MonoBehaviour
 {
     public int track; // 1表示上层，2表示下层
     public float noteSpeed = 5.0f; // 音符的移动速度
-    public float noteJudge = 1.0f;
+    private float StartJudge = 1.0f;
+    private float PerfectJudge = 1.0f;
+    private float GreatJudge = 1.0f;
+    private float GoodJudge = 1.0f;
     private Transform upperJudgePoint; // 上层判定点的位置
     private Transform lowerJudgePoint; // 下层判定点的位置
 
@@ -15,6 +18,12 @@ public class Note : MonoBehaviour
         // 获取“判定点”的 Transform
         upperJudgePoint = GameObject.Find("上判定点").transform;
         lowerJudgePoint = GameObject.Find("下判定点").transform;
+
+
+        StartJudge = PlayNoteModel.DataTables.TbHardSet.DataList[0].StartJudge;
+        PerfectJudge = PlayNoteModel.DataTables.TbHardSet.DataList[0].PerfectJudge;
+        GreatJudge = PlayNoteModel.DataTables.TbHardSet.DataList[0].GreatJudge;
+        GoodJudge = PlayNoteModel.DataTables.TbHardSet.DataList[0].GoodJudge;
     }
 
     void Update()
@@ -40,19 +49,31 @@ public class Note : MonoBehaviour
             targetJudgePoint = lowerJudgePoint;
         }
 
-        // 判断音符是否在判定区域内
-        if (targetJudgePoint != null && Mathf.Abs(transform.position.x - targetJudgePoint.position.x) < noteJudge)
+        // 检测按键输入
+        if ((track == 1 && Input.GetKeyDown(KeyCode.J)) || (track == 2 && Input.GetKeyDown(KeyCode.K)))
         {
-            // 检测按键输入
-            if (track == 1 && Input.GetKeyDown(KeyCode.F))
+            float pos = Mathf.Abs(transform.position.x - targetJudgePoint.position.x);
+            // 判断音符是否在判定区域内
+            if (targetJudgePoint != null && pos < StartJudge)
             {
-                Debug.Log("上层音符被正确击中！");
-                Succeed();
-            }
-            else if (track == 2 && Input.GetKeyDown(KeyCode.J))
-            {
-                Debug.Log("下层音符被正确击中！");
-                Succeed();
+
+                // 判断分数
+                if (pos < PerfectJudge)
+                {
+                    Succeed(PlayNoteModel.GetComboPoint(0), "perfect");
+                    return;
+                }
+                if (pos < GreatJudge)
+                {
+                    Succeed(PlayNoteModel.GetComboPoint(1), "great");
+                    return;
+                }
+                if (pos < PerfectJudge)
+                {
+                    Succeed(PlayNoteModel.GetComboPoint(2), "good");
+                    return;
+                }
+                Fail(PlayNoteModel.GetComboPoint(3));
             }
         }
     }
@@ -61,21 +82,21 @@ public class Note : MonoBehaviour
     {
         if(collision.gameObject.name == "Boudry")
         {
-            Fail();
+            Fail(PlayNoteModel.GetComboPoint(3));
         }
     }
 
-    private void Fail()
+    private void Fail(int score)
     {
         Debug.Log("miss了");
         Destroy(gameObject);// 销毁音符
-        PlayNoteModel.Fail();
+        PlayNoteModel.Fail(score);
     }
 
-    private void Succeed()
+    private void Succeed(int score, string tips)
     {
         Destroy(gameObject);// 销毁音符
-        PlayNoteModel.Succeed();
+        PlayNoteModel.Succeed(score, tips);
     }
 }
 

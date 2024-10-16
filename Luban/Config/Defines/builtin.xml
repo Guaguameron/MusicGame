@@ -33,4 +33,11 @@
   <var name="length" type="float"/>
   <var name="isReward" type="int"/>
 </bean>
+<bean name="ComboPoint" valueType="1" sep=",">
+  <var name="combo" type="int"/>
+  <var name="perfect_point" type="int"/>
+  <var name="great_point" type="int"/>
+  <var name="good_point" type="int"/>
+  <var name="miss_point" type="int"/>
+</bean>
 </module>
