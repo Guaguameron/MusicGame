@@ -17,13 +17,12 @@ public class GameController : MonoBehaviour
     float myTime = 0;
     private List<NoteModel> noteList = new List<NoteModel>();
 
-    public Tables DataTables { get; private set; }
     // Start is called before the first frame update
     void Start()
     {
-        LoadDataTables();
+        PlayNoteModel.Start();
         // 暂时只拿第一个noteList
-        noteList = DataTables.TbNoteMap.DataList[0].NodeList;
+        noteList = PlayNoteModel.DataTables.TbNoteMap.DataList[0].NodeList;
     }
 
     // Update is called once per frame
@@ -52,11 +51,5 @@ public class GameController : MonoBehaviour
     private void GenerateNote()
     {
 
-    }
-
-    public void LoadDataTables()
-    {
-        string gameConfDir = $"{Application.streamingAssetsPath}/DataTable";
-        DataTables = new Tables(file => JSON.Parse(File.ReadAllText($"{gameConfDir}/{file}.json")));
     }
 }
