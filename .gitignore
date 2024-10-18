@@ -2,3 +2,31 @@
 .vs/MusicGame/FileContentIndex/1689c75d-d0da-411e-b0b7-2a910daea535.vsidx
 .vs/MusicGame/FileContentIndex/51706318-6606-433b-861b-3eb06846dd90.vsidx
 .vs/MusicGame/FileContentIndex/63feb636-8e94-4581-97b8-cb3e51bcd2dd.vsidx
+# 忽略 Unity 的临时文件夹
+Library/
+Logs/
+Temp/
+obj/
+*.csproj
+*.unityproj
+*.sln
+*.userprefs
+
+# 忽略 Visual Studio 的临时文件
+.vscode/
+*.pidb
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# 忽略自动生成的元数据文件
+*.meta
+
+# 忽略构建文件夹
+Build/
+Builds/
+
+# 忽略操作系统生成的临时文件
+.DS_Store
+Thumbs.db
