@@ -11,13 +11,18 @@ public class PlayNoteModel : MonoSingleton<PlayNoteModel>
 {
     public static int combo = 0;
     public static int score = 0;
-    public static string tip = "missing";
+    public static string tip = "";
     public static Tables DataTables { get; private set; }
-    public static void Succeed(int succeedscore, string tips)
+
+    private static float tipTimer = 0f;  // 计时器
+    private static float tipDisplayDuration = 1f;  // tip 显示的时间为1秒
+
+        public static void Succeed(int succeedscore, string tips)
     {
         combo++;
         score += succeedscore;
         tip = tips;
+        tipTimer = 0f;  // 重置计时器，表示有新的判定
     }
 
     public static void Fail(int failscore)
@@ -25,6 +30,7 @@ public class PlayNoteModel : MonoSingleton<PlayNoteModel>
         combo = 0;
         score += failscore;
         tip = "miss";
+        tipTimer = 0f;  // 重置计时器
     }
 
     public static void Start()
@@ -37,6 +43,18 @@ public class PlayNoteModel : MonoSingleton<PlayNoteModel>
         DataTables = new Tables(file => JSON.Parse(File.ReadAllText($"{gameConfDir}/{file}.json")));
     }
 
+    // 检查是否超过1秒没更新提示
+    public static void UpdateTip()
+    {
+             if (tip != "")
+        {
+            tipTimer += Time.deltaTime;
+            if (tipTimer >= tipDisplayDuration)
+            {
+                tip = "";  
+            }
+        }
+    }
     public static int GetComboPoint(int level)
     {
         ComboPoint comboPoint = new ComboPoint();
