@@ -55,10 +55,10 @@ public class Puzzle2 : MonoBehaviour
         }
 
         // 为四个按钮添加事件监听器
-        AddEventTriggerListener(circleButton.gameObject, EventTriggerType.PointerDown, (BaseEventData data) => OnPointerDown(data, circlePrefab));
-        AddEventTriggerListener(crossesButton.gameObject, EventTriggerType.PointerDown, (BaseEventData data) => OnPointerDown(data, crossesPrefab));
-        AddEventTriggerListener(cubeButton.gameObject, EventTriggerType.PointerDown, (BaseEventData data) => OnPointerDown(data, cubePrefab));
-        AddEventTriggerListener(triangleButton.gameObject, EventTriggerType.PointerDown, (BaseEventData data) => OnPointerDown(data, trianglePrefab));
+        AddEventTriggerListener(circleButton.gameObject, EventTriggerType.PointerDown, (BaseEventData data) => OnPointerDown(data, circlePrefab, circleButton.gameObject));
+        AddEventTriggerListener(crossesButton.gameObject, EventTriggerType.PointerDown, (BaseEventData data) => OnPointerDown(data, crossesPrefab, crossesButton.gameObject));
+        AddEventTriggerListener(cubeButton.gameObject, EventTriggerType.PointerDown, (BaseEventData data) => OnPointerDown(data, cubePrefab, cubeButton.gameObject));
+        AddEventTriggerListener(triangleButton.gameObject, EventTriggerType.PointerDown, (BaseEventData data) => OnPointerDown(data, trianglePrefab, triangleButton.gameObject));
 
         AddEventTriggerListener(circleButton.gameObject, EventTriggerType.PointerUp, OnPointerUp);
         AddEventTriggerListener(crossesButton.gameObject, EventTriggerType.PointerUp, OnPointerUp);
@@ -84,7 +84,7 @@ public class Puzzle2 : MonoBehaviour
     // 处理预设体跟随鼠标移动的逻辑
     private void HandlePrefabMovement()
     {
-        if (isButtonHeld && selectedPrefab != null && spawnedPrefabs.Count > 0)
+        if (isButtonHeld && selectedPrefab != null)
         {
             Vector2 mousePosition = Input.mousePosition;
 
@@ -96,11 +96,8 @@ public class Puzzle2 : MonoBehaviour
                     canvasCamera,  // 使用Canvas的Camera
                     out Vector2 localPoint);
 
-                // 获取最后一个生成的预设体（当前正在拖动的）
-                GameObject currentPrefab = spawnedPrefabs[spawnedPrefabs.Count - 1];
-
-                // 将生成的预设体跟随鼠标移动
-                RectTransform prefabRect = currentPrefab.GetComponent<RectTransform>();
+                // 将selectedPrefab跟随鼠标移动
+                RectTransform prefabRect = selectedPrefab.GetComponent<RectTransform>();
                 prefabRect.anchoredPosition = localPoint;
 
                 // 判断生成的预设体与Judgment_Point1的距离
@@ -118,42 +115,53 @@ public class Puzzle2 : MonoBehaviour
         }
     }
 
+
     // 处理按钮按下时生成预设体
-    private void OnPointerDown(BaseEventData data, GameObject prefab)
+    private void OnPointerDown(BaseEventData data, GameObject prefab, GameObject button)
     {
         if (prefab != null && playSpace != null)
         {
-            selectedPrefab = prefab;
+            // 按下时将按钮设为不活跃
+            button.SetActive(false);
 
             // 生成的物体作为Play_Space的子物体
             GameObject spawnedPrefab = Instantiate(prefab, playSpace);
             spawnedPrefabs.Add(spawnedPrefab);
 
+            // 设置selectedPrefab为新生成的预设体实例
+            selectedPrefab = spawnedPrefab;
+
             // 为生成的预设体添加事件监听器
-            AddEventTriggerListener(spawnedPrefab, EventTriggerType.PointerDown, OnPrefabPointerDown);
-            AddEventTriggerListener(spawnedPrefab, EventTriggerType.PointerUp, OnPrefabPointerUp);
+            AddEventTriggerListener(spawnedPrefab, EventTriggerType.PointerDown, (data) => OnPrefabPointerDown(data, spawnedPrefab));
+            AddEventTriggerListener(spawnedPrefab, EventTriggerType.PointerUp, (data) => OnPrefabPointerUp(data, spawnedPrefab));
+
 
             isButtonHeld = true;
         }
     }
 
+
+
     // 处理预设体按下时跟随鼠标移动
-    private void OnPrefabPointerDown(BaseEventData data)
+    private void OnPrefabPointerDown(BaseEventData data, GameObject prefab)
     {
         isButtonHeld = true;
+        selectedPrefab = prefab;
     }
 
     // 处理预设体松开时停止移动
-    private void OnPrefabPointerUp(BaseEventData data)
+    private void OnPrefabPointerUp(BaseEventData data, GameObject prefab)
     {
         isButtonHeld = false;
+        selectedPrefab = null;
     }
 
-    // 处理按钮松开时停止预设体的移动
     private void OnPointerUp(BaseEventData data)
     {
         isButtonHeld = false;
+        selectedPrefab = null;
     }
+
 
     // Play_Button点击事件，开始移动所有预设体
     private void OnPlayButtonClick()

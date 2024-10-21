@@ -70,8 +70,9 @@
     <Compile Include="Assets\GameMain\Scripts\Definition\DataTable\vector3.cs" />
     <Compile Include="Assets\GameMain\System\PlayNoteModel.cs" />
     <Compile Include="Assets\GameMain\Scripts\Base\MonoSingleton.cs" />
-    <Compile Include="Assets\GameMain\System\Character.cs" />
     <Compile Include="Assets\C#\Puzzle2.cs" />
+    <Compile Include="Assets\GameMain\System\Character.cs" />
+    <Compile Include="Assets\C#\Puzzle3.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
