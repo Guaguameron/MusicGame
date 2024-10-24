@@ -83,4 +83,10 @@ public class PlayNoteModel : MonoSingleton<PlayNoteModel>
         }
         return 0;
     }
+    public static int GetCombo()
+    {
+        return combo;
+    }
+
+
 }

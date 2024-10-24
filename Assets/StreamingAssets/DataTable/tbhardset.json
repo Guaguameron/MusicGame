@@ -3,9 +3,9 @@
     "id": 1,
     "name": "难度1",
     "start_judge": 1,
-    "perfect_judge": 0.1,
-    "great_judge": 0.3,
-    "good_judge": 0.5,
+    "perfect_judge": 0.3,
+    "great_judge": 0.5,
+    "good_judge": 0.8,
     "point_list": [
       {
         "combo": 0,
