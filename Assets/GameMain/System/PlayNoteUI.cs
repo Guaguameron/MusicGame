@@ -5,18 +5,19 @@ public class PlayNoteUI : MonoBehaviour
 {
     public Text score;
     public Text tip;
-    public Text comboText;  
+    public Text comboText;
+    public Image comboImage;  
 
     void Start()
     {
         tip.text = "";  // 初始时隐藏提示文字
-        comboText.text = "";  // 初始化 combo 显示
+        comboText.text = "";  
+        comboImage.gameObject.SetActive(false);  
     }
 
     // Update is called once per frame
     void Update()
     {
-
         score.text = PlayNoteModel.score.ToString();
 
         PlayNoteModel.UpdateTip();
@@ -27,10 +28,12 @@ public class PlayNoteUI : MonoBehaviour
         if (currentCombo > 0)
         {
             comboText.text = " " + currentCombo.ToString();
+            comboImage.gameObject.SetActive(true); 
         }
         else
         {
             comboText.text = "";  // Combo 为 0 时隐藏显示
+            comboImage.gameObject.SetActive(false);  
         }
     }
-}   
+}

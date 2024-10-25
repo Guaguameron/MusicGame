@@ -1144,3 +1144,5 @@ MonoBehaviour:
   exitButton: {fileID: 1039375230}
   hoverBackgroundImage: {fileID: 507351892}
   hoverColorHex: '#50848B'
+  buttonClickSound: {fileID: 8300000, guid: bf0798825fd8b7f4180bee7ecb2e3855, type: 3}
+  volume: 0.39

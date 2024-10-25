@@ -97,3 +97,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   track: 0
   noteSpeed: 5
+  successSound: {fileID: 8300000, guid: ee5d5b4f0b684b54484318b20787c088, type: 3}
