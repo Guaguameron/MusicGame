@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 200687011}
   - component: {fileID: 200687010}
   m_Layer: 5
-  m_Name: 'Score:'
+  m_Name: /62,500M
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1783,7 +1783,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -278, y: -30}
+  m_AnchoredPosition: {x: -302, y: -35}
   m_SizeDelta: {x: 188.5524, y: 81.6879}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &961776253
@@ -2272,7 +2272,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1284363293
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3517,7 +3517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14fb9e5fa379be64fbf37a94c9ade045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Note: {fileID: 3725146551513810432, guid: a6a56a4d71baa9d46b9274cad8e3dfcf, type: 3}
+  Note: {fileID: 7468079240958304757, guid: a6a56a4d71baa9d46b9274cad8e3dfcf, type: 3}
   Note1: {fileID: 1012778940}
   Note2: {fileID: 214598669}
   musicProgressBar: {fileID: 808298147}

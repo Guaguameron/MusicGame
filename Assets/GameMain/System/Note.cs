@@ -17,11 +17,13 @@ public class Note : MonoBehaviour
     private Transform upperJudgePoint; // 上层判定点的位置
     private Transform lowerJudgePoint; // 下层判定点的位置
 
+
     void Start()
     {
         upperJudgePoint = GameObject.Find("上判定点").transform;
         lowerJudgePoint = GameObject.Find("下判定点").transform;
-           
+
+
         StartJudge = PlayNoteModel.DataTables.TbHardSet.DataList[0].StartJudge;
         PerfectJudge = PlayNoteModel.DataTables.TbHardSet.DataList[0].PerfectJudge;
         GreatJudge = PlayNoteModel.DataTables.TbHardSet.DataList[0].GreatJudge;
@@ -98,10 +100,12 @@ public class Note : MonoBehaviour
 
     private void Succeed(int score, string tips)
     {
-        PlaySoundEffect(); 
-        Destroy(gameObject); 
+        PlaySoundEffect();
+      
+        Destroy(gameObject);
         PlayNoteModel.Succeed(score, tips);
     }
+
 
     private void PlaySoundEffect()
     {
@@ -110,4 +114,10 @@ public class Note : MonoBehaviour
             audioSource.PlayOneShot(successSound); 
         }
     }
+
+   
 }
+
+
+
+

@@ -105,7 +105,7 @@ public class StartMenuController : MonoBehaviour
 
     void LoadLevel1Scene()
     {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("StartAnimation");//先转动画场景，动画自动跳转第一关
     }
 
     void OpenDevelopmentTeamScene()
