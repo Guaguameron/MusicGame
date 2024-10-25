@@ -2501,15 +2501,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df4bf95b0280c654bb6c3176a42877c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgrounds:
-  - {fileID: 1423563331}
-  - {fileID: 937783015}
-  - {fileID: 1289718491}
-  - {fileID: 1257952463}
-  - {fileID: 1692653991}
-  scrollSpeed: 1
-  resetPosition: -10
-  startPosition: 10
+  backgroundLayers:
+  - backgroundObject: {fileID: 1423563331}
+    scrollSpeed: 5
+    resetPosition: 0
+    startPosition: 0
+  - backgroundObject: {fileID: 937783015}
+    scrollSpeed: 10
+    resetPosition: 0
+    startPosition: 0
+  - backgroundObject: {fileID: 1289718491}
+    scrollSpeed: 15
+    resetPosition: 0
+    startPosition: 0
+  - backgroundObject: {fileID: 1257952463}
+    scrollSpeed: 20
+    resetPosition: 0
+    startPosition: 0
 --- !u!4 &1692653993
 Transform:
   m_ObjectHideFlags: 0
