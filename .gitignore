@@ -20,8 +20,6 @@ obj/
 *.userosscache
 *.sln.docstates
 
-# 忽略自动生成的元数据文件
-*.meta
 
 # 忽略构建文件夹
 Build/
