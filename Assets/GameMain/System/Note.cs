@@ -4,39 +4,25 @@ using UnityEngine;
 
 public class Note : MonoBehaviour
 {
-    public int track; // 1±íÊ¾ÉÏ²ã£¬2±íÊ¾ÏÂ²ã
-    public float noteSpeed = 5.0f; 
-    public AudioClip successSound; //ÅÐ¶¨ÒôÐ§
-    private AudioSource audioSource; 
-
-    private float StartJudge = 1.0f;
-    private float PerfectJudge = 1.0f;
-    private float GreatJudge = 1.0f;
-    private float GoodJudge = 1.0f;
-
-    private Transform upperJudgePoint; // ÉÏ²ãÅÐ¶¨µãµÄÎ»ÖÃ
-    private Transform lowerJudgePoint; // ÏÂ²ãÅÐ¶¨µãµÄÎ»ÖÃ
-
+    public int track; // 1ï¿½ï¿½Ê¾ï¿½Ï²ã£¬2ï¿½ï¿½Ê¾ï¿½Â²ï¿½
+    public float noteSpeed = 5.0f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½Ù¶ï¿½
+    public float noteJudge = 1.0f;
+    private Transform upperJudgePoint; // ï¿½Ï²ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+    private Transform lowerJudgePoint; // ï¿½Â²ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
 
     void Start()
     {
-        upperJudgePoint = GameObject.Find("ÉÏÅÐ¶¨µã").transform;
-        lowerJudgePoint = GameObject.Find("ÏÂÅÐ¶¨µã").transform;
-
-
-        StartJudge = PlayNoteModel.DataTables.TbHardSet.DataList[0].StartJudge;
-        PerfectJudge = PlayNoteModel.DataTables.TbHardSet.DataList[0].PerfectJudge;
-        GreatJudge = PlayNoteModel.DataTables.TbHardSet.DataList[0].GreatJudge;
-        GoodJudge = PlayNoteModel.DataTables.TbHardSet.DataList[0].GoodJudge;
-
-        audioSource = GameObject.Find("ÅÐ¶¨µãÒôÐ§").GetComponent<AudioSource>();
+        // ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ã¡±ï¿½ï¿½ Transform
+        upperJudgePoint = GameObject.Find("ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½").transform;
+        lowerJudgePoint = GameObject.Find("ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½").transform;
     }
 
     void Update()
     {
-        // ÒÆ¶¯Òô·û
+        // ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½
         transform.position += Vector3.left * noteSpeed * Time.deltaTime;
 
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ú¡ï¿½ï¿½Ð¶ï¿½ï¿½ã¡±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         CheckKeyPress();
     }
 
@@ -44,6 +30,7 @@ public class Note : MonoBehaviour
     {
         Transform targetJudgePoint = null;
 
+        // ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½
         if (track == 1)
         {
             targetJudgePoint = upperJudgePoint;
@@ -53,71 +40,43 @@ public class Note : MonoBehaviour
             targetJudgePoint = lowerJudgePoint;
         }
 
-        if ((track == 1 && Input.GetKeyDown(KeyCode.J)) || (track == 2 && Input.GetKeyDown(KeyCode.K)))
+        // ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        if (targetJudgePoint != null && Mathf.Abs(transform.position.x - targetJudgePoint.position.x) < noteJudge)
         {
-            float pos = Mathf.Abs(transform.position.x - targetJudgePoint.position.x);
-
-            // ÅÐ¶ÏÒô·ûÊÇ·ñÔÚÅÐ¶¨ÇøÓòÄÚ
-            if (targetJudgePoint != null && pos < StartJudge)
+            // ï¿½ï¿½â°´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            if (track == 1 && Input.GetKeyDown(KeyCode.F))
             {
-                // ÅÐ¶Ï·ÖÊý
-                if (pos < PerfectJudge)
-                {
-                    Succeed(PlayNoteModel.GetComboPoint(0), "perfect");
-                    return;
-                }
-                if (pos < GreatJudge)
-                {
-                    Succeed(PlayNoteModel.GetComboPoint(1), "great");
-                    return;
-                }
-                if (pos < GoodJudge)
-                {
-                    Succeed(PlayNoteModel.GetComboPoint(2), "good");
-                    return;
-                }
-
-                // MissÇé¿öÏÂµ÷ÓÃFail()
-                Fail(PlayNoteModel.GetComboPoint(3));
+                Debug.Log("ï¿½Ï²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½Ð£ï¿½");
+                Succeed();
+            }
+            else if (track == 2 && Input.GetKeyDown(KeyCode.J))
+            {
+                Debug.Log("ï¿½Â²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½Ð£ï¿½");
+                Succeed();
             }
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "Boudry")
+        if(collision.gameObject.name == "Boudry")
         {
-            Fail(PlayNoteModel.GetComboPoint(3));
+            Fail();
         }
     }
 
-    private void Fail(int score)
+    private void Fail()
     {
-        Debug.Log("missÁË");
-        Destroy(gameObject);
-        PlayNoteModel.Fail(score);
+        Debug.Log("missï¿½ï¿½");
+        Destroy(gameObject);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        PlayNoteModel.Fail();
     }
 
-    private void Succeed(int score, string tips)
+    private void Succeed()
     {
-        PlaySoundEffect();
-      
-        Destroy(gameObject);
-        PlayNoteModel.Succeed(score, tips);
+        Destroy(gameObject);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        PlayNoteModel.Succeed();
     }
-
-
-    private void PlaySoundEffect()
-    {
-        if (audioSource != null && successSound != null)
-        {
-            audioSource.PlayOneShot(successSound); 
-        }
-    }
-
-   
 }
-
-
 
 

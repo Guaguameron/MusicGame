@@ -14,19 +14,16 @@ namespace cfg
 {
 public partial class Tables
 {
-    public TbHardSet TbHardSet {get; }
     public TbNoteMap TbNoteMap {get; }
 
     public Tables(System.Func<string, JSONNode> loader)
     {
-        TbHardSet = new TbHardSet(loader("tbhardset"));
         TbNoteMap = new TbNoteMap(loader("tbnotemap"));
         ResolveRef();
     }
     
     private void ResolveRef()
     {
-        TbHardSet.ResolveRef(this);
         TbNoteMap.ResolveRef(this);
     }
 }
