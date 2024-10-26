@@ -15,7 +15,7 @@ public class VideoSceneTransition : MonoBehaviour
     private Dictionary<string, string> sceneTransitions = new Dictionary<string, string>
     {
         {"Animation-Start", "Level1"},
-        {"Animation-Lv1Mid", "End"}
+        {"Animation-Lv1Mid", "Plz"}
  
     };
 

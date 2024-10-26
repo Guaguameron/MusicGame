@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MemoryUI : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class MemoryUI : MonoBehaviour
     }
 
     public StoryImagePair[] storyImagePairs;
+    public Button switchSceneButton;
 
     private void Start()
     {
@@ -26,6 +28,16 @@ public class MemoryUI : MonoBehaviour
             
             // 确保所有 StoryImage 初始状态为隐藏
             pair.storyImage.SetActive(false);
+        }
+
+        // 为切换场景按钮添加监听器
+        if (switchSceneButton != null)
+        {
+            switchSceneButton.onClick.AddListener(SwitchScene);
+        }
+        else
+        {
+            Debug.LogWarning("Switch Scene Button is not assigned!");
         }
     }
 
@@ -46,5 +58,10 @@ public class MemoryUI : MonoBehaviour
     {
         pair.storyImage.SetActive(false);
         Debug.Log($"Hiding StoryImage for button: {pair.button.name}");
+    }
+
+    private void SwitchScene()
+    {
+        SceneManager.LoadScene("Animation-Lv1Mid");
     }
 }

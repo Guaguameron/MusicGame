@@ -30,6 +30,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Animation-Lv1Mid.unity
     guid: 3efcef7cededbc04094eeb86677612ea
   - enabled: 1
-    path: Assets/Scenes/end.unity
-    guid: 5fd95272a10e5e24dba622624f1e7e66
+    path: Assets/Scenes/Plz.unity
+    guid: d8f75a91328e17945806a3a0816ef335
   m_configObjects: {}
