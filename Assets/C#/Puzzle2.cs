@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Puzzle2 : MonoBehaviour
-{ // 四个不同的预设体
+{
     // 四个不同的预设体
     public GameObject circlePrefab;
     public GameObject crossesPrefab;
@@ -26,11 +26,10 @@ public class Puzzle2 : MonoBehaviour
     public Transform Judgment_Point2;  // 判断点2
     public float moveSpeed = 50f;  // 公有的速度，控制预设体的移动速度
 
-   
-
     private List<GameObject> spawnedPrefabs = new List<GameObject>();  // 存储所有生成的预设体
     private bool isButtonHeld = false;
     private bool isMoving = false;  // 用来判断预设体是否开始移动
+ public GameObject heldPrefab;  // 新增：存储当前按下的 prefab
     private Transform playSpace;  // Play_Space的引用
     private Camera canvasCamera;  // Canvas上的Camera引用
 
@@ -42,6 +41,11 @@ public class Puzzle2 : MonoBehaviour
     public AudioClip music3; // MP3 音频剪辑 3
     public AudioClip music4; // MP3 音频剪辑 4
     public AudioClip music5; // MP3 音频剪辑 5
+
+    public GameObject MainObj;
+
+    
+
     void Start()
     {
         // 获取Canvas的Camera
@@ -67,6 +71,7 @@ public class Puzzle2 : MonoBehaviour
         AddEventTriggerListener(triangleButton.gameObject, EventTriggerType.PointerUp, OnPointerUp);
         AddEventTriggerListener(SpiderButton.gameObject, EventTriggerType.PointerUp, OnPointerUp);
         soundButton.onClick.AddListener(OnSoundButtonClick);
+
         // 为Play_Button添加click事件监听器
         playButton.onClick.AddListener(OnPlayButtonClick);
     }
@@ -86,7 +91,7 @@ public class Puzzle2 : MonoBehaviour
     // 处理预设体跟随鼠标移动的逻辑
     private void HandlePrefabMovement()
     {
-        if (isButtonHeld && selectedPrefab != null && spawnedPrefabs.Count > 0)
+        if (isButtonHeld && heldPrefab != null)
         {
             Vector2 mousePosition = Input.mousePosition;
 
@@ -98,11 +103,8 @@ public class Puzzle2 : MonoBehaviour
                     canvasCamera,  // 使用Canvas的Camera
                     out Vector2 localPoint);
 
-                // 获取最后一个生成的预设体（当前正在拖动的）
-                GameObject currentPrefab = spawnedPrefabs[spawnedPrefabs.Count - 1];
-
-                // 将生成的预设体跟随鼠标移动
-                RectTransform prefabRect = currentPrefab.GetComponent<RectTransform>();
+                // 将按下的预设体跟随鼠标移动
+                RectTransform prefabRect = heldPrefab.GetComponent<RectTransform>();
                 prefabRect.anchoredPosition = localPoint;
 
                 // 判断生成的预设体与Judgment_Point1的距离
@@ -121,6 +123,7 @@ public class Puzzle2 : MonoBehaviour
     }
 
     // 处理按钮按下时生成预设体
+    // 处理按钮按下时生成预设体
     private void OnPointerDown(BaseEventData data, GameObject prefab)
     {
         if (prefab != null && playSpace != null)
@@ -132,23 +135,43 @@ public class Puzzle2 : MonoBehaviour
             spawnedPrefabs.Add(spawnedPrefab);
 
             // 为生成的预设体添加事件监听器
-            AddEventTriggerListener(spawnedPrefab, EventTriggerType.PointerDown, OnPrefabPointerDown);
+            AddEventTriggerListener(spawnedPrefab, EventTriggerType.PointerDown, (BaseEventData d) => OnPrefabPointerDown(d, spawnedPrefab));
             AddEventTriggerListener(spawnedPrefab, EventTriggerType.PointerUp, OnPrefabPointerUp);
 
             isButtonHeld = true;
+            heldPrefab = spawnedPrefab; // 记录当前按下的 prefab
+
+            // 播放对应音乐
+            if (prefab.name == circlePrefab.name)
+                PlayMusic1();
+            else if (prefab.name == crossesPrefab.name)
+                PlayMusic2();
+            else if (prefab.name == cubePrefab.name)
+                PlayMusic3();
+            else if (prefab.name == trianglePrefab.name)
+                PlayMusic4();
+            else if (prefab.name == spiderPrefab.name)
+                PlayMusic5();
         }
     }
 
     // 处理预设体按下时跟随鼠标移动
-    private void OnPrefabPointerDown(BaseEventData data)
+    private void OnPrefabPointerDown(BaseEventData data, GameObject prefab)
     {
         isButtonHeld = true;
+        heldPrefab = prefab; // 直接更新为按下的 prefab
+        Debug.Log("11111");
     }
+
+
+    // 处理预设体按下时跟随鼠标移动
+   
 
     // 处理预设体松开时停止移动
     private void OnPrefabPointerUp(BaseEventData data)
     {
         isButtonHeld = false;
+        heldPrefab = null; // 释放当前按下的 prefab
     }
 
     // 处理按钮松开时停止预设体的移动
@@ -169,23 +192,19 @@ public class Puzzle2 : MonoBehaviour
     // 移动所有预设体并检查是否靠近Judgment_Point1或Judgment_Point2
     private void MovePrefabs()
     {
-        // 使用临时列表来存储需要移除的预设体
         List<GameObject> prefabsToRemove = new List<GameObject>();
 
         foreach (GameObject prefab in spawnedPrefabs)
         {
             RectTransform prefabRect = prefab.GetComponent<RectTransform>();
 
-            // 按速度向左移动
             prefabRect.anchoredPosition += new Vector2(-moveSpeed * Time.deltaTime, 0);
 
-            // 判断与Judgment_Point1的距离
             if (Vector2.Distance(prefabRect.anchoredPosition, Judgment_Point1.localPosition) < 1f)
             {
                 StartCoroutine(ScaleAndFadeThenDestroy(prefab, 1));
                 prefabsToRemove.Add(prefab);
             }
-            // 判断与Judgment_Point2的距离
             else if (Vector2.Distance(prefabRect.anchoredPosition, Judgment_Point2.localPosition) < 1f)
             {
                 StartCoroutine(ScaleAndFadeThenDestroy(prefab, 2));
@@ -193,20 +212,20 @@ public class Puzzle2 : MonoBehaviour
             }
         }
 
-        // 从列表中移除已销毁的预设体
         foreach (GameObject prefab in prefabsToRemove)
         {
             spawnedPrefabs.Remove(prefab);
         }
 
-        // 如果所有预设体都处理完毕，停止移动
         if (spawnedPrefabs.Count == 0)
         {
             isMoving = false;
         }
     }
 
-    // 协程处理放大和透明渐变效果，并根据判断点增加计数
+    private List<int> destructionSequence = new List<int>();
+    private string winSequence = "1234132312341255"; // 通关序列的数字字符串
+
     private IEnumerator ScaleAndFadeThenDestroy(GameObject target, int judgmentPoint)
     {
         float duration = 0.3f;
@@ -220,109 +239,84 @@ public class Puzzle2 : MonoBehaviour
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
-
-            // 逐渐放大到1.3倍
             float scaleFactor = Mathf.Lerp(1f, 1.3f, elapsedTime / duration);
             rectTransform.localScale = originalScale * scaleFactor;
 
-            // 逐渐变透明
             Color newColor = originalColor;
             newColor.a = Mathf.Lerp(1f, 0f, elapsedTime / duration);
             targetImage.color = newColor;
 
-            yield return null;  // 等待下一帧
+            yield return null;
         }
 
-        // 销毁预设体前，更新计数器
         UpdateCounter(target, judgmentPoint);
-
-        // 确保销毁预设体
         Destroy(target);
     }
 
-    // 根据判断点和预设体类型更新计数器
     private void UpdateCounter(GameObject target, int judgmentPoint)
     {
         string prefabName = target.name.Replace("(Clone)", "").Trim();
+        int destructionCode = 0;
 
         if (prefabName == circlePrefab.name)
         {
-            if (judgmentPoint == 1)
-            {
-                GlobalCounters.Judgment_Point1_Circle++;
-                Debug.Log("销毁Circle于 Judgment_Point1，当前计数: " + GlobalCounters.Judgment_Point1_Circle);
-                PlayMusic1();
-            }
-            else if (judgmentPoint == 2)
-            {
-                GlobalCounters.Judgment_Point2_Circle++;
-                Debug.Log("销毁Circle于 Judgment_Point2，当前计数: " + GlobalCounters.Judgment_Point2_Circle);
-                PlayMusic1();
-            }
+            destructionCode = 1;
+            HandleJudgmentPoint(judgmentPoint, ref GlobalCounters.Judgment_Point1_Circle, ref GlobalCounters.Judgment_Point2_Circle);
+            PlayMusic1();
         }
         else if (prefabName == crossesPrefab.name)
         {
-            if (judgmentPoint == 1)
-            {
-                GlobalCounters.Judgment_Point1_Crosses++;
-                Debug.Log("销毁Crosses于 Judgment_Point1，当前计数: " + GlobalCounters.Judgment_Point1_Crosses);
-                PlayMusic2();
-            }
-            else if (judgmentPoint == 2)
-            {
-                GlobalCounters.Judgment_Point2_Crosses++;
-                Debug.Log("销毁Crosses于 Judgment_Point2，当前计数: " + GlobalCounters.Judgment_Point2_Crosses);
-                PlayMusic2();
-            }
+            destructionCode = 2;
+            HandleJudgmentPoint(judgmentPoint, ref GlobalCounters.Judgment_Point1_Crosses, ref GlobalCounters.Judgment_Point2_Crosses);
+            PlayMusic2();
         }
         else if (prefabName == cubePrefab.name)
         {
-            if (judgmentPoint == 1)
-            {
-                GlobalCounters.Judgment_Point1_Cube++;
-                Debug.Log("销毁Cube于 Judgment_Point1，当前计数: " + GlobalCounters.Judgment_Point1_Cube);
-                PlayMusic3();
-            }
-            else if (judgmentPoint == 2)
-            {
-                GlobalCounters.Judgment_Point2_Cube++;
-                Debug.Log("销毁Cube于 Judgment_Point2，当前计数: " + GlobalCounters.Judgment_Point2_Cube);
-                PlayMusic3();
-            }
+            destructionCode = 3;
+            HandleJudgmentPoint(judgmentPoint, ref GlobalCounters.Judgment_Point1_Cube, ref GlobalCounters.Judgment_Point2_Cube);
+            PlayMusic3();
         }
         else if (prefabName == trianglePrefab.name)
         {
-            if (judgmentPoint == 1)
-            {
-                GlobalCounters.Judgment_Point1_Triangle++;
-                Debug.Log("销毁Triangle于 Judgment_Point1，当前计数: " + GlobalCounters.Judgment_Point1_Triangle);
-                PlayMusic4();
-            }
-            else if (judgmentPoint == 2)
-            {
-                GlobalCounters.Judgment_Point2_Triangle++;
-                Debug.Log("销毁Triangle于 Judgment_Point2，当前计数: " + GlobalCounters.Judgment_Point2_Triangle);
-                PlayMusic4();
-            }
+            destructionCode = 4;
+            HandleJudgmentPoint(judgmentPoint, ref GlobalCounters.Judgment_Point1_Triangle, ref GlobalCounters.Judgment_Point2_Triangle);
+            PlayMusic4();
         }
         else if (prefabName == spiderPrefab.name)
         {
-            if (judgmentPoint == 1)
-            {
-                GlobalCounters.Judgment_Point1_spider++;
-                Debug.Log("销毁Triangle于 Judgment_Point1，当前计数: " + GlobalCounters.Judgment_Point1_spider);
-                PlayMusic5();
-            }
-            else if (judgmentPoint == 2)
-            {
-                GlobalCounters.Judgment_Point2_spider++;
-                Debug.Log("销毁Triangle于 Judgment_Point2，当前计数: " + GlobalCounters.Judgment_Point2_spider);
-                PlayMusic5();
-            }
+            destructionCode = 5;
+            HandleJudgmentPoint(judgmentPoint, ref GlobalCounters.Judgment_Point1_spider, ref GlobalCounters.Judgment_Point2_spider);
+            PlayMusic5();
+        }
+
+        if (destructionCode != 0)
+        {
+            destructionSequence.Add(destructionCode);
+            CheckWinCondition();
         }
     }
 
-    // 添加事件触发器（EventTrigger）监听器的辅助函数
+    private void HandleJudgmentPoint(int judgmentPoint, ref int point1Counter, ref int point2Counter)
+    {
+        if (judgmentPoint == 1)
+        {
+            point1Counter++;
+        }
+        else if (judgmentPoint == 2)
+        {
+            point2Counter++;
+        }
+    }
+
+    private void CheckWinCondition()
+    {
+        string currentSequence = string.Join("", destructionSequence);
+        if (currentSequence.Contains(winSequence))
+        {
+            Debug.Log("通关！");
+        }
+    }
+
     private void AddEventTriggerListener(GameObject target, EventTriggerType eventType, UnityEngine.Events.UnityAction<BaseEventData> callback)
     {
         EventTrigger trigger = target.GetComponent<EventTrigger>();
@@ -336,71 +330,45 @@ public class Puzzle2 : MonoBehaviour
         trigger.triggers.Add(entry);
     }
 
-    public void PlayMusic1()
-    {
-        PlayClip(music1);
-    }
+    public void PlayMusic1() => PlayClip(music1);
+    public void PlayMusic2() => PlayClip(music2);
+    public void PlayMusic3() => PlayClip(music3);
+    public void PlayMusic4() => PlayClip(music4);
+    public void PlayMusic5() => PlayClip(music5);
 
-    public void PlayMusic2()
-    {
-        PlayClip(music2);
-    }
-
-    public void PlayMusic3()
-    {
-        PlayClip(music3);
-    }
-
-    public void PlayMusic4()
-    {
-        PlayClip(music4);
-    }
-
-    public void PlayMusic5()
-    {
-        PlayClip(music5);
-    }
     private void OnSoundButtonClick()
     {
         if (audioSource != null && musicClip != null)
         {
-            if (audioSource.isPlaying)
-            {
-                audioSource.Stop();
-            }
+            if (audioSource.isPlaying) audioSource.Stop();
             else
             {
                 audioSource.clip = musicClip;
                 audioSource.Play();
             }
         }
-        else
-        {
-            Debug.LogWarning("音频源或音乐片段未设置");
-        }
+        else Debug.LogWarning("音频源或音乐片段未设置");
     }
+
     private void PlayClip(AudioClip clip)
     {
         if (audioSource != null && clip != null)
         {
-            audioSource.clip = clip; // 设置音频剪辑
-            audioSource.Play(); // 播放音频
+            audioSource.clip = clip;
+            audioSource.Play();
         }
-        else
-        {
-            Debug.LogWarning("AudioSource 或 音频剪辑未设置！");
-        }
+        else Debug.LogWarning("AudioSource 或 音频剪辑未设置！");
     }
 }
+
 public static class GlobalCounters
 {
-    // Judgment_Point1 的计数器
     public static int Judgment_Point1_Circle = 0;
     public static int Judgment_Point1_Crosses = 0;
     public static int Judgment_Point1_Cube = 0;
     public static int Judgment_Point1_Triangle = 0;
     public static int Judgment_Point1_spider = 0;
-    // Judgment_Point2 的计数器
+
     public static int Judgment_Point2_Circle = 0;
     public static int Judgment_Point2_Crosses = 0;
     public static int Judgment_Point2_Cube = 0;
