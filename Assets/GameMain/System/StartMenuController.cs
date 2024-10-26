@@ -20,30 +20,30 @@ public class StartMenuController : MonoBehaviour
     private AudioSource audioSource;
 
     [Range(0f, 1f)]
-    public float volume ;  // ÒôÐ§µÄÒôÁ¿´óÐ¡
+    public float volume ;  // ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡
 
     void Start()
     {
         if (ColorUtility.TryParseHtmlString(hoverColorHex, out hoverColor))
         {
-            // Debug.Log("³É¹¦½«Ê®Áù½øÖÆÑÕÉ«×ª»»Îª Color ÀàÐÍ");
+            // Debug.Log("ï¿½É¹ï¿½ï¿½ï¿½Ê®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«×ªï¿½ï¿½Îª Color ï¿½ï¿½ï¿½ï¿½");
         }
         else
         {
-            // Debug.LogError("Ê®Áù½øÖÆÑÕÉ«×ª»»Ê§°Ü£¬Çë¼ì²é¸ñÊ½");
+            // Debug.LogError("Ê®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«×ªï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½");
         }
 
         hoverBackgroundImage.gameObject.SetActive(false);
 
         audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.volume = volume;  // ÉèÖÃ³õÊ¼ÒôÁ¿´óÐ¡
+        audioSource.volume = volume;  // ï¿½ï¿½ï¿½Ã³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡
 
         AddHoverEffect(startButton, StartGame);
         AddHoverEffect(developmentTeamButton, OpenDevelopmentTeamScene);
         AddHoverEffect(exitButton, QuitGame);
     }
 
-    // Îª°´Å¥Ìí¼ÓÐüÍ£Ð§¹û²¢°ó¶¨µã»÷ÊÂ¼þ
+    // Îªï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ó¶¨µï¿½ï¿½ï¿½Â¼ï¿½
     void AddHoverEffect(Button button, UnityEngine.Events.UnityAction onClickAction)
     {
         button.onClick.AddListener(() => { PlayButtonClickSound(); onClickAction.Invoke(); });
@@ -52,20 +52,20 @@ public class StartMenuController : MonoBehaviour
 
         EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
 
-        // Êó±ê½øÈëÊ±¸ü¸Ä×ÖÌåÑÕÉ«²¢ÏÔÊ¾±³¾°Í¼Æ¬
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
         EventTrigger.Entry pointerEnter = new EventTrigger.Entry();
         pointerEnter.eventID = EventTriggerType.PointerEnter;
         pointerEnter.callback.AddListener((eventData) => { OnHoverEnter(button); });
         trigger.triggers.Add(pointerEnter);
 
-        // Êó±êÒÆ¿ªÊ±»Ö¸´×ÖÌåÑÕÉ«²¢Òþ²Ø±³¾°Í¼Æ¬
+        // ï¿½ï¿½ï¿½ï¿½Æ¿ï¿½Ê±ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½Í¼Æ¬
         EventTrigger.Entry pointerExit = new EventTrigger.Entry();
         pointerExit.eventID = EventTriggerType.PointerExit;
         pointerExit.callback.AddListener((eventData) => { OnHoverExit(button); });
         trigger.triggers.Add(pointerExit);
     }
 
-    // ÐüÍ£Ê±¸Ä±ä×ÖÌåÑÕÉ«²¢ÏÔÊ¾±³¾°Í¼Æ¬
+    // ï¿½ï¿½Í£Ê±ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
     void OnHoverEnter(Button button)
     {
         button.GetComponentInChildren<Text>().color = hoverColor;
@@ -76,24 +76,24 @@ public class StartMenuController : MonoBehaviour
         hoverBackgroundImage.rectTransform.sizeDelta = button.GetComponent<RectTransform>().sizeDelta;
     }
 
-    // Êó±êÒÆ¿ªÊ±»Ö¸´Ô­À´µÄ×ÖÌåÑÕÉ«²¢Òþ²Ø±³¾°Í¼Æ¬
+    // ï¿½ï¿½ï¿½ï¿½Æ¿ï¿½Ê±ï¿½Ö¸ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½Í¼Æ¬
     void OnHoverExit(Button button)
     {
         button.GetComponentInChildren<Text>().color = originalColor;
         hoverBackgroundImage.gameObject.SetActive(false);
     }
 
-    // ²¥·Å°´Å¥µã»÷ÒôÐ§
+    // ï¿½ï¿½ï¿½Å°ï¿½Å¥ï¿½ï¿½ï¿½ï¿½ï¿½Ð§
     void PlayButtonClickSound()
     {
         if (buttonClickSound != null)
         {
-            audioSource.volume = volume;  // È·±£Ã¿´Î²¥·ÅÒôÐ§Ê±ÒôÁ¿ÕýÈ·
+            audioSource.volume = volume;  // È·ï¿½ï¿½Ã¿ï¿½Î²ï¿½ï¿½ï¿½ï¿½ï¿½Ð§Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·
             audioSource.PlayOneShot(buttonClickSound);
         }
         else
         {
-            Debug.LogError("°´Å¥µã»÷ÒôÐ§Î´ÉèÖÃ£¡");
+            Debug.LogError("ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½ï¿½Ð§Î´ï¿½ï¿½ï¿½Ã£ï¿½");
         }
     }
 
@@ -105,7 +105,7 @@ public class StartMenuController : MonoBehaviour
 
     void LoadLevel1Scene()
     {
-        SceneManager.LoadScene("StartAnimation");//ÏÈ×ª¶¯»­³¡¾°£¬¶¯»­×Ô¶¯Ìø×ªµÚÒ»¹Ø
+        SceneManager.LoadScene("Animation-Start");
     }
 
     void OpenDevelopmentTeamScene()
@@ -123,7 +123,7 @@ public class StartMenuController : MonoBehaviour
     {
         Application.Quit();
 
-        // ÔÚUnityÖÐ²âÊÔ
+        // ï¿½ï¿½Unityï¿½Ð²ï¿½ï¿½ï¿½
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
