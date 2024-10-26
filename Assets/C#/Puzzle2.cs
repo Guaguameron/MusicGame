@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement; 
 
 public class Puzzle2 : MonoBehaviour
 { // 四个不同的预设体
@@ -49,6 +50,8 @@ public class Puzzle2 : MonoBehaviour
 
     private GameObject selectedPrefab;  // 当前选择的预设体
 
+    public Button continueButton; // Continue按钮
+
     void Start()
     {
         // 获取Canvas的Camera
@@ -78,6 +81,8 @@ public class Puzzle2 : MonoBehaviour
         
         soundButton.onClick.AddListener(OnSoundButtonClick);
    
+        // 为Continue按钮添加点击事件监听器
+        continueButton.onClick.AddListener(OnContinueButtonClick);
     }
 
     void Update()
@@ -347,6 +352,13 @@ public class Puzzle2 : MonoBehaviour
         {
             Debug.LogWarning("音频源或音乐片段未设置");
         }
+    }
+
+    // Continue按钮点击事件处理方法
+    private void OnContinueButtonClick()
+    {
+       
+        SceneManager.LoadScene("MissGame");
     }
 
 }
