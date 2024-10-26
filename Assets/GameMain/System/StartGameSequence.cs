@@ -12,8 +12,8 @@ public class StartGameSequence : MonoBehaviour
     public GameObject GameController;
     public AudioSource GameMusic;
 
-    public Button showButton; // Ê¯Ì¨°´Å¥
-    public Image imageToShow; // µã»÷Ê¯Ì¨ºóÏÔÊ¾µÄÍ¼Æ¬
+    public Button showButton; // çŸ³å°æŒ‰é’®
+    public Image imageToShow; // ç‚¹å‡»çŸ³å°åæ˜¾ç¤ºçš„å›¾ç‰‡
     public Button jumpSceneButton;
 
     void Start()
@@ -40,12 +40,12 @@ public class StartGameSequence : MonoBehaviour
         yield return new WaitForSeconds(GoDisplayTime);
         GoImage.gameObject.SetActive(false);
 
-        if (!PauseGame.isPaused) // È·±£ÓÎÏ·Î´ÔİÍ£²Å¼ÌĞø
+        if (!PauseGame.isPaused) //ç¡®ä¿æ¸¸æˆæœªæš‚åœæ‰ç»§ç»­
         {
             GameController.SetActive(true);
             GameMusic.Play();
 
-            // ¼ì²éÒôÀÖ²¥·Å×´Ì¬²¢´¦ÀíÔİÍ£µÄÇé¿ö
+            // æ£€æŸ¥éŸ³ä¹æ’­æ”¾çŠ¶æ€å¹¶å¤„ç†æš‚åœçš„æƒ…å†µ
             yield return StartCoroutine(WaitForMusicToEnd());
 
             if (!PauseGame.isPaused)
@@ -62,11 +62,11 @@ public class StartGameSequence : MonoBehaviour
         {
             if (!PauseGame.isPaused)
             {
-                yield return null; // ÓÎÏ·ÕıÔÚ½øĞĞÊ±
+                yield return null; //æ¸¸æˆæ­£åœ¨è¿›è¡Œæ—¶
             }
             else
             {
-                yield return new WaitForSeconds(0.1f); // ÔİÍ£Ê±µÈ´ı
+                yield return new WaitForSeconds(0.1f); //æš‚åœæ—¶ç­‰å¾…
             }
         }
     }
@@ -87,26 +87,31 @@ public class StartGameSequence : MonoBehaviour
     {
         if (!PauseGame.isPaused)
         {
-            SceneManager.LoadScene("Puzzle2");//½ø½âÃÕÓÎÏ·
+            SceneManager.LoadScene("Puzzle2");
         }
     }
 
-    // ´¦ÀíÊ§È¥½¹µãÊ±µÄÔİÍ£ÎÊÌâ
+    //å¤„ç†å¤±å»ç„¦ç‚¹æ—¶çš„æš‚åœé—®é¢˜
     void OnApplicationFocus(bool hasFocus)
     {
-        if (!hasFocus && GameMusic.isPlaying)
+               if (!hasFocus && GameMusic.isPlaying)
         {
-            // Èç¹ûÊ§È¥½¹µã²¢ÇÒÒôÀÖÕıÔÚ²¥·Å£¬½«ÔİÍ£ÓÎÏ·
+            // å¦‚æœå¤±å»ç„¦ç‚¹å¹¶ä¸”éŸ³ä¹æ­£åœ¨æ’­æ”¾ï¼Œå°†æš‚åœæ¸¸æˆ
             PauseGame.isPaused = true;
-            GameMusic.Pause(); // ÔİÍ£ÒôÀÖ
-            GameController.SetActive(false); // ÔİÍ£ÓÎÏ·ÖĞµÄÆäËû²Ù×÷
+            GameMusic.Pause(); // æš‚åœéŸ³ä¹
+            GameController.SetActive(false); // æš‚åœæ¸¸æˆä¸­çš„å…¶ä»–æ“ä½œ
         }
         else if (hasFocus)
         {
-            // »Ö¸´½¹µãÊ±µÄ´¦ÀíÂß¼­
+            // æ¢å¤ç„¦ç‚¹æ—¶çš„å¤„ç†é€»è¾‘
             PauseGame.isPaused = false;
-            GameMusic.Play(); // »Ö¸´ÒôÀÖ
-            GameController.SetActive(true); // »Ö¸´ÓÎÏ·
+            GameMusic.Play(); // æ¢å¤éŸ³ä¹
+            GameController.SetActive(true); // æ¢å¤æ¸¸æˆ
         }
+    }
+
+    public bool IsMusicPlaying()
+    {
+        return GameMusic.isPlaying;
     }
 }

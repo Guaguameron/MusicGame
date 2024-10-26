@@ -10,7 +10,7 @@ public class PlayNoteUI : MonoBehaviour
 
     void Start()
     {
-        tip.text = "";  // ³õÊ¼Ê±Òş²ØÌáÊ¾ÎÄ×Ö
+        tip.text = "";  // åˆå§‹æ—¶éšè—æç¤ºæ–‡å­—
         comboText.text = "";
         comboImage.gameObject.SetActive(false);
     }
@@ -23,7 +23,7 @@ public class PlayNoteUI : MonoBehaviour
         PlayNoteModel.UpdateTip();
         tip.text = PlayNoteModel.tip;
 
-        // ¸üĞÂ combo Êı
+        // æ›´æ–° combo æ•°
         int currentCombo = PlayNoteModel.GetCombo();
         if (currentCombo > 0)
         {
@@ -32,7 +32,7 @@ public class PlayNoteUI : MonoBehaviour
         }
         else
         {
-            comboText.text = "";  // Combo Îª 0 Ê±Òş²ØÏÔÊ¾
+            comboText.text = "";  //  Combo ä¸º 0 æ—¶éšè—æ˜¾ç¤º
             comboImage.gameObject.SetActive(false);
         }
     }

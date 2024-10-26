@@ -11,17 +11,17 @@ public class GameController : MonoBehaviour
     public GameObject Note1;
     public GameObject Note2;
 
-    public Slider musicProgressBar; // ½ø¶ÈÌõ
+    public Slider musicProgressBar; //è¿›åº¦æ¡
     public AudioSource audioSource;
 
-    private GameObject fillArea; // ½ø¶ÈÌõµÄ Fill Area
+    private GameObject fillArea; // è¿›åº¦æ¡çš„ Fill Area
     float myTime = 0;
     private List<NoteModel> noteList = new List<NoteModel>();
 
     void Start()
     {
         PlayNoteModel.Start();
-        // ÔİÊ±Ö»ÄÃµÚÒ»¸önoteList
+        //æš‚æ—¶åªæ‹¿ç¬¬ä¸€ä¸ªnoteList
         noteList = PlayNoteModel.DataTables.TbNoteMap.DataList[0].NodeList;
 
         fillArea = musicProgressBar.transform.Find("Fill Area").gameObject;
@@ -41,7 +41,7 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        // µ±ÒôÀÖ¿ªÊ¼²¥·ÅÊ±£¬ÏÔÊ¾½ø¶ÈÌõµÄÌî³ä²¿·Ö
+        // å½“éŸ³ä¹å¼€å§‹æ’­æ”¾æ—¶ï¼Œæ˜¾ç¤ºè¿›åº¦æ¡çš„å¡«å……éƒ¨åˆ†
         if (audioSource != null && musicProgressBar != null && audioSource.isPlaying)
         {
             if (fillArea != null && !fillArea.activeSelf)

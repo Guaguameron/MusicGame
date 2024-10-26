@@ -3,9 +3,20 @@ using UnityEngine;
 public class BackgroundManager : MonoBehaviour
 {
     public BackgroundLayer[] backgroundLayers;
+    private StartGameSequence gameSequence;
+    private bool musicHasStarted = false;
+    private bool musicHasEnded = false;
+    private float musicStartTime;
+    private float musicLength;
 
     private void Start()
     {
+        gameSequence = FindObjectOfType<StartGameSequence>();
+        if (gameSequence == null)
+        {
+            Debug.LogError("StartGameSequence not found!");
+        }
+
         foreach (var layer in backgroundLayers)
         {
             InitializeLayer(layer);
@@ -14,7 +25,24 @@ public class BackgroundManager : MonoBehaviour
 
     private void Update()
     {
-        if (!PauseGame.isPaused)
+        // æ£€æŸ¥éŸ³ä¹æ˜¯å¦å·²ç»å¼€å§‹æ’­æ”¾
+        if (!musicHasStarted && gameSequence.GameMusic.isPlaying)
+        {
+            musicHasStarted = true;
+            musicStartTime = Time.time;
+            musicLength = gameSequence.GameMusic.clip.length;
+            Debug.Log($"Music started for background. Length: {musicLength}");
+        }
+
+        // æ£€æŸ¥éŸ³ä¹æ˜¯å¦å·²ç»ç»“æŸï¼ˆåŸºäºéŸ³ä¹é•¿åº¦ï¼‰
+        if (musicHasStarted && !musicHasEnded && (Time.time - musicStartTime >= musicLength))
+        {
+            musicHasEnded = true;
+            Debug.Log("Background scrolling stopped");
+        }
+
+        // åªæœ‰åœ¨éŸ³ä¹æ²¡æœ‰ç»“æŸæ—¶æ‰æ»šåŠ¨èƒŒæ™¯
+        if (!musicHasEnded)
         {
             foreach (var layer in backgroundLayers)
             {
@@ -25,11 +53,11 @@ public class BackgroundManager : MonoBehaviour
 
     private void InitializeLayer(BackgroundLayer layer)
     {
-        // ´´½¨µÚ¶ş¸ö±³¾°¶ÔÏó
+        // åˆ›å»ºç¬¬äºŒä¸ªèƒŒæ™¯å¯¹è±¡
         GameObject duplicate = Instantiate(layer.backgroundObject, layer.backgroundObject.transform.parent);
         layer.duplicateObject = duplicate;
 
-        // ÉèÖÃµÚ¶ş¸ö±³¾°¶ÔÏóµÄÎ»ÖÃ
+        // è®¾ç½®ç¬¬äºŒä¸ªèƒŒæ™¯å¯¹è±¡çš„ä½ç½®
         float width = GetBackgroundWidth(layer.backgroundObject);
         duplicate.transform.position = layer.backgroundObject.transform.position + new Vector3(width, 0, 0);
     }
@@ -38,17 +66,17 @@ public class BackgroundManager : MonoBehaviour
     {
         float width = GetBackgroundWidth(layer.backgroundObject);
 
-        // ÒÆ¶¯Á½¸ö±³¾°¶ÔÏó
+        // ç§»åŠ¨ä¸¤ä¸ªèƒŒæ™¯å¯¹è±¡
         MoveBackground(layer.backgroundObject, layer, width);
         MoveBackground(layer.duplicateObject, layer, width);
     }
 
     private void MoveBackground(GameObject bg, BackgroundLayer layer, float width)
     {
-        // ÒÆ¶¯±³¾°
+        // ç§»åŠ¨èƒŒæ™¯
         bg.transform.Translate(Vector3.left * layer.scrollSpeed * Time.deltaTime);
 
-        // Èç¹û±³¾°ÍêÈ«ÒÆ³öÆÁÄ»×ó²à£¬½«ÆäÒÆ¶¯µ½ÁíÒ»¸ö±³¾°µÄÓÒ²à
+        // å¦‚æœèƒŒæ™¯å®Œå…¨ç§»å‡ºå±å¹•å·¦ä¾§ï¼Œå°†å…¶ç§»åŠ¨åˆ°å¦ä¸€ä¸ªèƒŒæ™¯çš„å³ä¾§
         if (bg.transform.position.x <= -width)
         {
             bg.transform.position += new Vector3(width * 2, 0, 0);
