@@ -236,7 +236,7 @@ public class Puzzle2 : MonoBehaviour
     }
 
     private List<int> destructionSequence = new List<int>();
-    private string winSequence = "1234132312341255"; // 通关序列的数字字符串
+    private string winSequence = "1234123212341255"; // 通关序列的数字字符串
 
     private IEnumerator ScaleAndFadeThenDestroy(GameObject target, int judgmentPoint)
     {

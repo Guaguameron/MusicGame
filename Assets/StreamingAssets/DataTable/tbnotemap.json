@@ -5,253 +5,246 @@
     "music_name": "music1",
     "node_list": [
       {
-        "time": 0.97,
+        "time": 0.91,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 1.58,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 2.65,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 3.45,
+        "time": 1.72,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 4.26,
+        "time": 2.33,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 3.4,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 4.2,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 4.88,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 5.94,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 6.11,
+        "time": 5.01,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 6.76,
+        "time": 5.63,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 7.58,
+        "time": 6.69,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 6.86,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 7.7,
+        "time": 7.51,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 8.17,
+        "time": 8.33,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 9.2,
+        "time": 8.45,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 9.61,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 10.06,
+        "time": 8.92,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 10.85,
+        "time": 9.95,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 11.54,
+        "time": 10.36,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 12.53,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 12.96,
+        "time": 10.81,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 13.37,
+        "time": 11.6,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 14.2,
+        "time": 12.29,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 13.28,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 13.71,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 14.33,
+        "time": 14.12,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 14.81,
+        "time": 14.95,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 15.41,
+        "time": 15.08,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 15.87,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 16.24,
+        "time": 15.56,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 16.68,
+        "time": 16.16,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 17.07,
+        "time": 16.62,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 16.99,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 17.24,
+        "time": 17.43,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 17.49,
+        "time": 17.82,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 17.9,
+        "time": 17.99,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 18.11,
+        "time": 18.24,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 18.72,
+        "time": 18.65,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 19.15,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 19.58,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 19.97,
+        "time": 18.86,
         "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 19.47,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 19.9,
+        "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
@@ -264,1554 +257,1554 @@
         "isReward": 1
       },
       {
-        "time": 20.56,
+        "time": 20.72,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 20.76,
+        "time": 21.08,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 22.45,
+        "time": 21.31,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 22.89,
+        "time": 21.51,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 23.2,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 23.64,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 23.31,
+        "time": 24.06,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 23.71,
+        "time": 24.46,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 23.91,
+        "time": 24.66,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 24.14,
+        "time": 24.89,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 24.58,
+        "time": 25.33,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 24.75,
+        "time": 25.5,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 25.36,
+        "time": 26.11,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 25.76,
+        "time": 26.51,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 26.19,
+        "time": 26.94,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 26.61,
+        "time": 27.36,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 27.02,
+        "time": 27.77,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 27.23,
+        "time": 27.98,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 27.4,
+        "time": 28.15,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 28.06,
+        "time": 28.81,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 28.67,
+        "time": 29.42,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 29.12,
+        "time": 29.87,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 29.99,
+        "time": 30.74,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 30.72,
+        "time": 31.47,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 31.37,
+        "time": 32.12,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 31.98,
+        "time": 32.73,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 32.4,
+        "time": 33.15,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 32.83,
+        "time": 33.58,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 33.2,
+        "time": 33.95,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 34.03,
+        "time": 34.78,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 34.68,
+        "time": 35.43,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 35.26,
+        "time": 36.01,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 35.7,
+        "time": 36.45,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 35.9,
+        "time": 36.65,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 36.1,
+        "time": 36.85,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 36.29,
+        "time": 37.04,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 36.52,
+        "time": 37.27,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 36.96,
+        "time": 37.71,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 37.36,
+        "time": 38.11,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 37.8,
+        "time": 38.55,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 37.98,
+        "time": 38.73,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 38.62,
+        "time": 39.37,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 39,
+        "time": 39.75,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 39.85,
+        "time": 40.6,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 40.68,
+        "time": 41.43,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 41.27,
+        "time": 42.02,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 41.92,
+        "time": 42.67,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 42.33,
+        "time": 43.08,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 42.53,
+        "time": 43.28,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 42.74,
+        "time": 43.49,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 42.93,
+        "time": 43.68,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 43.16,
+        "time": 43.91,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 43.56,
+        "time": 44.31,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 43.96,
+        "time": 44.71,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 44.6,
+        "time": 45.35,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 45.2,
+        "time": 45.95,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 45.65,
+        "time": 46.4,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 46.07,
+        "time": 46.82,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 46.45,
+        "time": 47.2,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 46.85,
+        "time": 47.6,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 47.06,
+        "time": 47.81,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 48.93,
+        "time": 49.68,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 49.34,
+        "time": 50.09,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 49.78,
+        "time": 50.53,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 50.2,
+        "time": 50.95,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 50.59,
+        "time": 51.34,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 51.22,
+        "time": 51.97,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 51.84,
+        "time": 52.59,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 52.27,
+        "time": 53.02,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 52.45,
+        "time": 53.2,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 53.1,
+        "time": 53.85,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 53.54,
+        "time": 54.29,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 53.75,
+        "time": 54.5,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 54.56,
+        "time": 55.31,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 55.76,
+        "time": 56.51,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 56.39,
+        "time": 57.14,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 56.81,
+        "time": 57.56,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 57,
+        "time": 57.75,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 57.21,
+        "time": 57.96,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 57.62,
+        "time": 58.37,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 57.82,
+        "time": 58.57,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 58.04,
+        "time": 58.79,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 58.45,
+        "time": 59.2,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 58.87,
+        "time": 59.62,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 59.28,
+        "time": 60.03,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 59.69,
+        "time": 60.44,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 60.12,
+        "time": 60.87,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 60.32,
+        "time": 61.07,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 60.51,
+        "time": 61.26,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 60.94,
+        "time": 61.69,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 61.14,
+        "time": 61.89,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 61.35,
+        "time": 62.1,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 61.76,
+        "time": 62.51,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 61.98,
+        "time": 62.73,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 62.48,
+        "time": 63.23,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 62.58,
+        "time": 63.33,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 63.01,
+        "time": 63.76,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 63.41,
+        "time": 64.16,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 63.63,
+        "time": 64.38,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 63.83,
+        "time": 64.58,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 64.29,
+        "time": 65.04,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 64.45,
+        "time": 65.2,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 64.65,
+        "time": 65.4,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 65.06,
+        "time": 65.81,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 65.26,
+        "time": 66.01,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 65.5,
+        "time": 66.25,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 65.9,
+        "time": 66.65,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 66.33,
+        "time": 67.08,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 66.75,
+        "time": 67.5,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 66.94,
+        "time": 67.69,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 67.14,
+        "time": 67.89,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 67.55,
+        "time": 68.3,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 67.76,
+        "time": 68.51,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 67.97,
+        "time": 68.72,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 68.38,
+        "time": 69.13,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 69.62,
+        "time": 70.37,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 70.04,
+        "time": 70.79,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 70.25,
+        "time": 71,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 70.45,
+        "time": 71.2,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 70.86,
+        "time": 71.61,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 71.28,
+        "time": 72.03,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 71.69,
+        "time": 72.44,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 71.91,
+        "time": 72.66,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 72.33,
+        "time": 73.08,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 72.52,
+        "time": 73.27,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 72.94,
+        "time": 73.69,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 73.35,
+        "time": 74.1,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 73.55,
+        "time": 74.3,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 73.77,
+        "time": 74.52,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 74.17,
+        "time": 74.92,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 74.59,
+        "time": 75.34,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 74.99,
+        "time": 75.74,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 75.41,
+        "time": 76.16,
         "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 75.61,
-        "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
         "time": 76.36,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 77.92,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 79.56,
+        "time": 77.11,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 81.21,
+        "time": 78.67,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 82.88,
+        "time": 80.31,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 83.32,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 83.69,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 84.54,
+        "time": 81.96,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 85.57,
+        "time": 83.63,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 86.17,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 86.58,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 86.99,
+        "time": 84.07,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 87.43,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 87.85,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 88.25,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 88.66,
+        "time": 84.44,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 89.07,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 89.5,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 90.29,
+        "time": 85.29,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 90.53,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 90.93,
+        "time": 86.32,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 91.96,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 92.19,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 92.38,
+        "time": 86.92,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 92.57,
+        "time": 87.33,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 87.74,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 92.77,
+        "time": 88.18,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 88.6,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 89,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 89.41,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 93.2,
+        "time": 89.82,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 93.65,
+        "time": 90.25,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 93.85,
+        "time": 91.04,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 91.28,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 91.68,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 94.05,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 94.25,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 94.86,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 95.08,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 95.3,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 95.51,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 95.7,
+        "time": 92.71,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 95.91,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 96.12,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 96.95,
+        "time": 92.94,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 97.56,
+        "time": 93.13,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 98.21,
+        "time": 93.32,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 98.62,
+        "time": 93.52,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 99.42,
+        "time": 93.95,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 99.85,
+        "time": 94.4,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 100.07,
+        "time": 94.6,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 94.8,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 100.15,
+        "time": 95,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 95.61,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 95.83,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 96.05,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 96.26,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 96.45,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 100.24,
+        "time": 96.66,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 100.45,
+        "time": 96.87,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 100.66,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 100.87,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 101.49,
+        "time": 97.7,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 101.9,
+        "time": 98.31,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 102.32,
+        "time": 98.96,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 102.73,
+        "time": 99.37,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 100.17,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 100.6,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 100.82,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 104.18,
+        "time": 100.9,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 104.81,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 105.22,
+        "time": 100.99,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 105.42,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 106.03,
+        "time": 101.2,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 106.49,
+        "time": 101.41,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 106.68,
+        "time": 101.62,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 106.87,
+        "time": 102.24,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 102.65,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 107.31,
+        "time": 103.07,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 108.14,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 108.33,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 108.52,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 108.74,
+        "time": 103.48,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 108.94,
+        "time": 104.93,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 109.14,
+        "time": 105.56,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 109.35,
+        "time": 105.97,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 106.17,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 110.2,
+        "time": 106.78,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 110.41,
+        "time": 107.24,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 107.43,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 107.62,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 108.06,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 110.61,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 110.82,
+        "time": 108.89,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 111,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 111.43,
+        "time": 109.08,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 111.85,
+        "time": 109.27,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 112.27,
+        "time": 109.49,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 112.66,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 113.08,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 113.48,
+        "time": 109.69,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 113.9,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 114.31,
+        "time": 109.89,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 114.75,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 115.99,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 116.38,
+        "time": 110.1,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 116.8,
+        "time": 110.95,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 117.2,
+        "time": 111.16,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 117.31,
+        "time": 111.36,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 117.61,
+        "time": 111.57,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 111.75,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 112.18,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 112.6,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 113.02,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 113.41,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 113.83,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 114.23,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 114.65,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 115.06,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 115.5,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 116.74,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 117.13,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 117.55,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 117.95,
         "track": 1,
         "speed": 5.2,
         "length": 0,
@@ -1819,468 +1812,482 @@
       },
       {
         "time": 118.06,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 118.48,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 118.68,
+        "time": 118.36,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 118.81,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 119.23,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 118.86,
+        "time": 119.43,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 119.05,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 119.29,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 119.7,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 119.92,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 120.12,
+        "time": 119.61,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 120.54,
+        "time": 119.8,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 120.75,
+        "time": 120.04,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 120.45,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 120.67,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 120.87,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 121.35,
+        "time": 121.29,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 121.95,
+        "time": 121.5,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 122.6,
+        "time": 122.1,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 122.7,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 123.01,
+        "time": 123.35,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 123.22,
+        "time": 123.76,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 123.42,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 123.84,
+        "time": 123.97,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 124.06,
+        "time": 124.17,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 124.68,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 124.88,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 125.09,
+        "time": 124.59,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 125.3,
+        "time": 124.81,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 125.43,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 125.63,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 125.84,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 125.51,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 125.71,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 125.9,
+        "time": 126.05,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 126.32,
+        "time": 126.26,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 126.54,
+        "time": 126.46,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 126.64,
+        "time": 126.65,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 126.73,
+        "time": 127.07,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 127.17,
+        "time": 127.29,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 127.36,
+        "time": 127.39,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 128,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 128.42,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 128.83,
+        "time": 127.48,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 129.23,
+        "time": 127.92,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 128.11,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 129.62,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 129.83,
+        "time": 128.75,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 130.05,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 130.46,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 130.67,
+        "time": 129.17,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 131.27,
+        "time": 129.58,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 129.98,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 131.71,
+        "time": 130.37,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 130.58,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 131.91,
+        "time": 130.8,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 132.53,
+        "time": 131.21,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 132.95,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 133.35,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 133.76,
+        "time": 131.42,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 134.16,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 134.59,
+        "time": 132.02,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 135.03,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 135.22,
+        "time": 132.46,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 135.41,
+        "time": 132.66,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 135.62,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 135.82,
+        "time": 133.28,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 136.27,
+        "time": 133.7,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 136.49,
+        "time": 134.1,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 137.11,
+        "time": 134.51,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 137.31,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 137.9,
+        "time": 134.91,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 138.32,
+        "time": 135.34,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 139.14,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 139.57,
-        "track": 2,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 139.99,
+        "time": 135.78,
         "track": 1,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 140.39,
-        "track": 1,
-        "speed": 5.2,
-        "length": 0,
-        "isReward": 1
-      },
-      {
-        "time": 141.22,
+        "time": 135.97,
         "track": 2,
         "speed": 5.2,
         "length": 0,
         "isReward": 1
       },
       {
-        "time": 142.48,
+        "time": 136.16,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 136.37,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 136.57,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 137.02,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 137.24,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 137.86,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 138.06,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 138.65,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 139.07,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 139.89,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 140.32,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 140.74,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 141.14,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 141.97,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 143.23,
         "track": 1,
         "speed": 5.2,
         "length": 0,
