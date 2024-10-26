@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement; 
 
 public class Puzzle3 : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class Puzzle3 : MonoBehaviour
 
     private bool allConnected = false;  // To track if all objects are connected
 
+    public Button giveUpButton; 
+
     void Start()
     {
         // Add click listeners to each button GameObject and initialize drag events
@@ -40,6 +43,9 @@ public class Puzzle3 : MonoBehaviour
 
         // Populate the list with named child objects and Start_EndPoint objects
         CollectObjects();
+
+        // 为放弃按钮添加点击事件监听器
+        giveUpButton.onClick.AddListener(OnGiveUpButtonClick);
     }
 
     void Update()
@@ -308,5 +314,11 @@ public class Puzzle3 : MonoBehaviour
 
 
 
+    }
+
+    // 放弃按钮点击事件处理方法
+    private void OnGiveUpButtonClick()
+    {        
+        SceneManager.LoadScene("Memory");
     }
 }
