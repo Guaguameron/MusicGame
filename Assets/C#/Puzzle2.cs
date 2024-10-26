@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Puzzle2 : MonoBehaviour
@@ -29,7 +30,7 @@ public class Puzzle2 : MonoBehaviour
     private List<GameObject> spawnedPrefabs = new List<GameObject>();  // 存储所有生成的预设体
     private bool isButtonHeld = false;
     private bool isMoving = false;  // 用来判断预设体是否开始移动
- public GameObject heldPrefab;  // 新增：存储当前按下的 prefab
+    public GameObject heldPrefab;  // 新增：存储当前按下的 prefab
     private Transform playSpace;  // Play_Space的引用
     private Camera canvasCamera;  // Canvas上的Camera引用
 
@@ -42,9 +43,9 @@ public class Puzzle2 : MonoBehaviour
     public AudioClip music4; // MP3 音频剪辑 4
     public AudioClip music5; // MP3 音频剪辑 5
 
-    public GameObject MainObj;
+    public GameObject HitPage;
 
-    
+
 
     void Start()
     {
@@ -160,12 +161,23 @@ public class Puzzle2 : MonoBehaviour
     {
         isButtonHeld = true;
         heldPrefab = prefab; // 直接更新为按下的 prefab
+        if (prefab.name == circlePrefab.name + "(Clone)")
+            PlayMusic1();
+        else if (prefab.name == crossesPrefab.name + "(Clone)")
+            PlayMusic2();
+        else if (prefab.name == cubePrefab.name + "(Clone)")
+            PlayMusic3();
+        else if (prefab.name == trianglePrefab.name + "(Clone)")
+            PlayMusic4();
+        else if (prefab.name == spiderPrefab.name + "(Clone)")
+            PlayMusic5();
+
         Debug.Log("11111");
     }
 
 
     // 处理预设体按下时跟随鼠标移动
-   
+
 
     // 处理预设体松开时停止移动
     private void OnPrefabPointerUp(BaseEventData data)
@@ -314,9 +326,11 @@ public class Puzzle2 : MonoBehaviour
         if (currentSequence.Contains(winSequence))
         {
             Debug.Log("通关！");
+
+            // 加载下一个场景 MissGame
+            SceneManager.LoadScene("MissGame");
         }
     }
-
     private void AddEventTriggerListener(GameObject target, EventTriggerType eventType, UnityEngine.Events.UnityAction<BaseEventData> callback)
     {
         EventTrigger trigger = target.GetComponent<EventTrigger>();
@@ -359,9 +373,27 @@ public class Puzzle2 : MonoBehaviour
         }
         else Debug.LogWarning("AudioSource 或 音频剪辑未设置！");
     }
+
+
+    public void OpenPage()
+    {
+
+        HitPage.SetActive(true);
+
+
+
+    }
+    public void ClosePage()
+    {
+
+        HitPage.SetActive(false);
+
+
+
+    }
 }
 
-public static class GlobalCounters
+    public static class GlobalCounters
 {
     public static int Judgment_Point1_Circle = 0;
     public static int Judgment_Point1_Crosses = 0;
