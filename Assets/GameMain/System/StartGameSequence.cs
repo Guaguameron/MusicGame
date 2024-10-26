@@ -87,7 +87,7 @@ public class StartGameSequence : MonoBehaviour
     {
         if (!PauseGame.isPaused)
         {
-            SceneManager.LoadScene("Development Team");
+            SceneManager.LoadScene("Puzzle2");//╫Ь╫Бцусно╥
         }
     }
 

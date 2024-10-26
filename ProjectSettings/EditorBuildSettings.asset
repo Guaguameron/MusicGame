@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Development Team.unity
     guid: 2b70c2ccd6ea2fb45882fb72826717f6
+  - enabled: 1
+    path: Assets/Scenes/Puzzle2.unity
+    guid: fbe117483f04c124fa7ef25640b88710
+  - enabled: 1
+    path: Assets/Scenes/MissGame.unity
+    guid: 2956b98755b9d334280d9e7726ee0f77
   m_configObjects: {}

@@ -17,7 +17,14 @@ public class Puzzle2 : MonoBehaviour
     public Button crossesButton;
     public Button cubeButton;
     public Button triangleButton;
+
     public Button playButton;  // 公共的Play_Button
+
+
+    public Button soundButton;
+    public AudioSource audioSource; // 用于播放音乐的AudioSource组件
+    public AudioClip musicClip; // 要播放的音乐片段
+    
 
     public Canvas canvas;  // 公有的Canvas
     public Transform Judgment_Point1;  // 判断点1
@@ -64,9 +71,13 @@ public class Puzzle2 : MonoBehaviour
         AddEventTriggerListener(crossesButton.gameObject, EventTriggerType.PointerUp, OnPointerUp);
         AddEventTriggerListener(cubeButton.gameObject, EventTriggerType.PointerUp, OnPointerUp);
         AddEventTriggerListener(triangleButton.gameObject, EventTriggerType.PointerUp, OnPointerUp);
+       
 
         // 为Play_Button添加click事件监听器
         playButton.onClick.AddListener(OnPlayButtonClick);
+        
+        soundButton.onClick.AddListener(OnSoundButtonClick);
+   
     }
 
     void Update()
@@ -134,7 +145,6 @@ public class Puzzle2 : MonoBehaviour
             // 为生成的预设体添加事件监听器
             AddEventTriggerListener(spawnedPrefab, EventTriggerType.PointerDown, (data) => OnPrefabPointerDown(data, spawnedPrefab));
             AddEventTriggerListener(spawnedPrefab, EventTriggerType.PointerUp, (data) => OnPrefabPointerUp(data, spawnedPrefab));
-
 
             isButtonHeld = true;
         }
@@ -318,6 +328,27 @@ public class Puzzle2 : MonoBehaviour
         entry.callback.AddListener(callback);
         trigger.triggers.Add(entry);
     }
+    //播放音乐
+    private void OnSoundButtonClick()
+    {
+        if (audioSource != null && musicClip != null)
+        {
+            if (audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
+            else
+            {
+                audioSource.clip = musicClip;
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            Debug.LogWarning("音频源或音乐片段未设置");
+        }
+    }
+
 }
 public static class GlobalCounters
 {

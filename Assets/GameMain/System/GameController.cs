@@ -1,37 +1,61 @@
 using cfg;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Linq;
 using SimpleJSON;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
     public GameObject Note;
-
     public GameObject Note1;
     public GameObject Note2;
 
+    public Slider musicProgressBar; // 进度条
+    public AudioSource audioSource;
+
+    private GameObject fillArea; // 进度条的 Fill Area
     float myTime = 0;
     private List<NoteModel> noteList = new List<NoteModel>();
 
-    public Tables DataTables { get; private set; }
-    // Start is called before the first frame update
     void Start()
     {
-        LoadDataTables();
+        PlayNoteModel.Start();
         // 暂时只拿第一个noteList
-        noteList = DataTables.TbNoteMap.DataList[0].NodeList;
+        noteList = PlayNoteModel.DataTables.TbNoteMap.DataList[0].NodeList;
+
+        fillArea = musicProgressBar.transform.Find("Fill Area").gameObject;
+
+        if (fillArea != null)
+        {
+            fillArea.SetActive(false);
+        }
+
+        if (audioSource != null && musicProgressBar != null)
+        {
+            musicProgressBar.maxValue = audioSource.clip.length;
+            musicProgressBar.value = 0;
+            musicProgressBar.interactable = false;
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        myTime += Time.deltaTime;
-        foreach (NoteModel model in noteList)
+        // 当音乐开始播放时，显示进度条的填充部分
+        if (audioSource != null && musicProgressBar != null && audioSource.isPlaying)
         {
+            if (fillArea != null && !fillArea.activeSelf)
+            {
+                fillArea.SetActive(true);
+            }
+            musicProgressBar.value = audioSource.time;
+        }
+
+        myTime += Time.deltaTime;
+
+        for (int i = noteList.Count - 1; i >= 0; i--)
+        {
+            NoteModel model = noteList[i];
             if (model.Time <= myTime)
             {
                 GameObject instance;
@@ -39,12 +63,14 @@ public class GameController : MonoBehaviour
                 {
                     instance = Instantiate(Note, Note1.transform.position, Quaternion.identity);
                 }
-                else{
+                else
+                {
                     instance = Instantiate(Note, Note2.transform.position, Quaternion.identity);
                 }
                 instance.GetComponent<Note>().track = model.Track;
                 instance.GetComponent<Note>().noteSpeed = model.Speed;
-                noteList.Remove(model);
+
+                noteList.RemoveAt(i);
             }
         }
     }
@@ -52,11 +78,5 @@ public class GameController : MonoBehaviour
     private void GenerateNote()
     {
 
-    }
-
-    public void LoadDataTables()
-    {
-        string gameConfDir = $"{Application.streamingAssetsPath}/DataTable";
-        DataTables = new Tables(file => JSON.Parse(File.ReadAllText($"{gameConfDir}/{file}.json")));
     }
 }
