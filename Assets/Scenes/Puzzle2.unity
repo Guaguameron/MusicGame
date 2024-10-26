@@ -1553,19 +1553,25 @@ MonoBehaviour:
   crossesPrefab: {fileID: 4952989151861202845, guid: fde86134ca3ed6140a3b7fe44e1b8fac, type: 3}
   cubePrefab: {fileID: 2858292915278973808, guid: 0eb59aecf9d2f384e8b2b699960523ad, type: 3}
   trianglePrefab: {fileID: 7626558649027559642, guid: 64436c9c5c4e50047affc6a281f93e5b, type: 3}
+  spiderPrefab: {fileID: 8615889383952128230, guid: 9f36a5c4e533f7646bf0ee39ee962f99, type: 3}
   circleButton: {fileID: 997238583}
   crossesButton: {fileID: 1650432667}
   cubeButton: {fileID: 85975801}
   triangleButton: {fileID: 76478750}
+  SpiderButton: {fileID: 1389113033}
   playButton: {fileID: 515340638}
   soundButton: {fileID: 573460663}
-  audioSource: {fileID: 265547966}
-  musicClip: {fileID: 8300000, guid: 97295e97dbb48804e87db7a2e02da4c4, type: 3}
   canvas: {fileID: 516481823}
   Judgment_Point1: {fileID: 625522417}
   Judgment_Point2: {fileID: 1660260228}
   moveSpeed: 100
-  continueButton: {fileID: 1860389693}
+  musicClip: {fileID: 8300000, guid: 97295e97dbb48804e87db7a2e02da4c4, type: 3}
+  audioSource: {fileID: 265547966}
+  music1: {fileID: 8300000, guid: 63ceceb7c2a4d1d4b8fdf7114da71351, type: 3}
+  music2: {fileID: 8300000, guid: 65cb19c9d47d9494ebb81b3dadc61e9b, type: 3}
+  music3: {fileID: 8300000, guid: ea67d4dee0fda94419bc88fcc2faf65c, type: 3}
+  music4: {fileID: 8300000, guid: c43e7fddfe9063046a256342162303e6, type: 3}
+  music5: {fileID: 8300000, guid: 65a2fc26162567548a950e0786ceaab6, type: 3}
 --- !u!4 &914853805
 Transform:
   m_ObjectHideFlags: 0
