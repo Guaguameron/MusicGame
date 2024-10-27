@@ -2,7 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
+using System;
 
 public class Puzzle3 : MonoBehaviour
 {
@@ -30,8 +31,27 @@ public class Puzzle3 : MonoBehaviour
 
     private bool allConnected = false;  // To track if all objects are connected
 
-    public Button giveUpButton; 
+    public Button giveUpButton;
+    public AudioSource audioSource; // 公共 AudioSource
+    public AudioClip music1; // MP3 音频剪辑 1
+    public AudioClip music2; // MP3 音频剪辑 2
+    public AudioClip music3; // MP3 音频剪辑 3
+    public AudioClip music4; // MP3 音频剪辑 4
+    public AudioClip music5; // MP3 音频剪辑 5
+    public AudioClip music6; // MP3 音频剪辑 6
+    public AudioClip music7; // MP3 音频剪辑 7
+    public AudioClip music8; // MP3 音频剪辑 8
 
+
+
+    public Button button1;               // UI 按钮 1
+    public Button button2;               // UI 按钮 2
+    public Button button3;               // UI 按钮 3
+    public Button button4;               // UI 按钮 4
+    public Button button5;               // UI 按钮 5
+    public Button button6;               // UI 按钮 6
+    public Button button7;               // UI 按钮 7
+    public Button button8;               // UI 按钮 8
     void Start()
     {
         // Add click listeners to each button GameObject and initialize drag events
@@ -46,6 +66,16 @@ public class Puzzle3 : MonoBehaviour
 
         // 为放弃按钮添加点击事件监听器
         giveUpButton.onClick.AddListener(OnGiveUpButtonClick);
+
+        AddEventTriggerListener(button1.gameObject, EventTriggerType.PointerDown, (data) => PlayMusic(music1));
+        AddEventTriggerListener(button2.gameObject, EventTriggerType.PointerDown, (data) => PlayMusic(music2));
+        AddEventTriggerListener(button3.gameObject, EventTriggerType.PointerDown, (data) => PlayMusic(music3));
+        AddEventTriggerListener(button4.gameObject, EventTriggerType.PointerDown, (data) => PlayMusic(music4));
+        AddEventTriggerListener(button5.gameObject, EventTriggerType.PointerDown, (data) => PlayMusic(music5));
+        AddEventTriggerListener(button6.gameObject, EventTriggerType.PointerDown, (data) => PlayMusic(music6));
+        AddEventTriggerListener(button7.gameObject, EventTriggerType.PointerDown, (data) => PlayMusic(music7));
+        AddEventTriggerListener(button8.gameObject, EventTriggerType.PointerDown, (data) => PlayMusic(music8));
+
     }
 
     void Update()
@@ -60,6 +90,7 @@ public class Puzzle3 : MonoBehaviour
         if (allConnected)
         {
             Debug.Log("全连接了");
+            SceneManager.LoadScene("Memory");
         }
         else
         {
@@ -288,17 +319,16 @@ public class Puzzle3 : MonoBehaviour
             Debug.Log("没有全连接");
         }
 
-        
+
     }
-    public void playmusic()
+    private void PlayMusic(AudioClip clip)
     {
-
-
-
-
-
+        if (clip != null && audioSource != null)
+        {
+            audioSource.clip = clip;
+            audioSource.Play();
+        }
     }
-
     public void OpenPage()
     {
 
@@ -318,7 +348,25 @@ public class Puzzle3 : MonoBehaviour
 
     // 放弃按钮点击事件处理方法
     private void OnGiveUpButtonClick()
-    {        
+    {
         SceneManager.LoadScene("Memory");
     }
+
+
+    private void AddEventTriggerListener(GameObject obj, EventTriggerType eventType, Action<BaseEventData> action)
+    {
+        EventTrigger trigger = obj.GetComponent<EventTrigger>();
+        if (trigger == null)
+        {
+            trigger = obj.AddComponent<EventTrigger>();
+        }
+
+        EventTrigger.Entry entry = new EventTrigger.Entry
+        {
+            eventID = eventType
+        };
+        entry.callback.AddListener((data) => action(data));
+        trigger.triggers.Add(entry);
+    }
 }
+

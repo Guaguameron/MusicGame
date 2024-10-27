@@ -44,7 +44,7 @@ public class Puzzle2 : MonoBehaviour
     public AudioClip music5; // MP3 音频剪辑 5
 
     public GameObject HitPage;
-
+    public GameObject[] PositionPoint;
 
 
     void Start()
@@ -108,16 +108,15 @@ public class Puzzle2 : MonoBehaviour
                 RectTransform prefabRect = heldPrefab.GetComponent<RectTransform>();
                 prefabRect.anchoredPosition = localPoint;
 
-                // 判断生成的预设体与Judgment_Point1的距离
-                if (Mathf.Abs(prefabRect.anchoredPosition.y - Judgment_Point1.localPosition.y) < 20)
+                // 检查与 PositionPoint 中的物体距离
+                foreach (GameObject positionPoint in PositionPoint)
                 {
-                    prefabRect.anchoredPosition = new Vector2(prefabRect.anchoredPosition.x, Judgment_Point1.localPosition.y);
-                }
-
-                // 判断生成的预设体与Judgment_Point2的距离
-                if (Mathf.Abs(prefabRect.anchoredPosition.y - Judgment_Point2.localPosition.y) < 20)
-                {
-                    prefabRect.anchoredPosition = new Vector2(prefabRect.anchoredPosition.x, Judgment_Point2.localPosition.y);
+                    RectTransform pointRect = positionPoint.GetComponent<RectTransform>();
+                    if (Vector2.Distance(prefabRect.anchoredPosition, pointRect.anchoredPosition) < 20f)
+                    {
+                        prefabRect.anchoredPosition = pointRect.anchoredPosition;
+                        break; // 找到符合条件的 PositionPoint 后，跳出循环
+                    }
                 }
             }
         }
@@ -209,9 +208,9 @@ public class Puzzle2 : MonoBehaviour
         foreach (GameObject prefab in spawnedPrefabs)
         {
             RectTransform prefabRect = prefab.GetComponent<RectTransform>();
-
             prefabRect.anchoredPosition += new Vector2(-moveSpeed * Time.deltaTime, 0);
 
+            // 检查是否碰到 Judgment_Point1 或 Judgment_Point2
             if (Vector2.Distance(prefabRect.anchoredPosition, Judgment_Point1.localPosition) < 1f)
             {
                 StartCoroutine(ScaleAndFadeThenDestroy(prefab, 1));
@@ -236,7 +235,7 @@ public class Puzzle2 : MonoBehaviour
     }
 
     private List<int> destructionSequence = new List<int>();
-    private string winSequence = "1234123212341255"; // 通关序列的数字字符串
+    private string winSequence = "1234132312341255"; // 通关序列的数字字符串
 
     private IEnumerator ScaleAndFadeThenDestroy(GameObject target, int judgmentPoint)
     {
@@ -393,7 +392,7 @@ public class Puzzle2 : MonoBehaviour
     }
 }
 
-    public static class GlobalCounters
+public static class GlobalCounters
 {
     public static int Judgment_Point1_Circle = 0;
     public static int Judgment_Point1_Crosses = 0;
