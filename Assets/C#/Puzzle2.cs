@@ -30,7 +30,7 @@ public class Puzzle2 : MonoBehaviour
     private List<GameObject> spawnedPrefabs = new List<GameObject>();  // 存储所有生成的预设体
     private bool isButtonHeld = false;
     private bool isMoving = false;  // 用来判断预设体是否开始移动
-    public GameObject heldPrefab;  // 新增：存储当前按下的 prefab
+    public GameObject heldPrefab;  // 存储当前按下的 prefab
     private Transform playSpace;  // Play_Space的引用
     private Camera canvasCamera;  // Canvas上的Camera引用
 
@@ -43,9 +43,10 @@ public class Puzzle2 : MonoBehaviour
     public AudioClip music4; // MP3 音频剪辑 4
     public AudioClip music5; // MP3 音频剪辑 5
 
+    public Button HitButton;
     public GameObject HitPage;
     public GameObject[] PositionPoint;
-
+    
 
     void Start()
     {
@@ -114,8 +115,27 @@ public class Puzzle2 : MonoBehaviour
                     RectTransform pointRect = positionPoint.GetComponent<RectTransform>();
                     if (Vector2.Distance(prefabRect.anchoredPosition, pointRect.anchoredPosition) < 20f)
                     {
-                        prefabRect.anchoredPosition = pointRect.anchoredPosition;
-                        break; // 找到符合条件的 PositionPoint 后，跳出循环
+                        // 检查该位置是否已经有其他音符
+                        bool positionOccupied = false;
+                        foreach (GameObject existingPrefab in spawnedPrefabs)
+                        {
+                            if (existingPrefab != heldPrefab) // 不与自己比较
+                            {
+                                RectTransform existingRect = existingPrefab.GetComponent<RectTransform>();
+                                if (Vector2.Distance(existingRect.anchoredPosition, pointRect.anchoredPosition) < 5f)
+                                {
+                                    positionOccupied = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        // 只有当位置未被占用时才吸附
+                        if (!positionOccupied)
+                        {
+                            prefabRect.anchoredPosition = pointRect.anchoredPosition;
+                        }
+                        break;
                     }
                 }
             }
@@ -181,8 +201,44 @@ public class Puzzle2 : MonoBehaviour
     // 处理预设体松开时停止移动
     private void OnPrefabPointerUp(BaseEventData data)
     {
+        if (heldPrefab != null)
+        {
+            // 检查当前位置是否与其他音符重叠
+            RectTransform prefabRect = heldPrefab.GetComponent<RectTransform>();
+            bool shouldDestroy = false;
+
+            foreach (GameObject positionPoint in PositionPoint)
+            {
+                RectTransform pointRect = positionPoint.GetComponent<RectTransform>();
+                if (Vector2.Distance(prefabRect.anchoredPosition, pointRect.anchoredPosition) < 20f)
+                {
+                    // 检查该位置是否已经有其他音符
+                    foreach (GameObject existingPrefab in spawnedPrefabs)
+                    {
+                        if (existingPrefab != heldPrefab) // 不与自己比较
+                        {
+                            RectTransform existingRect = existingPrefab.GetComponent<RectTransform>();
+                            if (Vector2.Distance(existingRect.anchoredPosition, pointRect.anchoredPosition) < 5f)
+                            {
+                                shouldDestroy = true;
+                                break;
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+
+            if (shouldDestroy)
+            {
+                // 如果位置已被占用，销毁当前音符
+                spawnedPrefabs.Remove(heldPrefab);
+                Destroy(heldPrefab);
+            }
+        }
+
         isButtonHeld = false;
-        heldPrefab = null; // 释放当前按下的 prefab
+        heldPrefab = null;
     }
 
     // 处理按钮松开时停止预设体的移动
@@ -235,7 +291,7 @@ public class Puzzle2 : MonoBehaviour
     }
 
     private List<int> destructionSequence = new List<int>();
-    private string winSequence = "1234132312341255"; // 通关序列的数字字符串
+    private string winSequence = "1234123212341255"; // 通关序列的数字字符串
 
     private IEnumerator ScaleAndFadeThenDestroy(GameObject target, int judgmentPoint)
     {
@@ -325,11 +381,28 @@ public class Puzzle2 : MonoBehaviour
         if (currentSequence.Contains(winSequence))
         {
             Debug.Log("通关！");
-
-            // 加载下一个场景 MissGame
-            SceneManager.LoadScene("MissGame");
+            // 增加10000分
+            PlayNoteModel.score += 10000;
+            StartCoroutine(WaitForAudioAndLoadScene());
         }
     }
+
+    // 等待音频播放完成后加载场景
+    private IEnumerator WaitForAudioAndLoadScene()
+    {
+        // 等待当前音效播放完成
+        while (audioSource.isPlaying)
+        {
+            yield return null;
+        }
+        
+        // 添加一个小延迟，确保体验流畅
+        yield return new WaitForSeconds(0.5f);
+        
+        // 加载下一个场景
+        SceneManager.LoadScene("MissGame");
+    }
+
     private void AddEventTriggerListener(GameObject target, EventTriggerType eventType, UnityEngine.Events.UnityAction<BaseEventData> callback)
     {
         EventTrigger trigger = target.GetComponent<EventTrigger>();
@@ -363,32 +436,37 @@ public class Puzzle2 : MonoBehaviour
         else Debug.LogWarning("音频源或音乐片段未设置");
     }
 
-    private void PlayClip(AudioClip clip)
+    private float PlayClip(AudioClip clip)
     {
         if (audioSource != null && clip != null)
         {
             audioSource.clip = clip;
             audioSource.Play();
+            return clip.length; // 返回音频片段的长度
         }
-        else Debug.LogWarning("AudioSource 或 音频剪辑未设置！");
+        else 
+        {
+            Debug.LogWarning("AudioSource 或 音频��辑未设置！");
+            return 0f;
+        }
     }
 
 
     public void OpenPage()
     {
-
         HitPage.SetActive(true);
-
-
-
+        if (HitButton != null)
+        {
+            HitButton.gameObject.SetActive(false);  // 隐藏提示按钮
+        }
     }
     public void ClosePage()
     {
-
         HitPage.SetActive(false);
-
-
-
+        if (HitButton != null)
+        {
+            HitButton.gameObject.SetActive(true);   // 显示提示按钮
+        }
     }
 }
 
@@ -406,3 +484,4 @@ public static class GlobalCounters
     public static int Judgment_Point2_Triangle = 0;
     public static int Judgment_Point2_spider = 0;
 }
+

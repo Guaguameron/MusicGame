@@ -19,6 +19,13 @@ public class Note : MonoBehaviour
 
     private bool isJudged = false; // 标记音符是否已被判定
 
+    // 添加按键设置相关的常量
+    private const string UpperKeyPrefsKey = "UpperKey";
+    private const string LowerKeyPrefsKey = "LowerKey";
+    
+    private KeyCode upperKey;
+    private KeyCode lowerKey;
+    
     void Start()
     {
         upperJudgePoint = GameObject.Find("上判定点").transform;
@@ -30,6 +37,27 @@ public class Note : MonoBehaviour
         GoodJudge = PlayNoteModel.DataTables.TbHardSet.DataList[0].GoodJudge;
 
         audioSource = GameObject.Find("判定点音效").GetComponent<AudioSource>();
+
+        // 加载按键设置
+        LoadKeySettings();
+    }
+
+    void LoadKeySettings()
+    {
+        // 获取保存的按键设置，如果没有则使用默认值
+        string upperKeyStr = PlayerPrefs.GetString(UpperKeyPrefsKey, "J");
+        string lowerKeyStr = PlayerPrefs.GetString(LowerKeyPrefsKey, "K");
+
+        // 将字符串转换为KeyCode
+        if (System.Enum.TryParse(upperKeyStr, out KeyCode parsedUpperKey))
+            upperKey = parsedUpperKey;
+        else
+            upperKey = KeyCode.J;  // 默认值
+
+        if (System.Enum.TryParse(lowerKeyStr, out KeyCode parsedLowerKey))
+            lowerKey = parsedLowerKey;
+        else
+            lowerKey = KeyCode.K;  // 默认值
     }
 
     void Update()
@@ -56,7 +84,8 @@ public class Note : MonoBehaviour
             targetJudgePoint = lowerJudgePoint;
         }
 
-        if ((track == 1 && Input.GetKeyDown(KeyCode.J)) || (track == 2 && Input.GetKeyDown(KeyCode.K)))
+        // 使用自定义按键替换原来的固定按键
+        if ((track == 1 && Input.GetKeyDown(upperKey)) || (track == 2 && Input.GetKeyDown(lowerKey)))
         {
             float pos = Mathf.Abs(transform.position.x - targetJudgePoint.position.x);
 

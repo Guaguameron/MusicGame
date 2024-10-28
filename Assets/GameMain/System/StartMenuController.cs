@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Collections;  
 
 public class StartMenuController : MonoBehaviour
 {
@@ -30,6 +31,24 @@ public class StartMenuController : MonoBehaviour
 
     public AudioSource backgroundMusicSource;
     private float musicVolume = 1f; // 背景音乐音量
+
+    // 添加按键设置相关的UI元素
+    [Header("Key Settings")]
+    public Text upperKeyText;     // 显示上层按键的文本
+    public Text lowerKeyText;     // 显示下层按键的文本
+    public Button upperKeyButton; // 更改上层按键的按钮
+    public Button lowerKeyButton; // 更改下层按键的按钮
+    public Text conflictText;     // 用于显示冲突提示的文本框
+    public Button confirmButton;  // 确定按钮
+    
+    private bool isWaitingForUpperKey = false;
+    private bool isWaitingForLowerKey = false;
+    
+    private const string UpperKeyPrefsKey = "UpperKey";
+    private const string LowerKeyPrefsKey = "LowerKey";
+
+    private string tempUpperKey;
+    private string tempLowerKey;
 
     void Start()
     {
@@ -81,6 +100,45 @@ public class StartMenuController : MonoBehaviour
 
         // 应用初始音量设置
         ApplyMusicVolumeSettings();
+
+        // 初始化按键设置
+        LoadKeySettings();
+        
+        // 添加按键设置按钮的监听器
+        if (upperKeyButton != null)
+        {
+            upperKeyButton.onClick.AddListener(() => {
+                PlayButtonClickSound();
+                StartWaitingForUpperKey();
+            });
+        }
+        
+        if (lowerKeyButton != null)
+        {
+            lowerKeyButton.onClick.AddListener(() => {
+                PlayButtonClickSound();
+                StartWaitingForLowerKey();
+            });
+        }
+
+        // 确保冲突提示文本初始时是隐藏的
+        if (conflictText != null)
+        {
+            conflictText.gameObject.SetActive(false);
+        }
+
+        // 初始化临时按键值
+        tempUpperKey = PlayerPrefs.GetString(UpperKeyPrefsKey, "J");
+        tempLowerKey = PlayerPrefs.GetString(LowerKeyPrefsKey, "K");
+        
+        // 添加确定按钮的监听器
+        if (confirmButton != null)
+        {
+            confirmButton.onClick.AddListener(() => {
+                PlayButtonClickSound();
+                SaveKeySettings();
+            });
+        }
     }
 
     void OnMusicVolumeChanged(float newVolume)
@@ -126,16 +184,32 @@ public class StartMenuController : MonoBehaviour
     {
         button.GetComponentInChildren<Text>().color = hoverColor;
 
+        // 修改这部分代码
         hoverBackgroundImage.gameObject.SetActive(true);
-        hoverBackgroundImage.rectTransform.position = button.transform.position - new Vector3(0, button.GetComponent<RectTransform>().sizeDelta.y / 2, 0);
-
-        hoverBackgroundImage.rectTransform.sizeDelta = button.GetComponent<RectTransform>().sizeDelta;
+        
+        // 使用 SetParent 将 hoverBackgroundImage 设置为按钮的子对象
+        hoverBackgroundImage.transform.SetParent(button.transform, false);
+        
+        // 设置 RectTransform
+        RectTransform hoverRect = hoverBackgroundImage.rectTransform;
+        RectTransform buttonRect = button.GetComponent<RectTransform>();
+        
+        // 重置位置和大小
+        hoverRect.anchorMin = Vector2.zero;
+        hoverRect.anchorMax = Vector2.one;
+        hoverRect.offsetMin = Vector2.zero;
+        hoverRect.offsetMax = Vector2.zero;
+        
+        // 确保在按钮文字的后面
+        hoverBackgroundImage.transform.SetSiblingIndex(0);
     }
 
     // 鼠标移开时恢复原来的字体颜色并隐藏背景图片
     void OnHoverExit(Button button)
     {
         button.GetComponentInChildren<Text>().color = originalColor;
+        // 移回原来的父对象（通常是 Canvas）
+        hoverBackgroundImage.transform.SetParent(transform, false);
         hoverBackgroundImage.gameObject.SetActive(false);
     }
 
@@ -206,5 +280,149 @@ public class StartMenuController : MonoBehaviour
         {
             settingsImage.SetActive(false);
         }
+    }
+
+    void Update()
+    {
+        if (isWaitingForUpperKey || isWaitingForLowerKey)
+        {
+            foreach (KeyCode keyCode in System.Enum.GetValues(typeof(KeyCode)))
+            {
+                if (Input.GetKeyDown(keyCode))
+                {
+                    if (isWaitingForUpperKey)
+                    {
+                        SetUpperKey(keyCode);
+                    }
+                    else if (isWaitingForLowerKey)
+                    {
+                        SetLowerKey(keyCode);
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+    void LoadKeySettings()
+    {
+        string upperKey = PlayerPrefs.GetString(UpperKeyPrefsKey, "J");
+        string lowerKey = PlayerPrefs.GetString(LowerKeyPrefsKey, "K");
+        
+        UpdateKeyDisplayText(upperKeyText, upperKey);
+        UpdateKeyDisplayText(lowerKeyText, lowerKey);
+    }
+    
+    void UpdateKeyDisplayText(Text textComponent, string keyName)
+    {
+        if (textComponent != null)
+        {
+            textComponent.text = keyName;  // 直接显示按键名称
+        }
+    }
+    
+    void StartWaitingForUpperKey()
+    {
+        isWaitingForUpperKey = true;
+        isWaitingForLowerKey = false;
+        if (upperKeyText != null)
+        {
+            upperKeyText.text = "";  // 清空文本
+        }
+    }
+    
+    void StartWaitingForLowerKey()
+    {
+        isWaitingForLowerKey = true;
+        isWaitingForUpperKey = false;
+        if (lowerKeyText != null)
+        {
+            lowerKeyText.text = "";  // 清空文本
+        }
+    }
+    
+    void SetUpperKey(KeyCode keyCode)
+    {
+        string currentLowerKey = tempLowerKey;  // 使用临时存储的值
+        
+        if (keyCode.ToString() != currentLowerKey)
+        {
+            tempUpperKey = keyCode.ToString();  // 存储到临时变量
+            upperKeyText.text = keyCode.ToString();
+            
+            if (conflictText != null)
+            {
+                conflictText.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            if (conflictText != null)
+            {
+                conflictText.gameObject.SetActive(true);
+                conflictText.text = "按键冲突！";
+                StartCoroutine(HideConflictText(1f));
+            }
+            upperKeyText.text = tempUpperKey;
+        }
+        
+        isWaitingForUpperKey = false;
+    }
+    
+    void SetLowerKey(KeyCode keyCode)
+    {
+        string currentUpperKey = tempUpperKey;  // 使用临时存储的值
+        
+        if (keyCode.ToString() != currentUpperKey)
+        {
+            tempLowerKey = keyCode.ToString();  // 存储到临时变量
+            lowerKeyText.text = keyCode.ToString();
+            
+            if (conflictText != null)
+            {
+                conflictText.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            if (conflictText != null)
+            {
+                conflictText.gameObject.SetActive(true);
+                conflictText.text = "按键冲突！";
+                StartCoroutine(HideConflictText(1f));
+            }
+            lowerKeyText.text = tempLowerKey;
+        }
+        
+        isWaitingForLowerKey = false;
+    }
+    
+    IEnumerator HideConflictText(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (conflictText != null)
+        {
+            conflictText.gameObject.SetActive(false);
+        }
+    }
+
+    // 保存按键设置的方法
+    void SaveKeySettings()
+    {
+        // 保存设置到 PlayerPrefs
+        PlayerPrefs.SetString(UpperKeyPrefsKey, tempUpperKey);
+        PlayerPrefs.SetString(LowerKeyPrefsKey, tempLowerKey);
+        PlayerPrefs.Save();
+        
+        // 可以添加保存成功的提示
+        if (conflictText != null)
+        {
+            conflictText.gameObject.SetActive(true);
+            conflictText.text = "设置已保存！";
+            StartCoroutine(HideConflictText(1f));
+        }
+        
+        // 关闭设置面板
+        CloseSettings();
     }
 }

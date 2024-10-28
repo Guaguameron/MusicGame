@@ -6,7 +6,7 @@ public class Comingsoon : MonoBehaviour
 {
     public Button restartButton;
     public Button quitButton;
-    public string startSceneName = "StartScene"; // 替换为你的开始场景名称
+    public string startSceneName = "StartScene"; 
 
     void Start()
     {

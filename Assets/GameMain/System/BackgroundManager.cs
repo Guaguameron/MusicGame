@@ -1,22 +1,17 @@
 using UnityEngine;
 
 public class BackgroundManager : MonoBehaviour
-{
+{ 
     public BackgroundLayer[] backgroundLayers;
-    private StartGameSequence gameSequence;
-    private bool musicHasStarted = false;
-    private bool musicHasEnded = false;
-    private float musicStartTime;
-    private float musicLength;
+    private bool shouldScroll = true;  // 添加控制滚动的标志
+
+    public void StopScrolling()
+    {
+        shouldScroll = false;
+    }
 
     private void Start()
     {
-        gameSequence = FindObjectOfType<StartGameSequence>();
-        if (gameSequence == null)
-        {
-            Debug.LogError("StartGameSequence not found!");
-        }
-
         foreach (var layer in backgroundLayers)
         {
             InitializeLayer(layer);
@@ -25,27 +20,11 @@ public class BackgroundManager : MonoBehaviour
 
     private void Update()
     {
-        // 检查音乐是否已经开始播放
-        if (!musicHasStarted && gameSequence.GameMusic.isPlaying)
-        {
-            musicHasStarted = true;
-            musicStartTime = Time.time;
-            musicLength = gameSequence.GameMusic.clip.length;
-            Debug.Log($"Music started for background. Length: {musicLength}");
-        }
-
-        // 检查音乐是否已经结束（基于音乐长度）
-        if (musicHasStarted && !musicHasEnded && (Time.time - musicStartTime >= musicLength))
-        {
-            musicHasEnded = true;
-            Debug.Log("Background scrolling stopped");
-        }
-
-        // 只有在音乐没有结束时才滚动背景
-        if (!musicHasEnded)
-        {
+        // 只有在应该滚动且未暂停时才移动背景
+        if (shouldScroll && !PauseGame.isPaused)
+        { 
             foreach (var layer in backgroundLayers)
-            {
+            { 
                 MoveBackgroundLayer(layer);
             }
         }
@@ -53,11 +32,11 @@ public class BackgroundManager : MonoBehaviour
 
     private void InitializeLayer(BackgroundLayer layer)
     {
-        // 创建第二个背景对象
+        // �����ڶ�����������
         GameObject duplicate = Instantiate(layer.backgroundObject, layer.backgroundObject.transform.parent);
         layer.duplicateObject = duplicate;
 
-        // 设置第二个背景对象的位置
+        // ���õڶ������������λ��
         float width = GetBackgroundWidth(layer.backgroundObject);
         duplicate.transform.position = layer.backgroundObject.transform.position + new Vector3(width, 0, 0);
     }
@@ -66,17 +45,17 @@ public class BackgroundManager : MonoBehaviour
     {
         float width = GetBackgroundWidth(layer.backgroundObject);
 
-        // 移动两个背景对象
+        // �ƶ�������������
         MoveBackground(layer.backgroundObject, layer, width);
         MoveBackground(layer.duplicateObject, layer, width);
     }
 
     private void MoveBackground(GameObject bg, BackgroundLayer layer, float width)
     {
-        // 移动背景
+        // �ƶ�����
         bg.transform.Translate(Vector3.left * layer.scrollSpeed * Time.deltaTime);
 
-        // 如果背景完全移出屏幕左侧，将其移动到另一个背景的右侧
+        // ���������ȫ�Ƴ���Ļ��࣬�����ƶ�����һ���������Ҳ�
         if (bg.transform.position.x <= -width)
         {
             bg.transform.position += new Vector3(width * 2, 0, 0);
