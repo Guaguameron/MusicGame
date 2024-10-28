@@ -59,9 +59,6 @@ public class Puzzle3 : MonoBehaviour
     public GameObject RulePage;
     public Button RuleButton;
 
-    public Image fadeOutImage; // 用于淡出效果的黑色遮罩
-    private float sceneFadeOutDuration = 2f; // 场景淡出时间
-
     private bool hasAddedScore = false; // 添加一个标志来追踪是否已经加过分
 
     void Start()
@@ -104,19 +101,6 @@ public class Puzzle3 : MonoBehaviour
 
         // 添加点击监听
         AddInstructionPanelClickListener();
-
-        // 初始化淡出遮罩
-        if (fadeOutImage != null)
-        {
-            Color c = fadeOutImage.color;
-            c.a = 0;
-            fadeOutImage.color = c;
-            fadeOutImage.gameObject.SetActive(false);
-        }
-        else
-        {
-            Debug.LogError("Fade Out Image is not assigned! Please assign it in Unity Inspector.");
-        }
     }
 
     void Update()
@@ -138,41 +122,12 @@ public class Puzzle3 : MonoBehaviour
                 PlayNoteModel.score += 2000;
                 hasAddedScore = true; // 标记已经加过分
                 Debug.Log("Puzzle3 添加分数后，当前分数：" + PlayNoteModel.score);
-                StartCoroutine(FadeOutAndLoadScene());
+                // 直接切换场景
+                SceneManager.LoadScene("Memory");
             }
         }
     }
 
-    // 场景转换方法
-    private IEnumerator FadeOutAndLoadScene()
-    {
-        if (fadeOutImage == null)
-        {
-            Debug.LogError("Fade Out Image is not assigned!");
-            SceneManager.LoadScene("Memory");
-            yield break;
-        }
-
-        // 开始淡出效果
-        fadeOutImage.gameObject.SetActive(true);
-        float elapsedTime = 0f;
-        Color c = fadeOutImage.color;
-
-        while (elapsedTime < sceneFadeOutDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            c.a = elapsedTime / sceneFadeOutDuration;
-            fadeOutImage.color = c;
-            yield return null;
-        }
-
-        // 确保完全不透明
-        c.a = 1f;
-        fadeOutImage.color = c;
-        
-        // 加载下一个场景
-        SceneManager.LoadScene("Memory");
-    }
 
     // Method to add EventTrigger components and assign drag-related events
     void AddEventTriggers(GameObject buttonObj)
@@ -501,31 +456,8 @@ public class Puzzle3 : MonoBehaviour
             yield return null;
         }
         
-        // 开始淡出效果
-        yield return StartCoroutine(FadeOutScene());
-        
-        // 加载下一个场景
+        // 直接加载下一个场景，删除淡出效果
         SceneManager.LoadScene("Memory");
-    }
-
-    //场景淡出效果
-    private IEnumerator FadeOutScene()
-    {
-        fadeOutImage.gameObject.SetActive(true);
-        float elapsedTime = 0f;
-        Color c = fadeOutImage.color;
-
-        while (elapsedTime < sceneFadeOutDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            c.a = elapsedTime / sceneFadeOutDuration;
-            fadeOutImage.color = c;
-            yield return null;
-        }
-
-        // 确保完全不透明
-        c.a = 1f;
-        fadeOutImage.color = c;
     }
 
     // 添加说明面板的点击监听
