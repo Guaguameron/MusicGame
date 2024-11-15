@@ -127,7 +127,15 @@ public class Puzzle3 : MonoBehaviour
             }
         }
     }
+    public void ReloadCurrentScene()
+    {
+        // 获取当前活动场景的名称
+        string currentSceneName = SceneManager.GetActiveScene().name;
 
+        // 重新加载当前场景
+        SceneManager.LoadScene(currentSceneName);
+       
+    }
 
     // Method to add EventTrigger components and assign drag-related events
     void AddEventTriggers(GameObject buttonObj)

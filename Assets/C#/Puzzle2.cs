@@ -415,7 +415,25 @@ public class Puzzle2 : MonoBehaviour
         entry.callback.AddListener(callback);
         trigger.triggers.Add(entry);
     }
+    public void ReloadCurrentScene()
+    {
+        // 获取当前活动场景的名称
+        string currentSceneName = SceneManager.GetActiveScene().name;
 
+        // 重新加载当前场景
+        SceneManager.LoadScene(currentSceneName);
+        GlobalCounters.Judgment_Point1_Circle = 0;
+        GlobalCounters.Judgment_Point1_Crosses = 0;
+        GlobalCounters.Judgment_Point1_Cube = 0;
+        GlobalCounters.Judgment_Point1_Triangle = 0;
+        GlobalCounters.Judgment_Point1_spider = 0;
+
+        GlobalCounters.Judgment_Point2_Circle = 0;
+        GlobalCounters.Judgment_Point2_Crosses = 0;
+        GlobalCounters.Judgment_Point2_Cube = 0;
+        GlobalCounters.Judgment_Point2_Triangle = 0;
+        GlobalCounters.Judgment_Point2_spider = 0;
+    }
     public void PlayMusic1() => PlayClip(music1);
     public void PlayMusic2() => PlayClip(music2);
     public void PlayMusic3() => PlayClip(music3);
