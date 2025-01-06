@@ -7,26 +7,26 @@ public class Note : MonoBehaviour
     public int track; // 1表示上层，2表示下层
     public float noteSpeed = 5.0f;
     public AudioClip successSound; //判定音效
-    private AudioSource audioSource;
+    protected AudioSource audioSource;
 
-    private float StartJudge = 1.0f;
-    private float PerfectJudge = 1.0f;
-    private float GreatJudge = 1.0f;
-    private float GoodJudge = 1.0f;
+    protected float StartJudge = 1.0f;
+    protected float PerfectJudge = 1.0f;
+    protected float GreatJudge = 1.0f;
+    protected float GoodJudge = 1.0f;
 
-    private Transform upperJudgePoint; // 上层判定点的位置
-    private Transform lowerJudgePoint; // 下层判定点的位置
+    protected Transform upperJudgePoint; // 上层判定点的位置
+    protected Transform lowerJudgePoint; // 下层判定点的位置
 
-    private bool isJudged = false; // 标记音符是否已被判定
+    protected bool isJudged = false; // 标记音符是否已被判定
 
     // 添加按键设置相关的常量
     private const string UpperKeyPrefsKey = "UpperKey";
     private const string LowerKeyPrefsKey = "LowerKey";
     
-    private KeyCode upperKey;
-    private KeyCode lowerKey;
+    protected KeyCode upperKey;
+    protected KeyCode lowerKey;
     
-    void Start()
+    protected virtual void Start()
     {
         upperJudgePoint = GameObject.Find("上判定点").transform;
         lowerJudgePoint = GameObject.Find("下判定点").transform;
@@ -60,7 +60,7 @@ public class Note : MonoBehaviour
             lowerKey = KeyCode.K;  // 默认值
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if (!isJudged)
         {
@@ -71,7 +71,7 @@ public class Note : MonoBehaviour
         }
     }
 
-    void CheckKeyPress()
+    protected virtual void CheckKeyPress()
     {
         Transform targetJudgePoint = null;
 
@@ -123,14 +123,14 @@ public class Note : MonoBehaviour
         }
     }
 
-    private void Fail(int score)
+    protected void Fail(int score)
     {
         Debug.Log("miss了");
         PlayNoteModel.Fail(score);
         Destroy(gameObject);
     }
 
-    private void Succeed(int score, string tips)
+    protected void Succeed(int score, string tips)
     {
         isJudged = true; // 标记为已判定
         PlaySoundEffect();
@@ -174,7 +174,7 @@ public class Note : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void PlaySoundEffect()
+    protected void PlaySoundEffect()
     {
         if (audioSource != null && successSound != null)
         {

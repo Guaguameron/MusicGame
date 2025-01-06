@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     public GameObject Note;
     public GameObject Note1;
     public GameObject Note2;
+    public GameObject longNotePrefab;
 
     public Slider musicProgressBar; //进度条
     public AudioSource audioSource;
@@ -58,17 +59,24 @@ public class GameController : MonoBehaviour
             NoteModel model = noteList[i];
             if (model.Time <= myTime)
             {
-                GameObject instance;
-                if (model.Track == 1)
+                if (model.Length != 0)
                 {
-                    instance = Instantiate(Note, Note1.transform.position, Quaternion.identity);
+                    CreateLongNote(model.Track, model.Length);
                 }
                 else
                 {
-                    instance = Instantiate(Note, Note2.transform.position, Quaternion.identity);
+                    GameObject instance;
+                    if (model.Track == 1)
+                    {
+                        instance = Instantiate(Note, Note1.transform.position, Quaternion.identity);
+                    }
+                    else
+                    {
+                        instance = Instantiate(Note, Note2.transform.position, Quaternion.identity);
+                    }
+                    instance.GetComponent<Note>().track = model.Track;
+                    instance.GetComponent<Note>().noteSpeed = model.Speed;
                 }
-                instance.GetComponent<Note>().track = model.Track;
-                instance.GetComponent<Note>().noteSpeed = model.Speed;
 
                 noteList.RemoveAt(i);
             }
@@ -78,5 +86,30 @@ public class GameController : MonoBehaviour
     private void GenerateNote()
     {
 
+    }
+
+    private void CreateLongNote(int track, float length)
+    {
+        GameObject noteObj = Instantiate(longNotePrefab);
+        LongNote longNote = noteObj.GetComponent<LongNote>();
+        
+        if (longNote != null)
+        {
+            longNote.track = track;
+            longNote.noteLength = length;
+            
+            // 设置初始位置
+            Vector3 spawnPosition;
+            if (track == 1)
+            {
+                spawnPosition = Note1.transform.position;
+            }
+            else
+            {
+                spawnPosition = Note2.transform.position;
+            }
+            
+            noteObj.transform.position = spawnPosition;
+        }
     }
 }

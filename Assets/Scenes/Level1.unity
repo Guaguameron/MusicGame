@@ -3931,6 +3931,7 @@ MonoBehaviour:
   Note: {fileID: 3191417525683081061, guid: cac3bc47be10df94487d61a1cf57e0f5, type: 3}
   Note1: {fileID: 1012778940}
   Note2: {fileID: 214598669}
+  longNotePrefab: {fileID: 7954005147478483569, guid: 95f437703a50c974fa43f7925287bc9d, type: 3}
   musicProgressBar: {fileID: 808298147}
   audioSource: {fileID: 400013908}
 --- !u!4 &1892672090
