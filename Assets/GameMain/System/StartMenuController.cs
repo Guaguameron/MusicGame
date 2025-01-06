@@ -7,6 +7,7 @@ using System.Collections;
 public class StartMenuController : MonoBehaviour
 {
     public Button startButton;
+    public Button continueButton;
     public Button developmentTeamButton;
     public Button exitButton;
     public Button settingsButton; 
@@ -67,6 +68,7 @@ public class StartMenuController : MonoBehaviour
         audioSource.volume = volume;  // 设置按钮音效的音量
 
         AddHoverEffect(startButton, StartGame);
+        AddHoverEffect(continueButton, ContinueGame);
         AddHoverEffect(developmentTeamButton, OpenDevelopmentTeamScene);
         AddHoverEffect(exitButton, QuitGame);
         AddHoverEffect(settingsButton, OpenSettings); //为设置按钮添加悬停效果
@@ -230,6 +232,20 @@ public class StartMenuController : MonoBehaviour
     {
         PlayButtonClickSound();
         Invoke("LoadLevel1Scene", 0.1f);
+    }
+
+    void ContinueGame()
+    {
+        PlayButtonClickSound();
+        string lastScene = PlayerPrefs.GetString("LastScene", "");
+        if (!string.IsNullOrEmpty(lastScene) && lastScene != SceneManager.GetActiveScene().name)
+        {
+            SceneManager.LoadScene(lastScene);
+        }
+        else
+        {
+            Invoke("LoadLevel1Scene", 0.1f);
+        }
     }
 
     void LoadLevel1Scene()
