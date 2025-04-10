@@ -51,9 +51,11 @@ public class Character : MonoBehaviour
 
     private void StopCharacter()
     {
-        animator.enabled = false;
-        characterImage.sprite = idleSprite;
-        Debug.Log("角色停止跑动");
+        animator.enabled = true;
+        animator.SetBool("IsRunning", false);
+        animator.SetBool("IsFlying", false);
+        animator.Play("Player_Idle");
+        Debug.Log("音乐结束，角色切换到待机状态");
     }
 
     // 判定成功 → 播放一次跳跃 → 自动转飞行
