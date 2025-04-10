@@ -16,10 +16,9 @@ public class MemoryUI : MonoBehaviour
     public Button switchSceneButton;
     public string nextSceneName = "Animation-Lv1Mid";
     public Text scoreText;
-    public Image noUnlockedImage;
 
     private int currentScore = 0;
-    private int[] requiredScores = new int[] { 1000, 40000, 50000, 60000 };
+    private int[] requiredScores = new int[] { 0, 1000, 5000, 15000 };
     private GameObject currentActiveImage;
 
     private void Start()
@@ -27,7 +26,8 @@ public class MemoryUI : MonoBehaviour
         SetRequiredScores();
 
         // 临时设置分数为50000（仅用于调试）
-        //PlayNoteModel.score = 50000;
+        PlayNoteModel.score = 50000;
+
 
         foreach (var pair in storyImagePairs)
         {
@@ -66,31 +66,18 @@ public class MemoryUI : MonoBehaviour
         currentScore = newScore;
         if (scoreText != null)
         {
-            scoreText.text = "前进路程: " + currentScore.ToString() + "M";
+            scoreText.text = "Score: " + currentScore.ToString();
         }
         UpdateButtonStates();
     }
 
     private void UpdateButtonStates()
     {
-        bool hasUnlockedImage = false;
-        
         foreach (var pair in storyImagePairs)
         {
             bool isActive = currentScore >= pair.requiredScore;
             pair.button.interactable = isActive;
             SetButtonHighlight(pair.button, isActive);
-            
-            if (isActive)
-            {
-                hasUnlockedImage = true;
-            }
-        }
-
-        // 根据解锁状态显示或隐藏提示图片
-        if (noUnlockedImage != null)
-        {
-            noUnlockedImage.gameObject.SetActive(!hasUnlockedImage);
         }
     }
 

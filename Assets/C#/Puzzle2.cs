@@ -48,6 +48,9 @@ public class Puzzle2 : MonoBehaviour
     public GameObject[] PositionPoint;
     
     public GameObject restartText; // 重启提示文本对象
+    public GameObject newImage;  // 新添加的图片引用
+    public Button ReButton;      // 新添加的 ReButton 引用
+    public Button closeButton;   // 新添加的关闭按钮引用
 
     private Dictionary<GameObject, Coroutine> checkCoroutines = new Dictionary<GameObject, Coroutine>();
 
@@ -79,6 +82,12 @@ public class Puzzle2 : MonoBehaviour
 
         // 为Play_Button添加click事件监听器
         playButton.onClick.AddListener(OnPlayButtonClick);
+
+        // 添加关闭按钮的点击事件
+        if (closeButton != null)
+        {
+            closeButton.onClick.AddListener(ClosePage);
+        }
     }
 
     void Update()
@@ -90,17 +99,6 @@ public class Puzzle2 : MonoBehaviour
         if (isMoving)
         {
             MovePrefabs();
-        }
-
-        // 检测点击关闭 HitPage
-        if (HitPage != null && HitPage.activeSelf && Input.GetMouseButtonDown(0))
-        {
-            HitPage.SetActive(false);
-            if (HitButton != null)
-            {
-                HitButton.gameObject.SetActive(true);   // 显示提示按钮
-            }
-           
         }
     }
 
@@ -448,7 +446,7 @@ public class Puzzle2 : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         
         // 加载下一个场景
-        SceneManager.LoadScene("MissGame");
+        SceneManager.LoadScene("Memory");
     }
 
     private void AddEventTriggerListener(GameObject target, EventTriggerType eventType, UnityEngine.Events.UnityAction<BaseEventData> callback)
@@ -465,11 +463,11 @@ public class Puzzle2 : MonoBehaviour
     }
     public void ReloadCurrentScene()
     {
-        // 显示重启提示文本
+        // 显示重启提示文本并开始动画
         if (restartText != null)
         {
             restartText.SetActive(true);
-            StartCoroutine(ReloadSceneWithDelay());
+            StartCoroutine(RestartTextAnimation());
         }
         else
         {
@@ -478,14 +476,58 @@ public class Puzzle2 : MonoBehaviour
         }
     }
 
-    // 添加新的协程方法来处理延迟重载
-    private IEnumerator ReloadSceneWithDelay()
+    // 新添加的文本动画协程
+    private IEnumerator RestartTextAnimation()
     {
-        yield return new WaitForSeconds(1f); // 等待1秒
-        if (restartText != null)
+        float duration = 1f; // 动画持续时间
+        float elapsedTime = 0f;
+        
+        RectTransform textRect = restartText.GetComponent<RectTransform>();
+        Text textComponent = restartText.GetComponent<Text>();
+        
+        if (textRect == null || textComponent == null)
         {
-            restartText.SetActive(false);
+            yield return new WaitForSeconds(1f);
+            ExecuteReload();
+            yield break;
         }
+
+        Vector3 originalScale = textRect.localScale;
+        Color originalColor = textComponent.color;
+        
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float progress = elapsedTime / duration;
+            
+            // 缓动效果
+            float easeProgress = Mathf.Sin(progress * Mathf.PI * 0.5f);
+            
+            // 放大效果 (从1倍到1.5倍)
+            float scaleMultiplier = Mathf.Lerp(1f, 1.5f, easeProgress);
+            textRect.localScale = originalScale * scaleMultiplier;
+            
+            // 透明度渐变 (从1到0)
+            Color newColor = originalColor;
+            newColor.a = Mathf.Lerp(1f, 0f, easeProgress);
+            textComponent.color = newColor;
+            
+            yield return null;
+        }
+
+        // 确保最终状态
+        textRect.localScale = originalScale * 1.5f;
+        Color finalColor = originalColor;
+        finalColor.a = 0f;
+        textComponent.color = finalColor;
+        
+        // 重置文本属性
+        textRect.localScale = originalScale;
+        textComponent.color = originalColor;
+        
+        restartText.SetActive(false);
+        
+        // 执行场景重载
         ExecuteReload();
     }
 
@@ -544,7 +586,6 @@ public class Puzzle2 : MonoBehaviour
         }
     }
 
-
     public void OpenPage()
     {
         HitPage.SetActive(true);
@@ -552,7 +593,14 @@ public class Puzzle2 : MonoBehaviour
         {
             HitButton.gameObject.SetActive(false);  // 隐藏提示按钮
         }
-
+        if (newImage != null)
+        {
+            newImage.SetActive(false);  // 隐藏新图片
+        }
+        if (ReButton != null)
+        {
+            ReButton.gameObject.SetActive(false);  // 隐藏 ReButton
+        }
     }
 
     private void OnPointerUp(BaseEventData data)
@@ -561,6 +609,27 @@ public class Puzzle2 : MonoBehaviour
         {
             isButtonHeld = false;
             heldPrefab = null;
+        }
+    }
+
+    // 新添加的关闭页面方法
+    private void ClosePage()
+    {
+        if (HitPage != null)
+        {
+            HitPage.SetActive(false);
+            if (HitButton != null)
+            {
+                HitButton.gameObject.SetActive(true);   // 显示提示按钮
+            }
+            if (newImage != null)
+            {
+                newImage.SetActive(true);  // 显示新图片
+            }
+            if (ReButton != null)
+            {
+                ReButton.gameObject.SetActive(true);  // 显示 ReButton
+            }
         }
     }
 }

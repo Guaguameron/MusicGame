@@ -13,11 +13,11 @@ public class StartGameSequence : MonoBehaviour
     public AudioSource GameMusic;
     public BackgroundManager backgroundManager;
 
-    public Button showButton; // 石台按钮
-    public Image imageToShow; // 点击石台后显示的图片
-    public Button jumpSceneButton;
+    public Button showButton; // 记忆碎片按钮
+    public Image imageToShow; // 记忆碎片点击后显示的说明图片
+    public Button jumpSceneButton;//说明图片跳转按钮
 
-    // public Image highlightOutline; // 石台外框图片（暂时不用）
+    // public Image highlightOutline; // 外框图片（暂时不用）
 
     private Coroutine pulseCoroutine;
 

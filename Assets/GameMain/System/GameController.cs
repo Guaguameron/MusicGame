@@ -13,12 +13,11 @@ public class GameController : MonoBehaviour
     public GameObject Note2;
     public GameObject longNotePrefab;
 
-    public Slider musicProgressBar; //进度条
+    public Image progressBarImage; // 替换原来的Slider，使用Image
     public AudioSource audioSource;
 
-    private GameObject fillArea; // 进度条的 Fill Area
-    float myTime = 0;
     private List<NoteModel> noteList = new List<NoteModel>();
+    float myTime = 0;
 
     void Start()
     {
@@ -26,31 +25,36 @@ public class GameController : MonoBehaviour
         //暂时只拿第一个noteList
         noteList = PlayNoteModel.DataTables.TbNoteMap.DataList[0].NodeList;
 
-        fillArea = musicProgressBar.transform.Find("Fill Area").gameObject;
-
-        if (fillArea != null)
+        if (progressBarImage != null)
         {
-            fillArea.SetActive(false);
+            progressBarImage.type = Image.Type.Filled;  // 设置图片类型为Filled
+            progressBarImage.fillMethod = Image.FillMethod.Horizontal;  // 设置填充方式为水平
+            progressBarImage.fillOrigin = (int)Image.OriginHorizontal.Left;  // 从左向右填充
+            progressBarImage.fillAmount = 0;  // 初始填充量为0
+            progressBarImage.gameObject.SetActive(false); // 初始时隐藏进度条
         }
 
-        if (audioSource != null && musicProgressBar != null)
+        if (audioSource != null)
         {
-            musicProgressBar.maxValue = audioSource.clip.length;
-            musicProgressBar.value = 0;
-            musicProgressBar.interactable = false;
+            // 不需要设置maxValue，因为fillAmount是0-1的值
         }
     }
 
     void Update()
     {
-        // 当音乐开始播放时，显示进度条的填充部分
-        if (audioSource != null && musicProgressBar != null && audioSource.isPlaying)
+        // 更新进度条
+        if (audioSource != null && audioSource.clip != null && progressBarImage != null)
         {
-            if (fillArea != null && !fillArea.activeSelf)
+            // 当音乐开始播放时显示进度条
+            if (audioSource.isPlaying)
             {
-                fillArea.SetActive(true);
+                if (!progressBarImage.gameObject.activeSelf)
+                {
+                    progressBarImage.gameObject.SetActive(true); // 显示进度条
+                }
+                float progress = audioSource.time / audioSource.clip.length;
+                progressBarImage.fillAmount = progress;  // 设置填充量
             }
-            musicProgressBar.value = audioSource.time;
         }
 
         myTime += Time.deltaTime;

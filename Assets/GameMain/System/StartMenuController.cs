@@ -51,43 +51,37 @@ public class StartMenuController : MonoBehaviour
     private string tempUpperKey;
     private string tempLowerKey;
 
+    public AudioClip buttonHoverSound; // 添加悬停音效
+
     void Start()
     {
-        if (ColorUtility.TryParseHtmlString(hoverColorHex, out hoverColor))
-        {
-            // Debug.Log("成功将十六进制颜色转换为 Color 类型");
-        }
-        else
-        {
-            // Debug.LogError("十六进制颜色转换失败，请检查格式");
-        }
+        Debug.Log("开始初始化StartMenuController");
+        
+        // 1. 初始化音频
+        InitializeAudio();
+        
+        // 2. 初始化颜色
+        InitializeColors();
 
-        hoverBackgroundImage.gameObject.SetActive(false);
+        // 3. 初始化按键设置（提前初始化按键文本）
+        InitializeKeySettings();
+        
+        // 4. 初始化主菜单按钮
+        InitializeMainMenuButtons();
+        
+        // 5. 初始化设置面板
+        InitializeSettingsPanel();
+    }
 
+    private void InitializeAudio()
+    {
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.volume = volume;  // 设置按钮音效的音量
-
-        AddHoverEffect(startButton, StartGame);
-        AddHoverEffect(continueButton, ContinueGame);
-        AddHoverEffect(developmentTeamButton, OpenDevelopmentTeamScene);
-        AddHoverEffect(exitButton, QuitGame);
-        AddHoverEffect(settingsButton, OpenSettings); //为设置按钮添加悬停效果
-
-        // 为设置图片中的返回按钮添加点击事件
-        if (settingsBackButton != null)
-        {
-            settingsBackButton.onClick.AddListener(CloseSettings);
-        }
-
-        // 确保设置图片初始时是隐藏的
-        if (settingsImage != null)
-        {
-            settingsImage.SetActive(false);
-        }
 
         // 初始化音量滑块
         if (volumeSlider != null)
         {
+            volumeSlider.onValueChanged.RemoveAllListeners(); // 清除现有的监听器
             musicVolume = PlayerPrefs.GetFloat(VolumePrefsKey, 1f);
             volumeSlider.value = musicVolume;
             volumeSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
@@ -102,49 +96,170 @@ public class StartMenuController : MonoBehaviour
 
         // 应用初始音量设置
         ApplyMusicVolumeSettings();
+    }
 
-        // 初始化按键设置
-        LoadKeySettings();
+    private void InitializeColors()
+    {
+        if (ColorUtility.TryParseHtmlString(hoverColorHex, out hoverColor))
+        {
+            // Debug.Log("成功将十六进制颜色转换为 Color 类型");
+        }
+        else
+        {
+            // Debug.LogError("十六进制颜色转换失败，请检查格式");
+        }
+
+        // 设置所有按钮文字的初始颜色为白色
+        originalColor = Color.white;
+        SetInitialButtonTextColor(startButton);
+        SetInitialButtonTextColor(continueButton);
+        SetInitialButtonTextColor(developmentTeamButton);
+        SetInitialButtonTextColor(exitButton);
+        SetInitialButtonTextColor(settingsButton);
+
+        hoverBackgroundImage.gameObject.SetActive(false);
+    }
+
+    private void InitializeKeySettings()
+    {
+        Debug.Log("初始化按键设置");
         
-        // 添加按键设置按钮的监听器
+        // 初始化按键值
+        tempUpperKey = PlayerPrefs.GetString(UpperKeyPrefsKey, "J");
+        tempLowerKey = PlayerPrefs.GetString(LowerKeyPrefsKey, "K");
+
+        // 立即更新文本显示
+        if (upperKeyText != null)
+        {
+            upperKeyText.text = tempUpperKey;
+            Debug.Log($"上层按键文本已设置为: {tempUpperKey}");
+        }
+        else
+        {
+            Debug.LogError("upperKeyText 未赋值！");
+        }
+
+        if (lowerKeyText != null)
+        {
+            lowerKeyText.text = tempLowerKey;
+            Debug.Log($"下层按键文本已设置为: {tempLowerKey}");
+        }
+        else
+        {
+            Debug.LogError("lowerKeyText 未赋值！");
+        }
+
+        // 设置按钮监听器
         if (upperKeyButton != null)
         {
+            upperKeyButton.onClick.RemoveAllListeners();
             upperKeyButton.onClick.AddListener(() => {
                 PlayButtonClickSound();
                 StartWaitingForUpperKey();
             });
         }
-        
+
         if (lowerKeyButton != null)
         {
+            lowerKeyButton.onClick.RemoveAllListeners();
             lowerKeyButton.onClick.AddListener(() => {
                 PlayButtonClickSound();
                 StartWaitingForLowerKey();
             });
         }
 
-        // 确保冲突提示文本初始时是隐藏的
-        if (conflictText != null)
-        {
-            conflictText.gameObject.SetActive(false);
-        }
-
-        // 初始化临时按键值
-        tempUpperKey = PlayerPrefs.GetString(UpperKeyPrefsKey, "J");
-        tempLowerKey = PlayerPrefs.GetString(LowerKeyPrefsKey, "K");
-        
-        // 添加确定按钮的监听器
+        // 设置确认按钮
         if (confirmButton != null)
         {
+            confirmButton.onClick.RemoveAllListeners();
             confirmButton.onClick.AddListener(() => {
                 PlayButtonClickSound();
-                SaveKeySettings();
+                SaveAndCloseSettings();
             });
+        }
+    }
+
+    private void InitializeMainMenuButtons()
+    {
+        Debug.Log("初始化主菜单按钮");
+
+        // 设置按钮点击事件
+        if (startButton != null)
+        {
+            startButton.onClick.RemoveAllListeners();
+            startButton.onClick.AddListener(() => {
+                PlayButtonClickSound();
+                StartGame();
+            });
+        }
+
+        if (continueButton != null)
+        {
+            continueButton.onClick.RemoveAllListeners();
+            continueButton.onClick.AddListener(() => {
+                PlayButtonClickSound();
+                ContinueGame();
+            });
+        }
+
+        if (developmentTeamButton != null)
+        {
+            developmentTeamButton.onClick.RemoveAllListeners();
+            developmentTeamButton.onClick.AddListener(() => {
+                PlayButtonClickSound();
+                OpenDevelopmentTeamScene();
+            });
+        }
+
+        if (exitButton != null)
+        {
+            exitButton.onClick.RemoveAllListeners();
+            exitButton.onClick.AddListener(() => {
+                PlayButtonClickSound();
+                QuitGame();
+            });
+        }
+
+        if (settingsButton != null)
+        {
+            settingsButton.onClick.RemoveAllListeners();
+            settingsButton.onClick.AddListener(() => {
+                PlayButtonClickSound();
+                OpenSettings();
+            });
+        }
+
+        // 添加悬停效果
+        SafeAddHoverEffect(startButton);
+        SafeAddHoverEffect(continueButton);
+        SafeAddHoverEffect(developmentTeamButton);
+        SafeAddHoverEffect(exitButton);
+        SafeAddHoverEffect(settingsButton);
+    }
+
+    private void InitializeSettingsPanel()
+    {
+        // 为设置图片中的返回按钮添加点击事件
+        if (settingsBackButton != null)
+        {
+            settingsBackButton.onClick.RemoveAllListeners();
+            settingsBackButton.onClick.AddListener(() => {
+                SaveKeySettings(); // 先保存设置
+                PlayButtonClickSound();
+                CloseSettings(); // 然后关闭面板
+            });
+        }
+
+        // 确保设置图片初始时是隐藏的
+        if (settingsImage != null)
+        {
+            settingsImage.SetActive(false);
         }
     }
 
     void OnMusicVolumeChanged(float newVolume)
     {
+        Debug.Log($"音量改变: {newVolume}"); // 添加调试日志
         musicVolume = newVolume;
         ApplyMusicVolumeSettings();
         PlayerPrefs.SetFloat(VolumePrefsKey, musicVolume);
@@ -155,64 +270,71 @@ public class StartMenuController : MonoBehaviour
     {
         if (backgroundMusicSource != null)
         {
+            Debug.Log($"应用音量设置: {musicVolume}"); // 添加调试日志
             backgroundMusicSource.volume = musicVolume;
         }
     }
 
-    // 为按钮添加悬停效果并绑定点击事件
-    void AddHoverEffect(Button button, UnityEngine.Events.UnityAction onClickAction)
+    // 修改悬停效果方法
+    private void SafeAddHoverEffect(Button button)
     {
-        button.onClick.AddListener(() => { PlayButtonClickSound(); onClickAction.Invoke(); });
+        if (button == null) return;
 
-        originalColor = button.GetComponentInChildren<Text>().color;
+        Text buttonText = button.GetComponentInChildren<Text>();
+        if (buttonText == null) return;
 
-        EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
+        // 设置初始颜色
+        buttonText.color = originalColor;
 
-        // 鼠标进入时更改字体颜色并显示背景图片
-        EventTrigger.Entry pointerEnter = new EventTrigger.Entry();
-        pointerEnter.eventID = EventTriggerType.PointerEnter;
-        pointerEnter.callback.AddListener((eventData) => { OnHoverEnter(button); });
-        trigger.triggers.Add(pointerEnter);
+        // 添加事件触发器
+        EventTrigger trigger = button.gameObject.GetComponent<EventTrigger>();
+        if (trigger == null)
+        {
+            trigger = button.gameObject.AddComponent<EventTrigger>();
+        }
 
-        // 鼠标移开时恢复字体颜色并隐藏背景图片
-        EventTrigger.Entry pointerExit = new EventTrigger.Entry();
-        pointerExit.eventID = EventTriggerType.PointerExit;
-        pointerExit.callback.AddListener((eventData) => { OnHoverExit(button); });
-        trigger.triggers.Add(pointerExit);
-    }
+        // 清除现有的触发器
+        trigger.triggers.Clear();
 
-    // 悬停时改变字体颜色并显示背景图片
-    void OnHoverEnter(Button button)
-    {
-        button.GetComponentInChildren<Text>().color = hoverColor;
+        // 添加进入事件
+        EventTrigger.Entry enterEntry = new EventTrigger.Entry();
+        enterEntry.eventID = EventTriggerType.PointerEnter;
+        enterEntry.callback.AddListener((data) => {
+            // 先播放音效
+            if (buttonHoverSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(buttonHoverSound, volume);
+            }
 
-        // 修改这部分代码
-        hoverBackgroundImage.gameObject.SetActive(true);
-        
-        // 使用 SetParent 将 hoverBackgroundImage 设置为按钮的子对象
-        hoverBackgroundImage.transform.SetParent(button.transform, false);
-        
-        // 设置 RectTransform
-        RectTransform hoverRect = hoverBackgroundImage.rectTransform;
-        RectTransform buttonRect = button.GetComponent<RectTransform>();
-        
-        // 重置位置和大小
-        hoverRect.anchorMin = Vector2.zero;
-        hoverRect.anchorMax = Vector2.one;
-        hoverRect.offsetMin = Vector2.zero;
-        hoverRect.offsetMax = Vector2.zero;
-        
-        // 确保在按钮文字的后面
-        hoverBackgroundImage.transform.SetSiblingIndex(0);
-    }
+            // 再改变颜色和背景
+            buttonText.color = hoverColor;
+            if (hoverBackgroundImage != null)
+            {
+                hoverBackgroundImage.gameObject.SetActive(true);
+                hoverBackgroundImage.transform.SetParent(button.transform, false);
+                hoverBackgroundImage.transform.SetSiblingIndex(0);
+                
+                RectTransform hoverRect = hoverBackgroundImage.rectTransform;
+                hoverRect.anchorMin = Vector2.zero;
+                hoverRect.anchorMax = Vector2.one;
+                hoverRect.offsetMin = Vector2.zero;
+                hoverRect.offsetMax = Vector2.zero;
+            }
+        });
+        trigger.triggers.Add(enterEntry);
 
-    // 鼠标移开时恢复原来的字体颜色并隐藏背景图片
-    void OnHoverExit(Button button)
-    {
-        button.GetComponentInChildren<Text>().color = originalColor;
-        // 移回原来的父对象（通常是 Canvas）
-        hoverBackgroundImage.transform.SetParent(transform, false);
-        hoverBackgroundImage.gameObject.SetActive(false);
+        // 添加退出事件
+        EventTrigger.Entry exitEntry = new EventTrigger.Entry();
+        exitEntry.eventID = EventTriggerType.PointerExit;
+        exitEntry.callback.AddListener((data) => {
+            buttonText.color = originalColor;
+            if (hoverBackgroundImage != null)
+            {
+                hoverBackgroundImage.transform.SetParent(transform);
+                hoverBackgroundImage.gameObject.SetActive(false);
+            }
+        });
+        trigger.triggers.Add(exitEntry);
     }
 
     // 播放按钮点击音效
@@ -285,16 +407,27 @@ public class StartMenuController : MonoBehaviour
             {
                 volumeSlider.value = musicVolume;
             }
+            // 隐藏设置按钮
+            if (settingsButton != null)
+            {
+                settingsButton.gameObject.SetActive(false);
+            }
         }
     }
 
     // 关闭设置图片
     void CloseSettings()
     {
-        PlayButtonClickSound();
+        Debug.Log("正在关闭设置面板");
         if (settingsImage != null)
         {
             settingsImage.SetActive(false);
+            
+            // 显示设置按钮
+            if (settingsButton != null)
+            {
+                settingsButton.gameObject.SetActive(true);
+            }
         }
     }
 
@@ -320,106 +453,60 @@ public class StartMenuController : MonoBehaviour
         }
     }
 
-    void LoadKeySettings()
+    // 新增保存并关闭设置的方法
+    private void SaveAndCloseSettings()
     {
-        string upperKey = PlayerPrefs.GetString(UpperKeyPrefsKey, "J");
-        string lowerKey = PlayerPrefs.GetString(LowerKeyPrefsKey, "K");
+        // 保存设置
+        PlayerPrefs.SetString(UpperKeyPrefsKey, tempUpperKey);
+        PlayerPrefs.SetString(LowerKeyPrefsKey, tempLowerKey);
+        PlayerPrefs.Save();
         
-        UpdateKeyDisplayText(upperKeyText, upperKey);
-        UpdateKeyDisplayText(lowerKeyText, lowerKey);
+        // 直接关闭设置面板
+        CloseSettings();
     }
-    
-    void UpdateKeyDisplayText(Text textComponent, string keyName)
-    {
-        if (textComponent != null)
-        {
-            textComponent.text = keyName;  // 直接显示按键名称
-        }
-    }
-    
+
+    // 修改按键等待方法
     void StartWaitingForUpperKey()
     {
         isWaitingForUpperKey = true;
         isWaitingForLowerKey = false;
         if (upperKeyText != null)
         {
-            upperKeyText.text = "";  // 清空文本
+            upperKeyText.text = "  ";
         }
     }
-    
+
     void StartWaitingForLowerKey()
     {
         isWaitingForLowerKey = true;
         isWaitingForUpperKey = false;
         if (lowerKeyText != null)
         {
-            lowerKeyText.text = "";  // 清空文本
+            lowerKeyText.text = "  ";
         }
     }
-    
+
+    // 修改设置按键方法
     void SetUpperKey(KeyCode keyCode)
     {
-        string currentLowerKey = tempLowerKey;  // 使用临时存储的值
-        
-        if (keyCode.ToString() != currentLowerKey)
+        if (upperKeyText != null)
         {
-            tempUpperKey = keyCode.ToString();  // 存储到临时变量
-            upperKeyText.text = keyCode.ToString();
-            
-            if (conflictText != null)
-            {
-                conflictText.gameObject.SetActive(false);
-            }
-        }
-        else
-        {
-            if (conflictText != null)
-            {
-                conflictText.gameObject.SetActive(true);
-                conflictText.text = "按键冲突！";
-                StartCoroutine(HideConflictText(1f));
-            }
+            tempUpperKey = keyCode.ToString();
             upperKeyText.text = tempUpperKey;
+            Debug.Log($"设置上层按键为: {tempUpperKey}");
         }
-        
         isWaitingForUpperKey = false;
     }
-    
+
     void SetLowerKey(KeyCode keyCode)
     {
-        string currentUpperKey = tempUpperKey;  // 使用临时存储的值
-        
-        if (keyCode.ToString() != currentUpperKey)
+        if (lowerKeyText != null)
         {
-            tempLowerKey = keyCode.ToString();  // 存储到临时变量
-            lowerKeyText.text = keyCode.ToString();
-            
-            if (conflictText != null)
-            {
-                conflictText.gameObject.SetActive(false);
-            }
-        }
-        else
-        {
-            if (conflictText != null)
-            {
-                conflictText.gameObject.SetActive(true);
-                conflictText.text = "按键冲突！";
-                StartCoroutine(HideConflictText(1f));
-            }
+            tempLowerKey = keyCode.ToString();
             lowerKeyText.text = tempLowerKey;
+            Debug.Log($"设置下层按键为: {tempLowerKey}");
         }
-        
         isWaitingForLowerKey = false;
-    }
-    
-    IEnumerator HideConflictText(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        if (conflictText != null)
-        {
-            conflictText.gameObject.SetActive(false);
-        }
     }
 
     // 保存按键设置的方法
@@ -437,8 +524,27 @@ public class StartMenuController : MonoBehaviour
             conflictText.text = "设置已保存！";
             StartCoroutine(HideConflictText(1f));
         }
-        
-        // 关闭设置面板
-        CloseSettings();
+    }
+
+    IEnumerator HideConflictText(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (conflictText != null)
+        {
+            conflictText.gameObject.SetActive(false);
+        }
+    }
+
+    // 添加新的辅助方法
+    private void SetInitialButtonTextColor(Button button)
+    {
+        if (button != null)
+        {
+            Text buttonText = button.GetComponentInChildren<Text>();
+            if (buttonText != null)
+            {
+                buttonText.color = originalColor;
+            }
+        }
     }
 }
