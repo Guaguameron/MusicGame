@@ -47,6 +47,9 @@ public class Puzzle2 : MonoBehaviour
     public GameObject HitPage;
     public GameObject[] PositionPoint;
     
+    public GameObject restartText; // 重启提示文本对象
+
+    private Dictionary<GameObject, Coroutine> checkCoroutines = new Dictionary<GameObject, Coroutine>();
 
     void Start()
     {
@@ -87,6 +90,17 @@ public class Puzzle2 : MonoBehaviour
         if (isMoving)
         {
             MovePrefabs();
+        }
+
+        // 检测点击关闭 HitPage
+        if (HitPage != null && HitPage.activeSelf && Input.GetMouseButtonDown(0))
+        {
+            HitPage.SetActive(false);
+            if (HitButton != null)
+            {
+                HitButton.gameObject.SetActive(true);   // 显示提示按钮
+            }
+           
         }
     }
 
@@ -143,7 +157,6 @@ public class Puzzle2 : MonoBehaviour
     }
 
     // 处理按钮按下时生成预设体
-    // 处理按钮按下时生成预设体
     private void OnPointerDown(BaseEventData data, GameObject prefab)
     {
         if (prefab != null && playSpace != null)
@@ -161,6 +174,10 @@ public class Puzzle2 : MonoBehaviour
             isButtonHeld = true;
             heldPrefab = spawnedPrefab; // 记录当前按下的 prefab
 
+            // 存储协程引用
+            Coroutine checkCoroutine = StartCoroutine(CheckNoteSnapping(spawnedPrefab));
+            checkCoroutines[spawnedPrefab] = checkCoroutine;
+
             // 播放对应音乐
             if (prefab.name == circlePrefab.name)
                 PlayMusic1();
@@ -172,6 +189,36 @@ public class Puzzle2 : MonoBehaviour
                 PlayMusic4();
             else if (prefab.name == spiderPrefab.name)
                 PlayMusic5();
+        }
+    }
+
+    // 添加新的协程来检查音符是否被吸附
+    private IEnumerator CheckNoteSnapping(GameObject note)
+    {
+        yield return new WaitForSeconds(2f); // 等待2秒
+
+        if (note != null && spawnedPrefabs.Contains(note))
+        {
+            bool isSnapped = false;
+            RectTransform noteRect = note.GetComponent<RectTransform>();
+
+            // 检查音符是否被吸附到任何位置点
+            foreach (GameObject positionPoint in PositionPoint)
+            {
+                RectTransform pointRect = positionPoint.GetComponent<RectTransform>();
+                if (Vector2.Distance(noteRect.anchoredPosition, pointRect.anchoredPosition) < 5f)
+                {
+                    isSnapped = true;
+                    break;
+                }
+            }
+
+            // 如果没有被吸附，销毁音符
+            if (!isSnapped)
+            {
+                spawnedPrefabs.Remove(note);
+                Destroy(note);
+            }
         }
     }
 
@@ -194,57 +241,11 @@ public class Puzzle2 : MonoBehaviour
         Debug.Log("11111");
     }
 
-
-    // 处理预设体按下时跟随鼠标移动
-
-
     // 处理预设体松开时停止移动
     private void OnPrefabPointerUp(BaseEventData data)
     {
-        if (heldPrefab != null)
-        {
-            // 检查当前位置是否与其他音符重叠
-            RectTransform prefabRect = heldPrefab.GetComponent<RectTransform>();
-            bool shouldDestroy = false;
-
-            foreach (GameObject positionPoint in PositionPoint)
-            {
-                RectTransform pointRect = positionPoint.GetComponent<RectTransform>();
-                if (Vector2.Distance(prefabRect.anchoredPosition, pointRect.anchoredPosition) < 20f)
-                {
-                    // 检查该位置是否已经有其他音符
-                    foreach (GameObject existingPrefab in spawnedPrefabs)
-                    {
-                        if (existingPrefab != heldPrefab) // 不与自己比较
-                        {
-                            RectTransform existingRect = existingPrefab.GetComponent<RectTransform>();
-                            if (Vector2.Distance(existingRect.anchoredPosition, pointRect.anchoredPosition) < 5f)
-                            {
-                                shouldDestroy = true;
-                                break;
-                            }
-                        }
-                    }
-                    break;
-                }
-            }
-
-            if (shouldDestroy)
-            {
-                // 如果位置已被占用，销毁当前音符
-                spawnedPrefabs.Remove(heldPrefab);
-                Destroy(heldPrefab);
-            }
-        }
-
         isButtonHeld = false;
         heldPrefab = null;
-    }
-
-    // 处理按钮松开时停止预设体的移动
-    private void OnPointerUp(BaseEventData data)
-    {
-        isButtonHeld = false;
     }
 
     // Play_Button点击事件，开始移动所有预设体
@@ -252,7 +253,54 @@ public class Puzzle2 : MonoBehaviour
     {
         if (spawnedPrefabs.Count > 0)
         {
-            isMoving = true;  // 开始移动
+            // 停止所有正在运行的检查协程
+            foreach (var pair in checkCoroutines)
+            {
+                if (pair.Value != null)
+                {
+                    StopCoroutine(pair.Value);
+                }
+            }
+            checkCoroutines.Clear();
+
+            // 立即检查并删除所有未吸附的音符
+            List<GameObject> notesToRemove = new List<GameObject>();
+            
+            foreach (GameObject note in spawnedPrefabs)
+            {
+                bool isSnapped = false;
+                RectTransform noteRect = note.GetComponent<RectTransform>();
+
+                // 检查音符是否被吸附到任何位置点
+                foreach (GameObject positionPoint in PositionPoint)
+                {
+                    RectTransform pointRect = positionPoint.GetComponent<RectTransform>();
+                    if (Vector2.Distance(noteRect.anchoredPosition, pointRect.anchoredPosition) < 5f)
+                    {
+                        isSnapped = true;
+                        break;
+                    }
+                }
+
+                // 如果没有被吸附，加入待删除列表
+                if (!isSnapped)
+                {
+                    notesToRemove.Add(note);
+                }
+            }
+
+            // 立即删除所有未吸附的音符
+            foreach (GameObject note in notesToRemove)
+            {
+                spawnedPrefabs.Remove(note);
+                Destroy(note);
+            }
+
+            // 如果还有剩余的音符（被吸附的），开始移动
+            if (spawnedPrefabs.Count > 0)
+            {
+                isMoving = true;  // 开始移动
+            }
         }
     }
 
@@ -417,11 +465,37 @@ public class Puzzle2 : MonoBehaviour
     }
     public void ReloadCurrentScene()
     {
-        // 获取当前活动场景的名称
-        string currentSceneName = SceneManager.GetActiveScene().name;
+        // 显示重启提示文本
+        if (restartText != null)
+        {
+            restartText.SetActive(true);
+            StartCoroutine(ReloadSceneWithDelay());
+        }
+        else
+        {
+            // 如果没有文本对象，直接重新加载场景
+            ExecuteReload();
+        }
+    }
 
-        // 重新加载当前场景
+    // 添加新的协程方法来处理延迟重载
+    private IEnumerator ReloadSceneWithDelay()
+    {
+        yield return new WaitForSeconds(1f); // 等待1秒
+        if (restartText != null)
+        {
+            restartText.SetActive(false);
+        }
+        ExecuteReload();
+    }
+
+    // 将重新加载场景的逻辑抽取到单独的方法
+    private void ExecuteReload()
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentSceneName);
+        
+        // 重置所有计数器
         GlobalCounters.Judgment_Point1_Circle = 0;
         GlobalCounters.Judgment_Point1_Crosses = 0;
         GlobalCounters.Judgment_Point1_Cube = 0;
@@ -434,6 +508,7 @@ public class Puzzle2 : MonoBehaviour
         GlobalCounters.Judgment_Point2_Triangle = 0;
         GlobalCounters.Judgment_Point2_spider = 0;
     }
+
     public void PlayMusic1() => PlayClip(music1);
     public void PlayMusic2() => PlayClip(music2);
     public void PlayMusic3() => PlayClip(music3);
@@ -464,7 +539,7 @@ public class Puzzle2 : MonoBehaviour
         }
         else 
         {
-            Debug.LogWarning("AudioSource 或 音频��辑未设置！");
+            Debug.LogWarning("AudioSource 或 音频剪辑未设置！");
             return 0f;
         }
     }
@@ -477,13 +552,15 @@ public class Puzzle2 : MonoBehaviour
         {
             HitButton.gameObject.SetActive(false);  // 隐藏提示按钮
         }
+
     }
-    public void ClosePage()
+
+    private void OnPointerUp(BaseEventData data)
     {
-        HitPage.SetActive(false);
-        if (HitButton != null)
+        if (heldPrefab != null)
         {
-            HitButton.gameObject.SetActive(true);   // 显示提示按钮
+            isButtonHeld = false;
+            heldPrefab = null;
         }
     }
 }
