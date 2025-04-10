@@ -9,6 +9,7 @@ public class PlayNoteUI : MonoBehaviour
     public Image comboImage;
 
     private StartGameSequence gameSequence;
+    private BackgroundManager backgroundManager;
     private bool musicHasStarted = false;
     private bool musicHasEnded = false;
     private float musicStartTime;
@@ -26,6 +27,13 @@ public class PlayNoteUI : MonoBehaviour
         {
             Debug.LogError("StartGameSequence not found!");
         }
+
+        // 获取 BackgroundManager 组件
+        backgroundManager = FindObjectOfType<BackgroundManager>();
+        if (backgroundManager == null)
+        {
+            Debug.LogError("BackgroundManager not found!");
+        }
     }
 
     // Update is called once per frame
@@ -41,6 +49,13 @@ public class PlayNoteUI : MonoBehaviour
             musicHasStarted = true;
             musicStartTime = Time.time;
             musicLength = gameSequence.GameMusic.clip.length;
+            
+            // 音乐开始播放时，启动背景滚动并设置音乐时长
+            if (backgroundManager != null)
+            {
+                backgroundManager.OnMusicStart();
+                backgroundManager.SetMusicDuration(musicLength);  // 只传递音乐长度，不加上当前时间
+            }
         }
 
         // 检查音乐是否已经结束
@@ -48,6 +63,12 @@ public class PlayNoteUI : MonoBehaviour
         {
             musicHasEnded = true;
             HideCombo();
+            
+            // 音乐结束时，停止背景滚动
+            if (backgroundManager != null)
+            {
+                backgroundManager.StopScrolling();
+            }
         }
 
         // 只在音乐播放时更新 combo 显示

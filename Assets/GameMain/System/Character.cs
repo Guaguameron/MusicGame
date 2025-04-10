@@ -15,14 +15,18 @@ public class Character : MonoBehaviour
 
     void Start()
     {
-        //Debug.Log("角色开始跑动");
+        // 获取游戏序列组件
         gameSequence = FindObjectOfType<StartGameSequence>();
         if (gameSequence == null)
         {
             Debug.LogError("StartGameSequence not found!");
+            return;
         }
-        // 确保角色开始时处于运动状态
-        animator.SetBool("IsRunning", true);
+
+        // 设置初始状态
+        characterImage.sprite = idleSprite;
+        animator.enabled = false;  // 禁用动画器
+        Debug.Log("角色初始化为静止状态");
     }
 
     void Update()
@@ -33,7 +37,11 @@ public class Character : MonoBehaviour
             musicHasStarted = true;
             musicStartTime = Time.time;
             musicLength = gameSequence.GameMusic.clip.length;
-            //Debug.Log($"Music started. Length: {musicLength}");
+            
+            // 音乐开始时启用动画器并开始跑动
+            animator.enabled = true;
+            animator.SetBool("IsRunning", true);
+            Debug.Log("音乐开始，角色开始跑动");
         }
 
         // 检查音乐是否已经结束
@@ -46,14 +54,8 @@ public class Character : MonoBehaviour
 
     private void StopCharacter()
     {
-        animator.SetBool("IsRunning", false);
-        SetIdleState();
+        animator.enabled = false;  // 禁用动画器
+        characterImage.sprite = idleSprite;  // 设置为静止图片
         Debug.Log("角色停止跑动"); 
-    }
-
-    private void SetIdleState()
-    {
-        characterImage.sprite = idleSprite;
-      
     }
 }
