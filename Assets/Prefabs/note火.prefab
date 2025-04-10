@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5184769904082063813}
   - component: {fileID: -5266662916223592629}
   m_Layer: 0
-  m_Name: "\u97F3\u7B263"
+  m_Name: "note\u706B"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3191417525683081061}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.23, y: 2.69, z: 0}
-  m_LocalScale: {x: 0.19461711, y: 0.19461711, z: 0.19461711}
+  m_LocalPosition: {x: -17.2042, y: 2.7193, z: 0}
+  m_LocalScale: {x: 0.20185685, y: 0.20185685, z: 0.20185685}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4943c8294d9798c45b2b9480b388f305, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8079b01382617924db6312a3deb27757, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   track: 0
   noteSpeed: 5
-  successSound: {fileID: 8300000, guid: ee5d5b4f0b684b54484318b20787c088, type: 3}
+  successSound: {fileID: 8300000, guid: 86c30f8331f8cde44b153b5c6cc7b356, type: 3}
 --- !u!61 &-5266662916223592629
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -112,16 +112,16 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.06815028, y: 0.20690775}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 6.54, y: 8.2}
+    oldSize: {x: 7.12, y: 8.08}
     newSize: {x: 6.54, y: 8.2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6.54, y: 8.2}
+  m_Size: {x: 8.273825, y: 7.7861834}
   m_EdgeRadius: 0

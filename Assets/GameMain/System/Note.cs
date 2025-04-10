@@ -109,6 +109,12 @@ public class Note : MonoBehaviour
         Debug.Log("miss了");
         PlayNoteModel.Fail(score);
 
+       // var chara = FindObjectOfType<Character>();
+        //chara.animator.SetBool("IsFlying", false);
+        //chara.animator.SetBool("IsRunning", true);
+
+
+
         var chara = FindObjectOfType<Character>();
         chara.ForceRunFromMiss();
 

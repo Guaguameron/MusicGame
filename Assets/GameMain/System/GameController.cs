@@ -7,7 +7,8 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    public GameObject Note;
+    public GameObject Note;  // 保留作为默认音符
+    public GameObject[] noteVariants;  // 不同样式的音符预制体数组
     public GameObject Note1;
     public GameObject Note2;
     public GameObject longNotePrefab;
@@ -65,17 +66,7 @@ public class GameController : MonoBehaviour
                 }
                 else
                 {
-                    GameObject instance;
-                    if (model.Track == 1)
-                    {
-                        instance = Instantiate(Note, Note1.transform.position, Quaternion.identity);
-                    }
-                    else
-                    {
-                        instance = Instantiate(Note, Note2.transform.position, Quaternion.identity);
-                    }
-                    instance.GetComponent<Note>().track = model.Track;
-                    instance.GetComponent<Note>().noteSpeed = model.Speed;
+                    CreateNote(model.Track, model.Speed);
                 }
 
                 noteList.RemoveAt(i);
@@ -83,9 +74,40 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void GenerateNote()
+    private void CreateNote(int track, float speed)
     {
+        // 选择一个随机的音符预制体
+        GameObject notePrefab = noteVariants != null && noteVariants.Length > 0 
+            ? noteVariants[Random.Range(0, noteVariants.Length)] 
+            : Note;  // 如果没有变体，使用默认音符
 
+        // 根据轨道选择生成位置
+        Vector3 spawnPosition = track == 1 ? Note1.transform.position : Note2.transform.position;
+
+        // 生成音符
+        GameObject instance = Instantiate(notePrefab, spawnPosition, Quaternion.identity);
+        
+        // 保持预制体的原始缩放值
+        instance.transform.localScale = notePrefab.transform.localScale;
+        
+        // 确保SpriteRenderer设置正确
+        SpriteRenderer spriteRenderer = instance.GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sortingLayerName = "Default";  // 设置渲染层
+            spriteRenderer.sortingOrder = 5;  // 提高渲染顺序，确保在前面
+            spriteRenderer.color = new Color(1, 1, 1, 1);  // 确保完全不透明
+        }
+
+        // 设置音符组件
+        Note noteComponent = instance.GetComponent<Note>();
+        if (noteComponent != null)
+        {
+            noteComponent.track = track;
+            noteComponent.noteSpeed = speed;
+        }
+
+        Debug.Log($"生成音符: {notePrefab.name}, Scale: {instance.transform.localScale}, SpriteRenderer Order: {spriteRenderer?.sortingOrder}");
     }
 
     private void CreateLongNote(int track, float length)
