@@ -787,6 +787,76 @@
         "speed": 5.2,
         "length": 0,
         "isReward": 1
+      },
+      {
+        "time": 57.56,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 57.75,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 57.96,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 58.37,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 58.57,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 58.79,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 59.2,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 59.62,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 60.03,
+        "track": 2,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
+      },
+      {
+        "time": 60.44,
+        "track": 1,
+        "speed": 5.2,
+        "length": 0,
+        "isReward": 1
       }
     ]
   }

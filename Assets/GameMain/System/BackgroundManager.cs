@@ -49,7 +49,7 @@ public class BackgroundManager : MonoBehaviour
         float playedTime = Time.time - musicStartTime;  // 已经播放的时间
         
         // 在音乐结束前8秒开始移动结束图片
-        if (playedTime >= musicDuration - 8f && !isEndingStarted && endingImage != null)
+        if (playedTime >= musicDuration - 2.82f && !isEndingStarted && endingImage != null)
         {
             isEndingStarted = true;
             // 直接显示结束图片，不改变其位置

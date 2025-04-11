@@ -6,8 +6,6 @@ public class Monster : MonoBehaviour
     private StartGameSequence gameSequence;
     private bool musicHasStarted = false;
     private bool musicHasEnded = false;
-    private float musicStartTime;
-    private float musicLength;
 
     // 动画状态的参数名
     private const string ANIM_IDLE = "Monster_Idel";  // 待机动画
@@ -43,16 +41,12 @@ public class Monster : MonoBehaviour
         if (!musicHasStarted && gameSequence.GameMusic.isPlaying)
         {
             musicHasStarted = true;
-            musicStartTime = Time.time;
-            musicLength = gameSequence.GameMusic.clip.length;
-
-            // 音乐开始时播放待机动画
             PlayIdleAnimation();  // 使用封装好的方法
             Debug.Log("音乐开始，怪兽开始待机动画");
         }
 
         // 检查音乐是否已经结束
-        if (musicHasStarted && !musicHasEnded && (Time.time - musicStartTime >= musicLength))
+        if (musicHasStarted && !musicHasEnded && !gameSequence.GameMusic.isPlaying)
         {
             musicHasEnded = true;
             StopMonster();

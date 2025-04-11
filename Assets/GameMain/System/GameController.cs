@@ -16,6 +16,12 @@ public class GameController : MonoBehaviour
     public Image progressBarImage; // 替换原来的Slider，使用Image
     public AudioSource audioSource;
 
+    // 添加用于特效的变量
+    public Image screenEffectImage; // 全屏特效图片
+    public Image transitionImage; // 新添加的过渡图片
+    private bool hasPlayedOneThirdEffect = false; // 标记特效是否已播放
+    private float effectTriggerTime; // 触发两边变黑特效的时间点
+
     private List<NoteModel> noteList = new List<NoteModel>();
     float myTime = 0;
 
@@ -27,16 +33,24 @@ public class GameController : MonoBehaviour
 
         if (progressBarImage != null)
         {
-            progressBarImage.type = Image.Type.Filled;  // 设置图片类型为Filled
-            progressBarImage.fillMethod = Image.FillMethod.Horizontal;  // 设置填充方式为水平
-            progressBarImage.fillOrigin = (int)Image.OriginHorizontal.Left;  // 从左向右填充
-            progressBarImage.fillAmount = 0;  // 初始填充量为0
-            progressBarImage.gameObject.SetActive(false); // 初始时隐藏进度条
+            progressBarImage.type = Image.Type.Filled;
+            progressBarImage.fillMethod = Image.FillMethod.Horizontal;
+            progressBarImage.fillOrigin = (int)Image.OriginHorizontal.Left;
+            progressBarImage.fillAmount = 0;
+            progressBarImage.gameObject.SetActive(false);
         }
 
-        if (audioSource != null)
+        if (audioSource != null && audioSource.clip != null)
         {
-            // 不需要设置maxValue，因为fillAmount是0-1的值
+            // 计算特效开始时间：音乐总长度减去特效总持续时间
+            float effectTotalDuration = 11.4f; // 0.1(闪白) + 0.5(等待) + 0.3(变暗) + 0.2(等待) + 0.5(图片淡入) + 9.5(持续显示) + 0.3(淡出)
+            effectTriggerTime = audioSource.clip.length - effectTotalDuration;
+        }
+
+        // 初始化屏幕特效图片
+        if (screenEffectImage != null)
+        {
+            screenEffectImage.gameObject.SetActive(false);
         }
     }
 
@@ -74,6 +88,16 @@ public class GameController : MonoBehaviour
                 }
 
                 noteList.RemoveAt(i);
+            }
+        }
+
+        if (audioSource != null && audioSource.clip != null)
+        {
+            // 检查是否到达触发时间点且特效未播放
+            if (!hasPlayedOneThirdEffect && audioSource.time >= effectTriggerTime)
+            {
+                StartCoroutine(PlayOneThirdEffect());
+                hasPlayedOneThirdEffect = true;
             }
         }
     }
@@ -136,6 +160,124 @@ public class GameController : MonoBehaviour
             }
             
             noteObj.transform.position = spawnPosition;
+        }
+    }
+
+    private IEnumerator PlayOneThirdEffect()
+    {
+        if (screenEffectImage == null) yield break;
+
+        // 保存原始音调
+        float originalPitch = audioSource.pitch;
+
+        // 显示特效图片
+        screenEffectImage.gameObject.SetActive(true);
+        if (transitionImage != null)
+        {
+            transitionImage.gameObject.SetActive(false);
+            transitionImage.color = new Color(1, 1, 1, 0);
+        }
+        
+        // 1. 闪白效果（0.1秒）
+        screenEffectImage.color = new Color(1, 1, 1, 0);
+        float flashDuration = 0.1f;
+        float timer = 0;
+        
+        while (timer < flashDuration)
+        {
+            timer += Time.deltaTime;
+            float alpha = Mathf.Lerp(0, 1, timer / flashDuration);
+            screenEffectImage.color = new Color(1, 1, 1, alpha);
+            yield return null;
+        }
+
+        // 闪白效果结束后，将颜色恢复为完全透明
+        screenEffectImage.color = new Color(1, 1, 1, 0);
+        
+        // 等待0.5秒
+        yield return new WaitForSeconds(0.5f);
+
+        // 2. 变暗效果（0.3秒）并快速降低音调（0.15秒）
+        timer = 0;
+        float darkDuration = 0.3f;
+        float pitchChangeDuration = 0.15f;
+        Color startColor = new Color(1, 1, 1, 0);
+        Color targetColor = new Color(0, 0, 0, 0.25f);
+        
+        while (timer < darkDuration)
+        {
+            timer += Time.deltaTime;
+            float progress = timer / darkDuration;
+            screenEffectImage.color = Color.Lerp(startColor, targetColor, progress);
+            
+            if (timer < pitchChangeDuration)
+            {
+                float pitchProgress = timer / pitchChangeDuration;
+                audioSource.pitch = Mathf.Lerp(originalPitch, 0.5f, pitchProgress);
+            }
+            yield return null;
+        }
+
+        audioSource.pitch = 0.5f;
+
+        // 等待0.2秒后显示过渡图片
+        yield return new WaitForSeconds(0.2f);
+
+        // 3. 显示过渡图片（0.5秒淡入）
+        if (transitionImage != null)
+        {
+            transitionImage.gameObject.SetActive(true);
+            timer = 0;
+            float fadeInDuration = 0.5f;
+            
+            while (timer < fadeInDuration)
+            {
+                timer += Time.deltaTime;
+                float alpha = Mathf.Lerp(0, 1, timer / fadeInDuration);
+                transitionImage.color = new Color(1, 1, 1, alpha);
+                yield return null;
+            }
+        }
+
+        // 4. 保持黑色遮罩和过渡图片显示（10秒）
+        float totalDarkDuration = 10f; // 总共持续10秒
+        float elapsedTime = 1f; // 已经过去的时间（0.3秒变暗 + 0.2秒等待 + 0.5秒淡入）
+        yield return new WaitForSeconds(totalDarkDuration - elapsedTime);
+
+        // 5. 同时淡出黑色遮罩和过渡图片，并快速恢复音调（0.15秒）
+        timer = 0;
+        float fadeOutDuration = 0.3f;
+        pitchChangeDuration = 0.15f;
+        Color screenStartColor = screenEffectImage.color;
+        Color transitionStartColor = transitionImage != null ? transitionImage.color : Color.white;
+
+        while (timer < fadeOutDuration)
+        {
+            timer += Time.deltaTime;
+            float progress = timer / fadeOutDuration;
+            
+            screenEffectImage.color = new Color(0, 0, 0, Mathf.Lerp(screenStartColor.a, 0, progress));
+            if (transitionImage != null)
+            {
+                transitionImage.color = new Color(1, 1, 1, Mathf.Lerp(transitionStartColor.a, 0, progress));
+            }
+            
+            if (timer < pitchChangeDuration)
+            {
+                float pitchProgress = timer / pitchChangeDuration;
+                audioSource.pitch = Mathf.Lerp(0.5f, originalPitch, pitchProgress);
+            }
+            
+            yield return null;
+        }
+
+        audioSource.pitch = originalPitch;
+
+        // 关闭所有特效图片
+        screenEffectImage.gameObject.SetActive(false);
+        if (transitionImage != null)
+        {
+            transitionImage.gameObject.SetActive(false);
         }
     }
 }

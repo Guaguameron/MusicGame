@@ -132,7 +132,7 @@ public class PlayNoteUI : MonoBehaviour
         }
 
         // 检查音乐是否已经结束
-        if (musicHasStarted && !musicHasEnded && (Time.time - musicStartTime >= musicLength))
+        if (musicHasStarted && !musicHasEnded && !gameSequence.GameMusic.isPlaying)
         {
             musicHasEnded = true;
             HideCombo();
@@ -148,32 +148,23 @@ public class PlayNoteUI : MonoBehaviour
         if (musicHasStarted && !musicHasEnded && gameSequence != null && gameSequence.GameMusic.isPlaying)
         {
             float currentMusicTime = Time.time - musicStartTime;
-            float twoThirdsPoint = musicLength * 0.67f;
-            float halfwayPoint = musicLength * 0.5f;
-            float threeQuartersPoint = musicLength * 0.75f;
+            float twoFifthsPoint = musicLength * 0.4f;  // 2/5处
+            float fourFifthsPoint = musicLength * 0.8f; // 4/5处
             
-            // 在2/3处触发花屏
-            if (!twoThirdFlashTriggered && currentMusicTime >= twoThirdsPoint)
-            {
-                StartCoroutine(FlashStaticEffect());
-                twoThirdFlashTriggered = true;
-                Debug.Log("触发2/3处花屏效果");
-            }
-            
-            // 在1/2处触发扭曲
-            if (!halfwayDistortionTriggered && currentMusicTime >= halfwayPoint)
+            // 在2/5处触发扭曲
+            if (!halfwayDistortionTriggered && currentMusicTime >= twoFifthsPoint)
             {
                 StartDistortion();
                 halfwayDistortionTriggered = true;
-                Debug.Log("触发1/2处扭曲效果");
+                Debug.Log("触发2/5处扭曲效果");
             }
             
-            // 在3/4处触发扭曲
-            if (!threeQuartersDistortionTriggered && currentMusicTime >= threeQuartersPoint)
+            // 在4/5处触发扭曲和花屏
+            if (!threeQuartersDistortionTriggered && currentMusicTime >= fourFifthsPoint)
             {
                 StartDistortion();
                 threeQuartersDistortionTriggered = true;
-                Debug.Log("触发3/4处扭曲效果");
+                Debug.Log("触发4/5处扭曲效果");
             }
         }
 
@@ -202,7 +193,7 @@ public class PlayNoteUI : MonoBehaviour
             float wave = Mathf.Sin(Time.time * distortionSpeed * 10f);
             distortionIntensity = (Mathf.Abs(wave) * 0.8f + 0.2f) * maxDistortion; // 确保始终有一定强度的扭曲
             distortionMaterial.SetFloat("_DistortionAmount", distortionIntensity);
-            Debug.Log($"当前扭曲强度: {distortionIntensity}");
+            //Debug.Log($"当前扭曲强度: {distortionIntensity}");
         }
     }
 
@@ -227,7 +218,7 @@ public class PlayNoteUI : MonoBehaviour
             distortionMaterial.SetFloat("_DistortionAmount", 0);
             distortionOverlay.gameObject.SetActive(false);
             
-            // 只在最后一次扭曲（3/4处）结束时触发花屏效果
+            // 只在最后一次扭曲（4/5处）结束时触发花屏效果
             if (threeQuartersDistortionTriggered)
             {
                 StartCoroutine(DelayedFlashEffect());
@@ -278,7 +269,7 @@ public class PlayNoteUI : MonoBehaviour
                 staticSoundEffect.Stop();
             }
 
-            // 如果是最后一次花屏（3/4处的扭曲后），添加黑屏效果
+            // 如果是最后一次花屏（4/5处的扭曲后），添加黑屏效果
             if (threeQuartersDistortionTriggered)
             {
                 // 等待0.5秒
