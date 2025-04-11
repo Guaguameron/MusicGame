@@ -111,7 +111,7 @@ public class GameController : MonoBehaviour
             noteComponent.noteSpeed = speed;
         }
 
-        Debug.Log($"生成音符: {notePrefab.name}, Scale: {instance.transform.localScale}, SpriteRenderer Order: {spriteRenderer?.sortingOrder}");
+        //Debug.Log($"生成音符: {notePrefab.name}, Scale: {instance.transform.localScale}, SpriteRenderer Order: {spriteRenderer?.sortingOrder}");
     }
 
     private void CreateLongNote(int track, float length)

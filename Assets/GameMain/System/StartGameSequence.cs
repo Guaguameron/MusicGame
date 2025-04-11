@@ -13,6 +13,9 @@ public class StartGameSequence : MonoBehaviour
     public AudioSource GameMusic;
     public BackgroundManager backgroundManager;
 
+    public Image nightAltarImage; // 夜晚祭坛图片
+    public AudioSource altarSoundEffect; // 添加祭坛音效组件
+    public GameObject S1FBush; // 添加S1FBush的引用
     public Button showButton; // 记忆碎片按钮
     public Image imageToShow; // 记忆碎片点击后显示的说明图片
     public Button jumpSceneButton;//说明图片跳转按钮
@@ -32,6 +35,11 @@ public class StartGameSequence : MonoBehaviour
         GoImage.gameObject.SetActive(false);
         GameController.SetActive(false);
         GameMusic.Stop();
+
+        if (nightAltarImage != null)
+        {
+            nightAltarImage.gameObject.SetActive(false);
+        }
 
         showButton.gameObject.SetActive(false);
         imageToShow.gameObject.SetActive(false);
@@ -69,6 +77,44 @@ public class StartGameSequence : MonoBehaviour
                     backgroundManager.StopScrolling();
                 }
 
+                // 等待0.5秒后显示夜晚祭坛图片
+                yield return new WaitForSeconds(0.5f);
+                if (nightAltarImage != null)
+                {
+                    // 隐藏S1FBush
+                    if (S1FBush != null)
+                    {
+                        S1FBush.SetActive(false);
+                    }
+
+                    // 第一次显示（较长时间）
+                    nightAltarImage.gameObject.SetActive(true);
+                    if (altarSoundEffect != null) altarSoundEffect.Play();
+                    yield return new WaitForSeconds(0.23f);
+                    nightAltarImage.gameObject.SetActive(false);
+                    if (altarSoundEffect != null) altarSoundEffect.Stop();
+
+                    // 短暂间隔
+                    yield return new WaitForSeconds(1.0f);
+
+                    // 第二次闪烁（快速）
+                    nightAltarImage.gameObject.SetActive(true);
+                    if (altarSoundEffect != null) altarSoundEffect.Play();
+                    yield return new WaitForSeconds(0.1f);
+                    nightAltarImage.gameObject.SetActive(false);
+                    if (altarSoundEffect != null) altarSoundEffect.Stop();
+
+                    // 短暂间隔
+                    yield return new WaitForSeconds(0.01f);
+
+                    // 第三次闪烁（快速）
+                    nightAltarImage.gameObject.SetActive(true);
+                    if (altarSoundEffect != null) altarSoundEffect.Play();
+                    yield return new WaitForSeconds(0.1f);
+                    nightAltarImage.gameObject.SetActive(false);
+                    if (altarSoundEffect != null) altarSoundEffect.Stop();
+                }
+
                 showButton.gameObject.SetActive(true);
                 showButton.onClick.AddListener(OnButtonClick);
 
@@ -102,7 +148,7 @@ public class StartGameSequence : MonoBehaviour
 {
     if (!PauseGame.isPaused)
     {
-        // ✅ 停止呼吸动画
+        // 停止呼吸动画
         if (pulseCoroutine != null)
         {
             StopCoroutine(pulseCoroutine);

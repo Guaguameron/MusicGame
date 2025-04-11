@@ -4,7 +4,7 @@ public class BackgroundManager : MonoBehaviour
 { 
     public BackgroundLayer[] backgroundLayers;
     public GameObject endingImage;  // 场景中的结束图片
-    public float endingImageSpeed = 2f;  // 结束图片移动速度
+    public float endingImageSpeed = 4f;  // 结束图片移动速度
     private bool shouldScroll = false;  // 默认不滚动
     private float musicDuration;  // 音乐总时长
     private float musicStartTime;  // 音乐开始时间
@@ -48,13 +48,11 @@ public class BackgroundManager : MonoBehaviour
 
         float playedTime = Time.time - musicStartTime;  // 已经播放的时间
         
-        // 在音乐结束前10秒开始移动结束图片
+        // 在音乐结束前8秒开始移动结束图片
         if (playedTime >= musicDuration - 8f && !isEndingStarted && endingImage != null)
         {
             isEndingStarted = true;
-            // 设置结束图片位置并显示
-            float screenRightEdge = Camera.main.orthographicSize * Camera.main.aspect;
-            endingImage.transform.position = new Vector3(screenRightEdge * 2, 0, 0);
+            // 直接显示结束图片，不改变其位置
             endingImage.SetActive(true);
             Debug.Log($"开始移动结束图片，已播放时间：{playedTime}秒，总时长：{musicDuration}秒");
         }

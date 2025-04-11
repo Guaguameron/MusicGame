@@ -31,6 +31,13 @@ public class Character : MonoBehaviour
 
     void Update()
     {
+        // 如果音乐已经结束，不再执行任何动画状态更新
+        if (musicHasEnded)
+        {
+            return;
+        }
+
+        // 检查音乐是否开始播放
         if (!musicHasStarted && gameSequence.GameMusic.isPlaying)
         {
             musicHasStarted = true;
@@ -42,38 +49,51 @@ public class Character : MonoBehaviour
             Debug.Log("音乐开始，角色开始跑动");
         }
 
-        if (musicHasStarted && !musicHasEnded && (Time.time - musicStartTime >= musicLength))
+        // 检查音乐是否结束
+        if (musicHasStarted && !musicHasEnded && !gameSequence.IsMusicPlaying())
         {
             musicHasEnded = true;
             StopCharacter();
+            Debug.Log("检测到音乐停止，停止角色动画");
         }
     }
 
     private void StopCharacter()
     {
-        animator.enabled = true;
+        // 重置所有动画状态
         animator.SetBool("IsRunning", false);
         animator.SetBool("IsFlying", false);
-        animator.Play("Player_Idle");
-        Debug.Log("音乐结束，角色切换到待机状态");
+        animator.ResetTrigger("Player_Jump");
+        animator.ResetTrigger("Player_Fly");
+        
+        // 强制播放待机动画
+        animator.Play("Player_Idle", 0, 0f);
+        
+        // 重置跳跃状态
+        isJumping = false;
+
+        // 确保角色保持静止
+        characterImage.sprite = idleSprite;
+        
+        Debug.Log("音乐结束，角色切换到待机状态，使用静止图片");
     }
 
     // 判定成功 → 播放一次跳跃 → 自动转飞行
     public void TriggerJump()
     {
-        if (animator.enabled && !isJumping)
+        // 如果音乐已结束，不再触发任何动作
+        if (musicHasEnded || !animator.enabled || isJumping)
         {
-            isJumping = true;
-
-            animator.SetBool("IsRunning", false);
-            animator.SetTrigger("Player_Jump");
-            Debug.Log("【动画状态】当前状态：" + animator.GetCurrentAnimatorStateInfo(0).fullPathHash);
-            Debug.Log("【动作】触发跳跃 Player_Jump");
+            return;
         }
+
+        isJumping = true;
+        animator.SetBool("IsRunning", false);
+        animator.SetTrigger("Player_Jump");
+        Debug.Log("【动画状态】当前状态：" + animator.GetCurrentAnimatorStateInfo(0).fullPathHash);
+        Debug.Log("【动作】触发跳跃 Player_Jump");
     }
 
-
-  
     /// Jump动画结束时调用（用Animation Event触发）
     public void OnJumpEnd()
     {
@@ -87,19 +107,20 @@ public class Character : MonoBehaviour
 
     public void ForceRunFromMiss()
     {
+        // 如果音乐已结束，不再触发任何动作
+        if (musicHasEnded)
+        {
+            return;
+        }
+
         if (animator.enabled)
         {
             animator.ResetTrigger("Player_Jump");
             animator.ResetTrigger("Player_Fly");
-
-            // Reset jump state
             isJumping = false;
-
             animator.SetBool("IsFlying", false);
             animator.SetBool("IsRunning", true);
             Debug.Log("Miss → 强制角色回到跑步状态");
         }
     }
-
-
 }
