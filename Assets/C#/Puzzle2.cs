@@ -48,9 +48,11 @@ public class Puzzle2 : MonoBehaviour
     public GameObject[] PositionPoint;
     
     public GameObject restartText; // 重启提示文本对象
-    public GameObject newImage;  // 新添加的图片引用
-    public Button ReButton;      // 新添加的 ReButton 引用
-    public Button closeButton;   // 新添加的关闭按钮引用
+    public GameObject newImage;  // 图片引用
+    public Button ReButton;      //  ReButton 引用
+    public Button closeButton;   // 关闭按钮引用
+
+    public GameObject successText; // 成功提示文本对象
 
     private Dictionary<GameObject, Coroutine> checkCoroutines = new Dictionary<GameObject, Coroutine>();
 
@@ -429,6 +431,14 @@ public class Puzzle2 : MonoBehaviour
             Debug.Log("通关！");
             // 增加10000分
             PlayNoteModel.score += 10000;
+
+            // 显示成功提示文本并开始动画
+            if (successText != null)
+            {
+                successText.SetActive(true);
+                StartCoroutine(SuccessTextAnimation());
+            }
+
             StartCoroutine(WaitForAudioAndLoadScene());
         }
     }
@@ -529,6 +539,58 @@ public class Puzzle2 : MonoBehaviour
         
         // 执行场景重载
         ExecuteReload();
+    }
+
+    // 新添加的成功提示文本动画协程
+    private IEnumerator SuccessTextAnimation()
+    {
+        float duration = 1f; // 动画持续时间
+        float elapsedTime = 0f;
+
+        RectTransform textRect = successText.GetComponent<RectTransform>();
+        Text textComponent = successText.GetComponent<Text>();
+
+        if (textRect == null || textComponent == null)
+        {
+            yield return new WaitForSeconds(1f);
+            ExecuteReload();
+            yield break;
+        }
+
+        Vector3 originalScale = textRect.localScale;
+        Color originalColor = textComponent.color;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float progress = elapsedTime / duration;
+
+            // 缓动效果
+            float easeProgress = Mathf.Sin(progress * Mathf.PI * 0.5f);
+
+            // 放大效果 (从1倍到1.5倍)
+            float scaleMultiplier = Mathf.Lerp(1f, 1.5f, easeProgress);
+            textRect.localScale = originalScale * scaleMultiplier;
+
+            // 透明度渐变 (从1到0)
+            Color newColor = originalColor;
+            newColor.a = Mathf.Lerp(1f, 0f, easeProgress);
+            textComponent.color = newColor;
+
+            yield return null;
+        }
+
+        // 确保最终状态
+        textRect.localScale = originalScale * 1.5f;
+        Color finalColor = originalColor;
+        finalColor.a = 0f;
+        textComponent.color = finalColor;
+
+        // 重置文本属性
+        textRect.localScale = originalScale;
+        textComponent.color = originalColor;
+
+        successText.SetActive(false);
     }
 
     // 将重新加载场景的逻辑抽取到单独的方法

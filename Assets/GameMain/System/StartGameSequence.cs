@@ -63,14 +63,14 @@ public class StartGameSequence : MonoBehaviour
         yield return new WaitForSeconds(GoDisplayTime);
         GoImage.gameObject.SetActive(false);
 
-        if (!PauseGame.isPaused)
+        if (!PlayNoteUI.isPaused)
         {
             GameController.SetActive(true);
             GameMusic.Play();
 
             yield return StartCoroutine(WaitForMusicToEnd());
 
-            if (!PauseGame.isPaused)
+            if (!PlayNoteUI.isPaused)
             {
                 if (backgroundManager != null)
                 {
@@ -131,9 +131,9 @@ public class StartGameSequence : MonoBehaviour
 
     IEnumerator WaitForMusicToEnd()
     {
-        while (GameMusic.isPlaying || PauseGame.isPaused)
+        while (GameMusic.isPlaying || PlayNoteUI.isPaused)
         {
-            if (!PauseGame.isPaused)
+            if (!PlayNoteUI.isPaused)
             {
                 yield return null;
             }
@@ -144,15 +144,15 @@ public class StartGameSequence : MonoBehaviour
         }
     }
 
-   void OnButtonClick()
-{
-    if (!PauseGame.isPaused)
+    void OnButtonClick()
     {
-        // 停止呼吸动画
-        if (pulseCoroutine != null)
+        if (!PlayNoteUI.isPaused)
         {
-            StopCoroutine(pulseCoroutine);
-            pulseCoroutine = null;
+            // 停止呼吸动画
+            if (pulseCoroutine != null)
+            {
+                StopCoroutine(pulseCoroutine);
+                pulseCoroutine = null;
 
             // 恢复缩放
             showButton.transform.localScale = Vector3.one;
@@ -177,7 +177,7 @@ public class StartGameSequence : MonoBehaviour
 
     void JumpToNextScene()
     {
-        if (!PauseGame.isPaused)
+        if (!PlayNoteUI.isPaused)
         {
             SceneManager.LoadScene("Puzzle2");
         }
@@ -187,13 +187,13 @@ public class StartGameSequence : MonoBehaviour
     {
         if (!hasFocus && GameMusic.isPlaying)
         {
-            PauseGame.isPaused = true;
+            PlayNoteUI.isPaused = true;
             GameMusic.Pause();
             GameController.SetActive(false);
         }
         else if (hasFocus)
         {
-            PauseGame.isPaused = false;
+            PlayNoteUI.isPaused = false;
             GameMusic.Play();
             GameController.SetActive(true);
         }
@@ -207,52 +207,52 @@ public class StartGameSequence : MonoBehaviour
     // 呼吸动画
     IEnumerator ButtonPulseEffect(Transform buttonTransform)
     {
-    Vector3 originalScale = buttonTransform.localScale;
-    float pulseDuration = 1f;
-    float scaleMultiplier = 1.5f;
+        Vector3 originalScale = buttonTransform.localScale;
+        float pulseDuration = 1f;
+        float scaleMultiplier = 1.5f;
 
-    Image buttonImage = buttonTransform.GetComponent<Image>();
-    Color baseColor = Color.white;
-    Color pulseColor = new Color(1f, 0.84f, 0f); // 金黄色
+        Image buttonImage = buttonTransform.GetComponent<Image>();
+        Color baseColor = Color.white;
+        Color pulseColor = new Color(1f, 0.84f, 0f); // 金黄色
 
-    while (buttonTransform.gameObject.activeSelf)
-    {
-        float timer = 0f;
-
-        // 放大阶段
-        while (timer < pulseDuration / 2f)
+        while (buttonTransform.gameObject.activeSelf)
         {
-            float t = timer / (pulseDuration / 2f);
-            float scale = Mathf.Lerp(1f, scaleMultiplier, t);
-            buttonTransform.localScale = originalScale * scale;
+            float timer = 0f;
 
-            if (buttonImage != null)
-                buttonImage.color = Color.Lerp(baseColor, pulseColor, t);
+            // 放大阶段
+            while (timer < pulseDuration / 2f)
+            {
+                float t = timer / (pulseDuration / 2f);
+                float scale = Mathf.Lerp(1f, scaleMultiplier, t);
+                buttonTransform.localScale = originalScale * scale;
 
-            timer += Time.deltaTime;
-            yield return null;
+                if (buttonImage != null)
+                    buttonImage.color = Color.Lerp(baseColor, pulseColor, t);
+
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            // 缩小阶段
+            timer = 0f;
+            while (timer < pulseDuration / 2f)
+            {
+                float t = timer / (pulseDuration / 2f);
+                float scale = Mathf.Lerp(scaleMultiplier, 1f, t);
+                buttonTransform.localScale = originalScale * scale;
+
+                if (buttonImage != null)
+                    buttonImage.color = Color.Lerp(pulseColor, baseColor, t);
+
+                timer += Time.deltaTime;
+                yield return null;
+            }
         }
 
-        // 缩小阶段
-        timer = 0f;
-        while (timer < pulseDuration / 2f)
-        {
-            float t = timer / (pulseDuration / 2f);
-            float scale = Mathf.Lerp(scaleMultiplier, 1f, t);
-            buttonTransform.localScale = originalScale * scale;
-
-            if (buttonImage != null)
-                buttonImage.color = Color.Lerp(pulseColor, baseColor, t);
-
-            timer += Time.deltaTime;
-            yield return null;
-        }
-    }
-
-    // 复原
-    buttonTransform.localScale = originalScale;
-    if (buttonImage != null)
-        buttonImage.color = baseColor;
+        // 复原
+        buttonTransform.localScale = originalScale;
+        if (buttonImage != null)
+            buttonImage.color = baseColor;
     }
 
 

@@ -32,7 +32,7 @@ public class Character : MonoBehaviour
     void Update()
     {
         // 如果音乐已经结束，不再执行任何动画状态更新
-        if (musicHasEnded)
+        if (musicHasEnded || PlayNoteUI.isPaused)
         {
             return;
         }

@@ -45,11 +45,12 @@ public class Monster : MonoBehaviour
             Debug.Log("音乐开始，怪兽开始待机动画");
         }
 
-        // 检查音乐是否已经结束
-        if (musicHasStarted && !musicHasEnded && !gameSequence.GameMusic.isPlaying)
+        // 检查音乐是否已经结束，同时考虑暂停状态
+        if (musicHasStarted && !musicHasEnded && !gameSequence.GameMusic.isPlaying && !PlayNoteUI.isPaused)
         {
             musicHasEnded = true;
             StopMonster();
+            Debug.Log("音乐结束，怪兽切换到静止状态");
         }
     }
 
@@ -86,5 +87,15 @@ public class Monster : MonoBehaviour
     public void PlayDeathAnimation()
     {
         PlayAnimation(ANIM_DEATH);
+    }
+
+    public void ResumeMonster()
+    {
+        if (!musicHasEnded)
+        {
+            animator.enabled = true;
+            PlayIdleAnimation();
+            Debug.Log("怪兽恢复待机状态");
+        }
     }
 } 

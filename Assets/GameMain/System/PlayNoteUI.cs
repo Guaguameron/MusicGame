@@ -48,6 +48,17 @@ public class PlayNoteUI : MonoBehaviour
 
     private bool twoThirdFlashTriggered = false;  // 2/3处花屏触发标记
 
+     [Header("暂停功能")]
+    public Button pauseButton;
+    public Button playButton;
+    public GameObject countdownParent;
+    public Image[] countdownImages;
+    public GameObject notes;
+    public AudioSource musicSource;
+
+    // 将 isPaused 改为公共静态变量
+    public static bool isPaused = false;
+
     void Start()
     {
         tip.text = "";  // 初始时隐藏提示文字
@@ -80,6 +91,12 @@ public class PlayNoteUI : MonoBehaviour
 
         // 初始化扭曲效果
         InitializeDistortionEffect();
+
+        // 暂停功能初始化
+        pauseButton.onClick.AddListener(Pause);
+        playButton.onClick.AddListener(ResumeWithCountdown);
+        playButton.gameObject.SetActive(false);
+        countdownParent.SetActive(false);
     }
 
     private void InitializeDistortionEffect()
@@ -306,5 +323,73 @@ public class PlayNoteUI : MonoBehaviour
     {
         comboText.text = "";
         comboImage.gameObject.SetActive(false);
+    }
+    // 暂停方法
+    public void Pause()
+    {
+        isPaused = true;
+        Time.timeScale = 0f;
+        musicSource.Pause();  // 可替换为 gameSequence.GameMusic.Pause();
+        notes.SetActive(false);
+
+        playButton.gameObject.SetActive(true);
+        pauseButton.gameObject.SetActive(false);
+    }
+
+    // 恢复播放，带倒计时
+    public void ResumeWithCountdown()
+    {
+        countdownParent.SetActive(true);
+        ResetCountdownImages();
+        StartCoroutine(ResumeAfterCountdown(3));
+    }
+
+    private IEnumerator ResumeAfterCountdown(int countdown)
+    {
+        for (int i = 0; i < countdownImages.Length; i++)
+        {
+            countdownImages[i].gameObject.SetActive(false);
+        }
+
+        while (countdown > 0)
+        {
+            if (countdown - 1 < countdownImages.Length)
+            {
+                for (int i = 0; i < countdownImages.Length; i++)
+                {
+                    countdownImages[i].gameObject.SetActive(false);
+                }
+                countdownImages[countdown - 1].gameObject.SetActive(true);
+            }
+            yield return new WaitForSecondsRealtime(1);
+            countdown--;
+        }
+
+        ResetCountdownImages();
+        countdownParent.SetActive(false);
+
+        Time.timeScale = 1f;
+        musicSource.Play();
+        notes.SetActive(true);
+        isPaused = false;
+
+        // 显式恢复背景滚动
+        BackgroundManager bgManager = FindObjectOfType<BackgroundManager>();
+        if (bgManager != null)
+        {
+            bgManager.ResumeScrolling();
+        }
+
+        pauseButton.gameObject.SetActive(true);
+        playButton.gameObject.SetActive(false);
+    }
+
+    // 重置倒计时图像
+    private void ResetCountdownImages()
+    {
+        for (int i = 0; i < countdownImages.Length; i++)
+        {
+            countdownImages[i].gameObject.SetActive(false);
+        }
     }
 }
