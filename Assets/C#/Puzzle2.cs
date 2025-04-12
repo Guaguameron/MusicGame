@@ -56,6 +56,15 @@ public class Puzzle2 : MonoBehaviour
 
     private Dictionary<GameObject, Coroutine> checkCoroutines = new Dictionary<GameObject, Coroutine>();
 
+    public static bool IsPuzzleSolved = false; // 用于跟踪解谜是否成功
+
+    public Button skipButton; // 跳过游戏按钮
+
+    public GameObject skipImage; // 跳过时显示的图片
+
+    public Button okButton; // OK 按钮
+    public Button noButton; // NO 按钮
+
     void Start()
     {
         // 获取Canvas的Camera
@@ -89,6 +98,38 @@ public class Puzzle2 : MonoBehaviour
         if (closeButton != null)
         {
             closeButton.onClick.AddListener(ClosePage);
+        }
+
+        // 为跳过按钮添加点击事件
+        if (skipButton != null)
+        {
+            skipButton.onClick.AddListener(SkipGame);
+        }
+
+        // 为 OK 和 NO 按钮添加点击事件
+        if (okButton != null)
+        {
+            okButton.onClick.AddListener(() => SceneManager.LoadScene("Memory")); // 替换为实际的下一场景名称
+        }
+
+        if (noButton != null)
+        {
+            noButton.onClick.AddListener(CloseSkipImage);
+        }
+
+        // 添加点击空白处关闭 skipImage 的事件
+        if (skipImage != null)
+        {
+            EventTrigger trigger = skipImage.GetComponent<EventTrigger>();
+            if (trigger == null)
+            {
+                trigger = skipImage.AddComponent<EventTrigger>();
+            }
+
+            EventTrigger.Entry entry = new EventTrigger.Entry();
+            entry.eventID = EventTriggerType.PointerDown;
+            entry.callback.AddListener((data) => CloseSkipImage());
+            trigger.triggers.Add(entry);
         }
     }
 
@@ -429,6 +470,8 @@ public class Puzzle2 : MonoBehaviour
         if (currentSequence.Contains(winSequence))
         {
             Debug.Log("通关！");
+            IsPuzzleSolved = true; // 设置解谜成功
+            GlobalCounters.PuzzleSuccessCount++;
             // 增加10000分
             PlayNoteModel.score += 10000;
 
@@ -440,6 +483,10 @@ public class Puzzle2 : MonoBehaviour
             }
 
             StartCoroutine(WaitForAudioAndLoadScene());
+        }
+        else
+        {
+            GlobalCounters.PuzzleFailCount++;
         }
     }
 
@@ -648,7 +695,57 @@ public class Puzzle2 : MonoBehaviour
         }
     }
 
-    public void OpenPage()
+    private void SkipGame()
+    {
+        Debug.Log("跳过游戏，显示图片");
+        if (skipImage != null)
+        {
+            skipImage.SetActive(true); // 显示跳过图片
+            HitPage.SetActive(false);
+        }
+        if (skipButton != null)
+        {
+            skipButton.gameObject.SetActive(false); // 隐藏 skipButton
+        }
+        if (newImage != null)
+        {
+            newImage.SetActive(false);  // 隐藏 newImage
+        }
+        if (ReButton != null)
+        {
+            ReButton.gameObject.SetActive(false);  // 隐藏 ReButton
+        }
+        if (HitButton != null)
+        {
+            HitButton.gameObject.SetActive(false);  // 隐藏 HitButton
+        }
+    }
+
+    private void CloseSkipImage()
+    {
+        if (skipImage != null)
+        {
+            skipImage.SetActive(false);
+        }
+        if (skipButton != null)
+        {
+            skipButton.gameObject.SetActive(true); // 显示 skipButton
+        }
+        if (newImage != null)
+        {
+            newImage.SetActive(true);  // 显示 newImage
+        }
+        if (ReButton != null)
+        {
+            ReButton.gameObject.SetActive(true);  // 显示 ReButton
+        }
+        if (HitButton != null)
+        {
+            HitButton.gameObject.SetActive(true);  // 显示 HitButton
+        }
+    }
+
+    private void OpenPage()
     {
         HitPage.SetActive(true);
         if (HitButton != null)
@@ -663,6 +760,22 @@ public class Puzzle2 : MonoBehaviour
         {
             ReButton.gameObject.SetActive(false);  // 隐藏 ReButton
         }
+        if (skipButton != null)
+        {
+            skipButton.gameObject.SetActive(false); // 隐藏 skipButton
+        }
+
+        // 添加点击空白处关闭 HitPage 的事件
+        EventTrigger trigger = HitPage.GetComponent<EventTrigger>();
+        if (trigger == null)
+        {
+            trigger = HitPage.AddComponent<EventTrigger>();
+        }
+
+        EventTrigger.Entry entry = new EventTrigger.Entry();
+        entry.eventID = EventTriggerType.PointerDown;
+        entry.callback.AddListener((data) => ClosePage());
+        trigger.triggers.Add(entry);
     }
 
     private void OnPointerUp(BaseEventData data)
@@ -692,6 +805,10 @@ public class Puzzle2 : MonoBehaviour
             {
                 ReButton.gameObject.SetActive(true);  // 显示 ReButton
             }
+            if (skipButton != null)
+            {
+                skipButton.gameObject.SetActive(true); // 显示 skipButton
+            }
         }
     }
 }
@@ -709,5 +826,8 @@ public static class GlobalCounters
     public static int Judgment_Point2_Cube = 0;
     public static int Judgment_Point2_Triangle = 0;
     public static int Judgment_Point2_spider = 0;
+
+    public static int PuzzleSuccessCount = 0;
+    public static int PuzzleFailCount = 0;
 }
 

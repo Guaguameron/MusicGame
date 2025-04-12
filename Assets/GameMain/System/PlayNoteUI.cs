@@ -16,6 +16,34 @@ public class PlayNoteUI : MonoBehaviour
     public RawImage blackScreen;  // 新增：黑屏图片
     public AudioSource staticSoundEffect; // 添加花屏音效组件
 
+    // 添加设置相关组件
+    [Header("设置功能")]
+    public Button settingsButton;
+    public GameObject settingsImage;
+    public Button settingsBackButton;
+    public Slider volumeSlider;
+    private float musicVolume = 1f;
+    private const string VolumePrefsKey = "MusicVolume";
+
+    [Header("音效")]
+    public AudioClip settingsPanelSound;  // 设置面板打开/关闭音效
+    private AudioSource audioSource;  // 音效播放器
+
+    [Header("按键设置")]
+    public Text upperKeyText;     // 显示上层按键的文本
+    public Text lowerKeyText;     // 显示下层按键的文本
+    public Button upperKeyButton; // 更改上层按键的按钮
+    public Button lowerKeyButton; // 更改下层按键的按钮
+    public Text conflictText;     // 用于显示冲突提示的文本框
+    public Button confirmButton;  // 确定按钮
+    
+    private bool isWaitingForUpperKey = false;
+    private bool isWaitingForLowerKey = false;
+    private const string UpperKeyPrefsKey = "UpperKey";
+    private const string LowerKeyPrefsKey = "LowerKey";
+    private string tempUpperKey;
+    private string tempLowerKey;
+
     private StartGameSequence gameSequence;
     private BackgroundManager backgroundManager;
     private bool musicHasStarted = false;
@@ -75,6 +103,14 @@ public class PlayNoteUI : MonoBehaviour
             blackScreen.gameObject.SetActive(false);
         }
 
+        // 初始化音效
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.volume = 1f;
+
+        // 初始化设置功能
+        InitializeSettings();
+
         // 获取 StartGameSequence 组件
         gameSequence = FindObjectOfType<StartGameSequence>();
         if (gameSequence == null)
@@ -126,6 +162,208 @@ public class PlayNoteUI : MonoBehaviour
         {
             Debug.LogError("Distortion overlay not assigned!");
         }
+    }
+
+    private void InitializeSettings()
+    {
+        // 初始化音量
+        musicVolume = PlayerPrefs.GetFloat(VolumePrefsKey, 1f);
+        if (volumeSlider != null)
+        {
+            volumeSlider.value = musicVolume;
+            volumeSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
+        }
+
+        // 初始化按键设置
+        InitializeKeySettings();
+
+        // 初始化设置按钮
+        if (settingsButton != null)
+        {
+            settingsButton.onClick.RemoveAllListeners();
+            settingsButton.onClick.AddListener(() => {
+                OpenSettings();
+            });
+        }
+
+        // 初始化返回按钮
+        if (settingsBackButton != null)
+        {
+            settingsBackButton.onClick.RemoveAllListeners();
+            settingsBackButton.onClick.AddListener(() => {
+                CloseSettings();
+            });
+        }
+
+        // 初始化确认按钮监听
+        if (confirmButton != null)
+        {
+            confirmButton.onClick.RemoveAllListeners();
+            confirmButton.onClick.AddListener(() => {
+                SaveAndCloseSettings();
+            });
+        }
+
+        // 初始化按键设置按钮
+        if (upperKeyButton != null)
+        {
+            upperKeyButton.onClick.RemoveAllListeners();
+            upperKeyButton.onClick.AddListener(() => {
+                StartWaitingForUpperKey();
+            });
+        }
+
+        if (lowerKeyButton != null)
+        {
+            lowerKeyButton.onClick.RemoveAllListeners();
+            lowerKeyButton.onClick.AddListener(() => {
+                StartWaitingForLowerKey();
+            });
+        }
+
+        // 确保设置面板初始时是隐藏的
+        if (settingsImage != null)
+        {
+            settingsImage.SetActive(false);
+        }
+    }
+
+    private void InitializeKeySettings()
+    {
+        // 初始化按键值
+        tempUpperKey = PlayerPrefs.GetString(UpperKeyPrefsKey, "J");
+        tempLowerKey = PlayerPrefs.GetString(LowerKeyPrefsKey, "K");
+
+        // 更新文本显示
+        if (upperKeyText != null)
+        {
+            upperKeyText.text = tempUpperKey;
+        }
+        if (lowerKeyText != null)
+        {
+            lowerKeyText.text = tempLowerKey;
+        }
+
+        if (conflictText != null)
+        {
+            conflictText.gameObject.SetActive(false);
+        }
+    }
+
+    private void StartWaitingForUpperKey()
+    {
+        isWaitingForUpperKey = true;
+        isWaitingForLowerKey = false;
+        if (upperKeyText != null)
+        {
+            upperKeyText.text = "  ";
+        }
+    }
+
+    private void StartWaitingForLowerKey()
+    {
+        isWaitingForLowerKey = true;
+        isWaitingForUpperKey = false;
+        if (lowerKeyText != null)
+        {
+            lowerKeyText.text = "  ";
+        }
+    }
+
+    private void SetUpperKey(KeyCode keyCode)
+    {
+        if (upperKeyText != null)
+        {
+            tempUpperKey = keyCode.ToString();
+            upperKeyText.text = tempUpperKey;
+        }
+        isWaitingForUpperKey = false;
+    }
+
+    private void SetLowerKey(KeyCode keyCode)
+    {
+        if (lowerKeyText != null)
+        {
+            tempLowerKey = keyCode.ToString();
+            lowerKeyText.text = tempLowerKey;
+        }
+        isWaitingForLowerKey = false;
+    }
+
+    private void SaveAndCloseSettings()
+    {
+        // 保存按键设置
+        PlayerPrefs.SetString(UpperKeyPrefsKey, tempUpperKey);
+        PlayerPrefs.SetString(LowerKeyPrefsKey, tempLowerKey);
+        PlayerPrefs.Save();
+
+        // 显示保存成功提示
+        if (conflictText != null)
+        {
+            conflictText.gameObject.SetActive(true);
+            conflictText.text = "设置已保存！";
+            StartCoroutine(HideConflictText(1f));
+        }
+
+        CloseSettings();
+    }
+
+    private IEnumerator HideConflictText(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (conflictText != null)
+        {
+            conflictText.gameObject.SetActive(false);
+        }
+    }
+
+    private void OnMusicVolumeChanged(float newVolume)
+    {
+        musicVolume = newVolume;
+        if (musicSource != null)
+        {
+            musicSource.volume = musicVolume;
+        }
+        PlayerPrefs.SetFloat(VolumePrefsKey, musicVolume);
+        PlayerPrefs.Save();
+    }
+
+    private void PlaySettingsPanelSound()
+    {
+        if (settingsPanelSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(settingsPanelSound);
+        }
+    }
+
+    private void OpenSettings()
+    {
+        isPaused = true;
+        Time.timeScale = 0f;
+        musicSource.Pause();
+        notes.SetActive(false);
+
+        if (settingsImage != null)
+        {
+            settingsImage.SetActive(true);
+            PlaySettingsPanelSound();
+            if (volumeSlider != null)
+            {
+                volumeSlider.value = musicVolume;
+            }
+        }
+    }
+
+    private void CloseSettings()
+    {
+        if (settingsImage != null)
+        {
+            settingsImage.SetActive(false);
+            PlaySettingsPanelSound();
+        }
+
+        // 恢复游戏
+        ResumeWithCountdown();
     }
 
     void Update()
@@ -192,6 +430,26 @@ public class PlayNoteUI : MonoBehaviour
         if (musicHasStarted && !musicHasEnded)
         {
             UpdateComboDisplay();
+        }
+
+        // 检查按键设置输入
+        if (isWaitingForUpperKey || isWaitingForLowerKey)
+        {
+            foreach (KeyCode keyCode in System.Enum.GetValues(typeof(KeyCode)))
+            {
+                if (Input.GetKeyDown(keyCode))
+                {
+                    if (isWaitingForUpperKey)
+                    {
+                        SetUpperKey(keyCode);
+                    }
+                    else if (isWaitingForLowerKey)
+                    {
+                        SetLowerKey(keyCode);
+                    }
+                    break;
+                }
+            }
         }
     }
 

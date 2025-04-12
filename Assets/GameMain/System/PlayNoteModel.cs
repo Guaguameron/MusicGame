@@ -16,13 +16,20 @@ public class PlayNoteModel : MonoSingleton<PlayNoteModel>
 
     private static float tipTimer = 0f;  // 计时器
     private static float tipDisplayDuration = 1f;  // tip 显示的时间为1秒
+    private static int maxCombo = 0;
 
-        public static void Succeed(int succeedscore, string tips)
+    public static void Succeed(int succeedscore, string tips)
     {
         combo++;
         score += succeedscore;
         tip = tips;
         tipTimer = 0f;  // 重置计时器，表示有新的判定
+        
+        // 更新最大连击数
+        if (combo > maxCombo)
+        {
+            maxCombo = combo;
+        }
     }
 
     public static void Fail(int failscore)
@@ -88,5 +95,8 @@ public class PlayNoteModel : MonoSingleton<PlayNoteModel>
         return combo;
     }
 
-
+    public static int GetMaxCombo()
+    {
+        return maxCombo;
+    }
 }

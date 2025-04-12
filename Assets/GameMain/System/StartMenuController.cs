@@ -22,6 +22,7 @@ public class StartMenuController : MonoBehaviour
     private Color originalColor;
 
     public AudioClip buttonClickSound;
+    public AudioClip settingsPanelSound;  // 添加设置面板音效
     private AudioSource audioSource;
 
     [Range(0f, 1f)]
@@ -154,7 +155,6 @@ public class StartMenuController : MonoBehaviour
         {
             upperKeyButton.onClick.RemoveAllListeners();
             upperKeyButton.onClick.AddListener(() => {
-                PlayButtonClickSound();
                 StartWaitingForUpperKey();
             });
         }
@@ -163,7 +163,6 @@ public class StartMenuController : MonoBehaviour
         {
             lowerKeyButton.onClick.RemoveAllListeners();
             lowerKeyButton.onClick.AddListener(() => {
-                PlayButtonClickSound();
                 StartWaitingForLowerKey();
             });
         }
@@ -173,7 +172,6 @@ public class StartMenuController : MonoBehaviour
         {
             confirmButton.onClick.RemoveAllListeners();
             confirmButton.onClick.AddListener(() => {
-                PlayButtonClickSound();
                 SaveAndCloseSettings();
             });
         }
@@ -224,7 +222,6 @@ public class StartMenuController : MonoBehaviour
         {
             settingsButton.onClick.RemoveAllListeners();
             settingsButton.onClick.AddListener(() => {
-                PlayButtonClickSound();
                 OpenSettings();
             });
         }
@@ -245,7 +242,6 @@ public class StartMenuController : MonoBehaviour
             settingsBackButton.onClick.RemoveAllListeners();
             settingsBackButton.onClick.AddListener(() => {
                 SaveKeySettings(); // 先保存设置
-                PlayButtonClickSound();
                 CloseSettings(); // 然后关闭面板
             });
         }
@@ -399,10 +395,10 @@ public class StartMenuController : MonoBehaviour
     // 打开设置图片
     void OpenSettings()
     {
-        PlayButtonClickSound();
         if (settingsImage != null)
         {
             settingsImage.SetActive(true);
+            PlaySettingsPanelSound();
             if (volumeSlider != null)
             {
                 volumeSlider.value = musicVolume;
@@ -422,6 +418,7 @@ public class StartMenuController : MonoBehaviour
         if (settingsImage != null)
         {
             settingsImage.SetActive(false);
+            PlaySettingsPanelSound();
             
             // 显示设置按钮
             if (settingsButton != null)
@@ -545,6 +542,14 @@ public class StartMenuController : MonoBehaviour
             {
                 buttonText.color = originalColor;
             }
+        }
+    }
+
+    private void PlaySettingsPanelSound()
+    {
+        if (settingsPanelSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(settingsPanelSound);
         }
     }
 }
