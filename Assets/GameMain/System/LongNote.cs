@@ -8,6 +8,7 @@ public class LongNote : Note
     private bool isInJudgeArea = false; // 新增：是否在判定区域内
     private GameObject noteBody; // 长条音符的身体部分
     
+    
     protected override void Start()
     {
         base.Start();
