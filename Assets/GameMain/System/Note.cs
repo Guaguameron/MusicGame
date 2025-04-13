@@ -113,17 +113,17 @@ public class Note : MonoBehaviour
             Fail(PlayNoteModel.GetComboPoint(3));
         }
         // 如果noteTpe是1，并且碰到Switch，就转换轨道
-        if (other.gameObject.name == "Switch" && !isSwitch)
+        if (noteType == 1 && other.gameObject.name == "Switch" && !isSwitch)
         {
             isSwitch = true;
             if (track == 1)
             {
-                Debug.Log($"Note instance position - X: {transform.position.x}, Y: {transform.position.y}");
+                track = 2
                 transform.position = new Vector3(transform.position.x, transform.position.y - 2.9f, transform.position.z);
             }
             else
             {
-                Debug.Log("下轨道转换轨道");
+                track = 1;
                 transform.position = new Vector3(transform.position.x, transform.position.y + 2.9f, transform.position.z);
             }
         }
