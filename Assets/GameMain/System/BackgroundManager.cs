@@ -94,7 +94,6 @@ public class BackgroundManager : MonoBehaviour
             return;
         }
         if (!shouldScroll) return;
-        Debug.Log("背景滚动中...");
 
         /*
         bool currentPauseState = PlayNoteUI.isPaused;
