@@ -118,7 +118,7 @@ public class Note : MonoBehaviour
             isSwitch = true;
             if (track == 1)
             {
-                track = 2
+                track = 2;
                 transform.position = new Vector3(transform.position.x, transform.position.y - 2.9f, transform.position.z);
             }
             else
