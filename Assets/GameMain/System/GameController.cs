@@ -84,7 +84,7 @@ public class GameController : MonoBehaviour
                 }
                 else
                 {
-                    CreateNote(model.Track, model.Speed);
+                    CreateNote(model.Track, model.Speed, model.Type);
                 }
 
                 noteList.RemoveAt(i);
@@ -102,7 +102,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void CreateNote(int track, float speed)
+    private void CreateNote(int track, float speed, int type)
     {
         // 选择一个随机的音符预制体
         GameObject notePrefab = noteVariants != null && noteVariants.Length > 0 
@@ -111,9 +111,15 @@ public class GameController : MonoBehaviour
 
         // 根据轨道选择生成位置
         Vector3 spawnPosition = track == 1 ? Note1.transform.position : Note2.transform.position;
+        
+        // 打印生成位置坐标
+        Debug.Log($"Note spawn position - X: {spawnPosition.x}, Y: {spawnPosition.y}");
 
         // 生成音符
         GameObject instance = Instantiate(notePrefab, spawnPosition, Quaternion.identity);
+        
+        // 打印实例化后的位置坐标
+        Debug.Log($"Note instance position - X: {instance.transform.position.x}, Y: {instance.transform.position.y}");
         
         // 保持预制体的原始缩放值
         instance.transform.localScale = notePrefab.transform.localScale;
@@ -133,6 +139,7 @@ public class GameController : MonoBehaviour
         {
             noteComponent.track = track;
             noteComponent.noteSpeed = speed;
+            noteComponent.noteType = type;
         }
 
         //Debug.Log($"生成音符: {notePrefab.name}, Scale: {instance.transform.localScale}, SpriteRenderer Order: {spriteRenderer?.sortingOrder}");

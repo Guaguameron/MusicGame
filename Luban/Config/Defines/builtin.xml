@@ -32,6 +32,7 @@
   <var name="speed" type="float"/>
   <var name="length" type="float"/>
   <var name="isReward" type="int"/>
+  <var name="Type" type="int"/>
 </bean>
 <bean name="ComboPoint" valueType="1" sep=",">
   <var name="combo" type="int"/>

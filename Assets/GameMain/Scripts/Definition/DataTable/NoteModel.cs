@@ -22,6 +22,7 @@ public partial struct NoteModel
         { if(!_buf["speed"].IsNumber) { throw new SerializationException(); }  Speed = _buf["speed"]; }
         { if(!_buf["length"].IsNumber) { throw new SerializationException(); }  Length = _buf["length"]; }
         { if(!_buf["isReward"].IsNumber) { throw new SerializationException(); }  IsReward = _buf["isReward"]; }
+        { if(!_buf["Type"].IsNumber) { throw new SerializationException(); }  Type = _buf["Type"]; }
     }
 
     public static NoteModel DeserializeNoteModel(JSONNode _buf)
@@ -34,6 +35,7 @@ public partial struct NoteModel
     public readonly float Speed;
     public readonly float Length;
     public readonly int IsReward;
+    public readonly int Type;
    
 
     public  void ResolveRef(Tables tables)
@@ -48,6 +50,7 @@ public partial struct NoteModel
         + "speed:" + Speed + ","
         + "length:" + Length + ","
         + "isReward:" + IsReward + ","
+        + "Type:" + Type + ","
         + "}";
     }
 }

@@ -6,8 +6,11 @@ public class Note : MonoBehaviour
 {
     public int track; // 1表示上层，2表示下层
     public float noteSpeed = 5.0f;
+    public int noteType;
     public AudioClip successSound; //判定音效
     protected AudioSource audioSource;
+
+    private bool isSwitch = false;
 
     protected float StartJudge = 1.0f;
     protected float PerfectJudge = 1.0f;
@@ -96,11 +99,39 @@ public class Note : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.name == "Boudry")
+        if (other.gameObject.name == "Boudry")
         {
+            // 确保音符不会推动边界
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.velocity = Vector2.zero;
+                rb.isKinematic = true;
+            }
             Fail(PlayNoteModel.GetComboPoint(3));
+        }
+        // 如果noteTpe是1，并且碰到Switch，就转换轨道
+        if (noteType == 1 && other.gameObject.name == "Switch" && !isSwitch)
+        {
+            isSwitch = true;
+            if (track == 1)
+            {
+                track = 2
+                transform.position = new Vector3(transform.position.x, transform.position.y - 2.9f, transform.position.z);
+            }
+            else
+            {
+                track = 1;
+                transform.position = new Vector3(transform.position.x, transform.position.y + 2.9f, transform.position.z);
+            }
+        }
+        // 如果noteTpe是2，并且碰到SwitchOpacity，就把SpriteRenderer的color设置为透明
+        if (noteType == 2 && other.gameObject.name == "SwitchOpacity")
+        {
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            spriteRenderer.color = new Color(1, 1, 1, 0.5f);
         }
     }
 
